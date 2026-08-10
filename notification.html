@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+<meta name="theme-color"
+content="#090909">
+
+<title>T.Wealth | Notifications</title>
+
+<link rel="preconnect"
+href="https://fonts.googleapis.com">
+
+<link rel="preconnect"
+href="https://fonts.gstatic.com"
+crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+rel="stylesheet">
+
+<link rel="stylesheet"
+href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+<link rel="icon"
+href="images/logo.png">
+
+<link rel="stylesheet"
+href="notification.css">
+
+<style>
+
+/*=====================================
+RESET
+=====================================*/
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+-webkit-tap-highlight-color:transparent;
+}
+
+body{
+background:#090909;
+color:#fff;
+overflow-x:hidden;
+min-height:100vh;
+}
+
+/*=====================================
+BACKGROUND
+=====================================*/
+
+.bg-glow{
+position:fixed;
+border-radius:50%;
+filter:blur(120px);
+z-index:-1;
+}
+
+.glow1{
+width:350px;
+height:350px;
+background:#D4AF37;
+top:-180px;
+left:-180px;
+opacity:.12;
+}
+
+.glow2{
+width:300px;
+height:300px;
+background:#FFD54A;
+right:-150px;
+bottom:-150px;
+opacity:.08;
+}
+
+/*=====================================
+CONTAINER
+=====================================*/
+
+.container{
+max-width:480px;
+margin:auto;
+padding:25px 18px 120px;
+}
+
+/*=====================================
+HEADER
+=====================================*/
+
+header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:30px;
+}
+
+header h2{
+font-size:28px;
+font-weight:700;
+}
+
+#backBtn{
+width:48px;
+height:48px;
+border:none;
+border-radius:50%;
+background:#181818;
+color:#D4AF37;
+font-size:22px;
+cursor:pointer;
+border:1px solid rgba(212,175,55,.20);
+}
+
+#markRead{
+border:none;
+background:linear-gradient(135deg,#FFD54A,#C89B08);
+color:#111;
+padding:10px 18px;
+border-radius:14px;
+font-weight:700;
+cursor:pointer;
+}
+
+/*=====================================
+NOTIFICATION LIST
+=====================================*/
+
+.notification-list{
+display:flex;
+flex-direction:column;
+gap:18px;
+}
+
+/*=====================================
+CARD
+=====================================*/
+
+.card{
+display:flex;
+gap:16px;
+background:#141414;
+padding:18px;
+border-radius:22px;
+border:1px solid rgba(212,175,55,.15);
+transition:.3s;
+position:relative;
+}
+
+.card:hover{
+transform:translateY(-3px);
+box-shadow:0 12px 28px rgba(212,175,55,.15);
+}
+
+/*=====================================
+UNREAD DOT
+=====================================*/
+
+.card.unread::after{
+content:"";
+position:absolute;
+top:18px;
+right:18px;
+width:12px;
+height:12px;
+border-radius:50%;
+background:#FFD54A;
+box-shadow:0 0 12px #FFD54A;
+}
+
+/*=====================================
+ICON
+=====================================*/
+
+.icon{
+width:58px;
+height:58px;
+min-width:58px;
+border-radius:18px;
+display:flex;
+justify-content:center;
+align-items:center;
+background:#1e1e1e;
+border:1px solid rgba(212,175,55,.18);
+}
+
+.icon.gold{
+background:linear-gradient(135deg,#FFD54A,#C89B08);
+}
+
+.icon i{
+font-size:24px;
+color:#D4AF37;
+}
+
+.icon.gold i{
+color:#111;
+}
+
+/*=====================================
+CONTENT
+=====================================*/
+
+.content{
+flex:1;
+}
+
+.content h3{
+font-size:18px;
+font-weight:700;
+margin-bottom:8px;
+}
+
+.content p{
+font-size:14px;
+line-height:1.7;
+color:#bdbdbd;
+margin-bottom:10px;
+}
+
+.content span{
+font-size:12px;
+color:#888;
+}
+
+/*=====================================
+ANIMATION
+=====================================*/
+
+.card{
+animation:fadeUp .45s ease;
+}
+
+@keyframes fadeUp{
+
+from{
+opacity:0;
+transform:translateY(20px);
+}
+
+to{
+opacity:1;
+transform:translateY(0);
+}
+
+}
+
+/*=====================================
+RESPONSIVE
+=====================================*/
+
+@media(max-width:480px){
+
+.container{
+padding:20px 15px 120px;
+}
+
+header h2{
+font-size:24px;
+}
+
+.card{
+padding:16px;
+}
+
+.icon{
+width:52px;
+height:52px;
+min-width:52px;
+}
+
+.content h3{
+font-size:16px;
+}
+
+.content p{
+font-size:13px;
+}
+
+#markRead{
+padding:9px 14px;
+font-size:13px;
+}
+
+}
+
+html,
+body{
+touch-action:manipulation;
+overscroll-behavior:none;
+-webkit-text-size-adjust:100%;
+}
+
+/*=========================================
+WELCOME NOTIFICATION CARD
+=========================================*/
+
+.notification-list{
+display:flex;
+flex-direction:column;
+gap:18px;
+margin-top:20px;
+}
+
+.card{
+display:flex;
+align-items:flex-start;
+gap:15px;
+padding:18px;
+background:#111;
+border:1px solid rgba(212,175,55,.18);
+border-radius:18px;
+transition:.3s;
+cursor:pointer;
+position:relative;
+overflow:hidden;
+}
+
+.card:hover{
+transform:translateY(-2px);
+border-color:#D4AF37;
+box-shadow:0 0 18px rgba(212,175,55,.15);
+}
+
+.card.unread{
+border-left:5px solid #D4AF37;
+background:linear-gradient(135deg,#181818,#101010);
+}
+
+.card .icon{
+width:55px;
+height:55px;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:24px;
+flex-shrink:0;
+background:#1b1b1b;
+color:#D4AF37;
+}
+
+.card .icon.gold{
+background:linear-gradient(135deg,#FFD54A,#C99A06);
+color:#111;
+}
+
+.card .content{
+flex:1;
+}
+
+.card .content h3{
+margin:0;
+font-size:17px;
+font-weight:700;
+color:#fff;
+}
+
+.card .content p{
+margin:8px 0;
+font-size:14px;
+line-height:1.7;
+color:#bdbdbd;
+}
+
+.card .content span{
+display:inline-block;
+margin-top:8px;
+padding:4px 10px;
+border-radius:30px;
+background:rgba(212,175,55,.15);
+color:#D4AF37;
+font-size:12px;
+font-weight:600;
+}
+
+.card.unread::after{
+content:"";
+position:absolute;
+top:18px;
+right:18px;
+width:10px;
+height:10px;
+border-radius:50%;
+background:#ff3b30;
+box-shadow:0 0 10px #ff3b30;
+}
+
+@media(max-width:480px){
+
+.card{
+padding:15px;
+gap:12px;
+}
+
+.card .icon{
+width:48px;
+height:48px;
+font-size:20px;
+}
+
+.card .content h3{
+font-size:16px;
+}
+
+.card .content p{
+font-size:13px;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="bg-glow glow1"></div>
+<div class="bg-glow glow2"></div>
+
+<div class="container">
+
+<header>
+
+<button
+id="backBtn">
+
+<i class="bi bi-arrow-left"></i>
+
+</button>
+
+<h2>
+Notifications
+</h2>
+
+<button
+id="markRead">
+
+Mark All
+</button>
+
+</header>
+
+<div id="notificationList" class="notification-list">
+
+    <!-- Permanent Welcome Message -->
+
+    <div class="card unread" id="welcomeCard">
+
+        <div class="icon gold">
+
+            <i class="bi bi-stars"></i>
+
+        </div>
+
+        <div class="content">
+
+            <h3 id="welcomeTitle">
+                Welcome to T.Wealth
+            </h3>
+
+            <p id="welcomeMessage">
+                Welcome to T.Wealth. We are delighted to have you as part of our investment community. Here you can securely deposit funds, invest in premium opportunities, purchase investment products, monitor your portfolio, earn daily profits and withdraw your earnings with ease. Stay tuned for important platform updates, exclusive investment opportunities and new features designed to help grow your wealth.
+            </p>
+
+            <span>
+                Welcome
+            </span>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div id="notificationList" class="notification-list">
+</div>
+
+<!-- Update -->
+
+<div class="card unread">
+
+<div class="icon">
+
+<i class="bi bi-megaphone-fill"></i>
+
+</div>
+
+<div class="content">
+
+<h3>
+
+Platform Update
+
+</h3>
+
+<p>
+
+We're continuously improving T.Wealth to deliver a faster, safer and smarter investing experience.
+
+</p>
+
+<span>
+
+System
+
+</span>
+
+</div>
+
+</div>
+
+<!-- Deposit -->
+
+<div class="card">
+
+<div class="icon">
+
+<i class="bi bi-wallet2"></i>
+
+</div>
+
+<div class="content">
+
+<h3>
+
+Deposit Reminder
+
+</h3>
+
+<p>
+
+Deposits are reviewed by our finance team. Once approved, your balance updates automatically.
+
+</p>
+
+<span>
+
+Information
+
+</span>
+
+</div>
+
+</div>
+
+<!-- Security -->
+
+<div class="card">
+
+<div class="icon">
+
+<i class="bi bi-shield-lock-fill"></i>
+
+</div>
+
+<div class="content">
+
+<h3>
+
+Security Notice
+
+</h3>
+
+<p>
+
+Never share your password or verification code. T.Wealth staff will never request your login credentials.
+
+</p>
+
+<span>
+
+Security
+
+</span>
+
+</div>
+
+</div>
+
+<!-- Investment -->
+
+<div class="card">
+
+<div class="icon">
+
+<i class="bi bi-graph-up-arrow"></i>
+
+</div>
+
+<div class="content">
+
+<h3>
+
+Investment Notice
+
+</h3>
+
+<p>
+
+Profits are credited automatically according to your selected investment plan.
+
+</p>
+
+<span>
+
+Investment
+
+</span>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<script type="module">
+
+/*=========================================
+T.WEALTH NOTIFICATIONS
+PART 3A
+FIREBASE + AUTHENTICATION
+=========================================*/
+
+/*=========================================
+FIREBASE IMPORTS
+=========================================*/
+
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
+
+import {
+getAuth,
+onAuthStateChanged
+}
+from "https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js";
+
+import {
+getFirestore,
+collection,
+query,
+where,
+orderBy,
+getDocs,
+getDoc,
+addDoc,
+serverTimestamp,
+onSnapshot,
+updateDoc,
+doc
+} from "https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
+
+/*=========================================
+FIREBASE CONFIG
+=========================================*/
+
+const firebaseConfig={
+
+apiKey:"AIzaSyCfmUdXAvdktAZ7RRFYGq5R2ZMgFQjBIHg",
+
+authDomain:"t-wealth-6c492.firebaseapp.com",
+
+projectId:"t-wealth-6c492",
+
+storageBucket:"t-wealth-6c492.firebasestorage.app",
+
+messagingSenderId:"920631507931",
+
+appId:"1:920631507931:web:ec6769afe5feebfed0c5fe"
+
+};
+
+/*=========================================
+INITIALIZE FIREBASE
+=========================================*/
+
+const app=initializeApp(firebaseConfig);
+
+const auth=getAuth(app);
+
+const db=getFirestore(app);
+
+/*=========================================
+ELEMENTS
+=========================================*/
+
+const backBtn=document.getElementById("backBtn");
+
+const markRead=document.getElementById("markRead");
+
+const notificationList =
+document.getElementById("notificationList");
+
+const cards=document.querySelectorAll(".card");
+
+/*=========================================
+GLOBAL VARIABLES
+=========================================*/
+
+let currentUser=null;
+
+let userData=null;
+
+/*=========================================
+AUTHENTICATION
+=========================================*/
+
+onAuthStateChanged(auth,async(user)=>{
+
+if(!user){
+
+window.location.href="login.html";
+
+return;
+
+}
+
+currentUser=user;
+
+await createWelcomeNotification();
+
+await loadUserData();
+
+loadNotifications();
+
+});
+
+/*=========================================
+LOAD USER DATA
+=========================================*/
+
+async function loadUserData(){
+
+try{
+
+const userRef=doc(db,"users",currentUser.uid);
+
+const userSnap=await getDoc(userRef);
+
+if(!userSnap.exists()){
+
+console.log("User document not found.");
+
+return;
+
+}
+
+userData=userSnap.data();
+
+console.log("Notification page ready.");
+
+}catch(error){
+
+console.log(error);
+
+}
+
+}
+
+/*=========================================
+WELCOME MESSAGE
+=========================================*/
+
+/*=========================================
+PART 3A READY
+=========================================*/
+
+console.log("Notification Part 3A Loaded");
+
+/*=========================================
+T.WEALTH NOTIFICATIONS
+PART 3B
+INTERACTIONS
+=========================================*/
+
+/*=========================================
+BACK BUTTON
+=========================================*/
+
+if(backBtn){
+
+backBtn.addEventListener("click",()=>{
+
+window.location.href="dashboard.html";
+
+});
+
+}
+
+/*=========================================
+MARK ALL AS READ
+=========================================*/
+
+if(markRead){
+
+markRead.addEventListener("click",()=>{
+
+document.querySelectorAll(".card").forEach(card=>{
+
+card.classList.remove("unread");
+
+});
+
+updateUnreadCount();
+
+markRead.innerText="All Read";
+
+markRead.disabled=true;
+
+});
+
+}
+
+/*=========================================
+OPEN NOTIFICATION
+=========================================*/
+
+document.querySelectorAll(".card").forEach(card=>{
+
+card.addEventListener("click",()=>{
+
+card.classList.remove("unread");
+
+updateUnreadCount();
+
+});
+
+});
+
+/*=========================================
+UNREAD COUNT
+=========================================*/
+
+function updateUnreadCount(){
+
+const unread=
+
+document.querySelectorAll(".card.unread").length;
+
+document.title=
+
+unread>0
+
+? "(" + unread + ") T.Wealth Notifications"
+
+: "T.Wealth | Notifications";
+
+}
+
+/*=========================================
+RESTORE BUTTON
+=========================================*/
+
+function checkUnread(){
+
+const unread=
+
+document.querySelectorAll(".card.unread").length;
+
+if(unread===0){
+
+markRead.innerText="All Read";
+
+markRead.disabled=true;
+
+}else{
+
+markRead.innerText="Mark All";
+
+markRead.disabled=false;
+
+}
+
+}
+
+/*=========================================
+INITIALIZE
+=========================================*/
+
+updateUnreadCount();
+
+checkUnread();
+
+/*=========================================
+READY
+=========================================*/
+
+console.log("Notification Part 3B Loaded");
+
+/*=========================================
+T.WEALTH NOTIFICATIONS
+PART 4A
+FIRESTORE NOTIFICATIONS
+=========================================*/
+
+async function createWelcomeNotification(){
+
+if(!currentUser) return;
+
+try{
+
+const q=query(
+
+collection(db,"notifications"),
+
+where("uid","==",currentUser.uid),
+
+where("type","==","welcome")
+
+);
+
+const snapshot=await getDocs(q);
+
+if(snapshot.empty){
+
+await addDoc(
+
+collection(db,"notifications"),
+
+{
+
+uid:currentUser.uid,
+
+title:"Welcome to T.Wealth",
+
+message:"Welcome to T.Wealth. We are excited to have you on board. Start investing and grow your wealth with confidence.",
+
+type:"welcome",
+
+read:false,
+
+createdAt:serverTimestamp()
+
+}
+
+);
+
+console.log("Welcome notification created.");
+
+}
+
+}catch(error){
+
+console.log(error);
+
+}
+
+}
+
+/*=========================================
+T.WEALTH NOTIFICATIONS
+PART 4B
+REALTIME NOTIFICATIONS
+=========================================*/
+
+/*=========================================
+LOAD NOTIFICATIONS
+=========================================*/
+
+function loadNotifications(){
+
+const q=query(
+
+collection(db,"notifications"),
+
+where("uid","==",currentUser.uid),
+
+orderBy("createdAt","desc")
+
+);
+
+onSnapshot(q,(snapshot)=>{
+
+notificationList.innerHTML="";
+
+let unreadCount=0;
+
+snapshot.forEach(documentSnapshot=>{
+
+const data=documentSnapshot.data();
+
+if(!data.read){
+
+unreadCount++;
+
+}
+
+notificationList.innerHTML+=`
+
+<div class="card ${data.read ? "" : "unread"}"
+data-id="${documentSnapshot.id}">
+
+<h3>${data.title}</h3>
+
+<p>${data.message}</p>
+
+</div>
+
+`;
+
+});
+
+attachNotificationEvents();
+
+});
+
+}
+
+/*=========================================
+MARK AS READ
+=========================================*/
+
+function attachNotificationEvents(){
+
+document.querySelectorAll(".card").forEach(card=>{
+
+card.onclick=async()=>{
+
+const id=card.dataset.id;
+
+await updateDoc(
+
+doc(db,"notifications",id),
+
+{
+
+read:true
+
+}
+
+);
+
+};
+
+});
+
+}
+
+/*=========================================
+MARK ALL READ
+=========================================*/
+
+markRead.onclick=async()=>{
+
+const cards=document.querySelectorAll(".card");
+
+for(const card of cards){
+
+const id=card.dataset.id;
+
+await updateDoc(
+
+doc(db,"notifications",id),
+
+{
+
+read:true
+
+}
+
+);
+
+}
+
+};
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#060606">
+<title>T.Wealth | Wallet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth;overflow-x:hidden}
+body{font-family:"Poppins",sans-serif;background:#060606;color:#f5f5f5;min-height:100vh;overflow-x:hidden}
+button{font-family:inherit}
+button:active{transform:scale(.98)}
+.app{width:100%;max-width:980px;margin:0 auto;padding:18px 16px 70px}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:26px}
+.brand{display:flex;align-items:center;gap:12px}
+.back{width:46px;height:46px;border:1px solid #262626;background:#101010;color:#d4af37;border-radius:50%;font-size:19px;cursor:pointer}
+.title-wrap h1{font-size:25px;line-height:1.1;font-weight:700;letter-spacing:-.4px}
+.title-wrap p{font-size:11px;color:#737373;margin-top:4px}
+.refresh{width:44px;height:44px;border:1px solid #252525;background:#101010;color:#bdbdbd;border-radius:14px;font-size:17px;cursor:pointer}
+.refresh.loading i{display:inline-block;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* Balance */
+.balance{
+position:relative;overflow:hidden;
+background:linear-gradient(145deg,#151515,#0d0d0d);
+border:1px solid #292929;border-radius:26px;padding:25px 22px;margin-bottom:18px;
+box-shadow:0 18px 45px rgba(0,0,0,.28)
+}
+.balance:after{content:"";position:absolute;width:220px;height:220px;border-radius:50%;right:-130px;top:-150px;background:rgba(212,175,55,.10);filter:blur(5px)}
+.eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:1.4px;color:#777}
+.balance-row{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin-top:8px}
+.balance-amount{font-size:39px;font-weight:700;letter-spacing:-1.2px;color:#f5d66d;word-break:break-word}
+.currency-pill{font-size:11px;color:#aaa;background:#1b1b1b;border:1px solid #292929;border-radius:999px;padding:7px 10px;margin-bottom:6px}
+.balance-foot{display:flex;align-items:center;gap:8px;color:#777;font-size:11px;margin-top:8px}
+.dot{width:7px;height:7px;background:#26d97a;border-radius:50%;box-shadow:0 0 10px rgba(38,217,122,.55)}
+
+/* Quick actions */
+.actions{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:28px}
+.action{height:56px;border:1px solid #252525;border-radius:16px;background:#101010;color:#ddd;font-weight:600;font-size:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px}
+.action.primary{background:linear-gradient(135deg,#e6c45b,#b58a16);color:#111;border-color:transparent}
+.action i{font-size:17px}
+
+/* Stats */
+.section-head{display:flex;align-items:end;justify-content:space-between;margin-bottom:13px}
+.section-head h2{font-size:19px;font-weight:700}
+.section-head span{font-size:10px;color:#666}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:30px}
+.stat{background:#0e0e0e;border:1px solid #222;border-radius:18px;padding:15px 12px}
+.stat p{font-size:10px;color:#707070;margin-bottom:7px}
+.stat h3{font-size:17px;font-weight:700;color:#eee;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.stat.profit h3{color:#28dc7e}
+
+/* Investments */
+.investments{display:flex;flex-direction:column;gap:16px}
+.investment{
+background:#111;border:1px solid #2a2a2a;border-radius:26px;padding:21px 18px 18px;
+box-shadow:0 16px 35px rgba(0,0,0,.24)
+}
+.inv-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:20px}
+.inv-name{font-size:22px;font-weight:700;letter-spacing:-.3px}
+.inv-sub{font-size:10px;color:#6f6f6f;margin-top:4px}
+.badge{padding:8px 12px;border-radius:999px;font-size:10px;font-weight:700;letter-spacing:.4px;white-space:nowrap}
+.badge.active{background:rgba(0,224,112,.10);border:1px solid rgba(0,224,112,.18);color:#25dc7a}
+.badge.complete{background:rgba(212,175,55,.10);border:1px solid rgba(212,175,55,.18);color:#d8b74e}
+.badge::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;margin-right:6px;background:currentColor;vertical-align:1px}
+
+.details{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:18px}
+.detail{background:#0b0b0b;border-radius:15px;padding:13px}
+.detail p{font-size:10px;color:#686868;margin-bottom:5px}
+.detail strong{font-size:15px;color:#eee}
+.detail.profit strong{color:#22dc79}
+
+/* Progress */
+.progress-meta{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;font-size:11px;color:#777}
+.progress-meta strong{color:#c8c8c8;font-weight:600}
+.progress{height:10px;background:#202020;border-radius:999px;overflow:hidden;border:1px solid #252525}
+.progress > span{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,#00e98a,#18cbe6);transition:width .35s ease}
+
+/* Countdown */
+.countdown-wrap{margin-top:18px;background:#080808;border:1px solid #252525;border-radius:20px;padding:18px 14px 16px;text-align:center}
+.countdown-label{font-size:10px;text-transform:uppercase;letter-spacing:1.6px;color:#666;margin-bottom:7px}
+.countdown{font-size:42px;line-height:1;font-weight:700;letter-spacing:3px;color:#fff;font-variant-numeric:tabular-nums}
+.countdown-note{font-size:10px;color:#666;margin-top:9px}
+.next-time{font-size:9px;color:#4f4f4f;margin-top:4px}
+
+/* Empty/loading */
+.state{background:#0e0e0e;border:1px solid #222;border-radius:22px;padding:42px 20px;text-align:center}
+.state i{font-size:38px;color:#555}
+.state h3{margin-top:12px;font-size:17px}
+.state p{margin-top:6px;color:#666;font-size:12px;line-height:1.6}
+.error{color:#ff7777!important}
+
+/* Toast */
+.toast{position:fixed;left:50%;bottom:22px;transform:translate(-50%,20px);width:calc(100% - 32px);max-width:430px;background:#151515;border:1px solid #2b2b2b;border-radius:16px;padding:13px 15px;opacity:0;pointer-events:none;transition:.25s;z-index:50;box-shadow:0 15px 40px rgba(0,0,0,.45)}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+.toast strong{display:block;font-size:12px;color:#e8cf70;margin-bottom:2px}
+.toast span{font-size:11px;color:#999}
+
+@media(max-width:700px){
+.stats{grid-template-columns:repeat(2,1fr)}
+.balance-amount{font-size:34px}
+}
+@media(max-width:480px){
+.app{padding:15px 13px 60px}
+.title-wrap h1{font-size:23px}
+.actions{gap:8px}
+.action{font-size:11px}
+.details{grid-template-columns:1fr 1fr}
+.detail:last-child{grid-column:1/-1}
+.inv-name{font-size:20px}
+.countdown{font-size:34px;letter-spacing:2px}
+}
+</style>
+</head>
+
+<body>
+<div class="app">
+
+  <header class="topbar">
+    <div class="brand">
+      <button class="back" id="backBtn" aria-label="Back"><i class="bi bi-arrow-left"></i></button>
+      <div class="title-wrap">
+        <h1>Wallet</h1>
+        <p>Portfolio & active investments</p>
+      </div>
+    </div>
+    <button class="refresh" id="refreshBtn" aria-label="Refresh"><i class="bi bi-arrow-clockwise"></i></button>
+  </header>
+
+  <section class="balance">
+    <div class="eyebrow">Available balance</div>
+    <div class="balance-row">
+      <div class="balance-amount" id="balance">$0.00</div>
+      <div class="currency-pill" id="currencyPill">USD</div>
+    </div>
+    <div class="balance-foot"><span class="dot"></span><span id="balanceStatus">Account synchronized</span></div>
+  </section>
+
+  <section class="actions">
+    <button class="action primary" id="depositBtn"><i class="bi bi-plus-circle"></i>Deposit</button>
+    <button class="action" id="withdrawBtn"><i class="bi bi-arrow-down-circle"></i>Withdraw</button>
+    <button class="action" id="investBtn"><i class="bi bi-graph-up-arrow"></i>Invest</button>
+  </section>
+
+  <div class="section-head">
+    <h2>Wallet overview</h2>
+    <span id="updatedText">Updating…</span>
+  </div>
+
+  <section class="stats">
+    <div class="stat"><p>Total deposits</p><h3 id="totalDeposits">$0.00</h3></div>
+    <div class="stat"><p>Total withdrawals</p><h3 id="totalWithdrawals">$0.00</h3></div>
+    <div class="stat profit"><p>Total profit</p><h3 id="totalProfit">$0.00</h3></div>
+    <div class="stat"><p>Total invested</p><h3 id="totalInvested">$0.00</h3></div>
+  </section>
+
+  <div class="section-head">
+    <h2>Active investments</h2>
+    <span id="investmentCount">0 running</span>
+  </div>
+
+  <section class="investments" id="investments">
+    <div class="state">
+      <i class="bi bi-hourglass-split"></i>
+      <h3>Loading investments</h3>
+      <p>Please wait while your wallet is synchronized.</p>
+    </div>
+  </section>
+
+</div>
+
+<div class="toast" id="toast">
+  <strong id="toastTitle">Wallet updated</strong>
+  <span id="toastMessage">Your wallet is synchronized.</span>
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js";
+import {
+  getFirestore, doc, getDoc, collection, query, where, getDocs,
+  runTransaction, Timestamp
+} from "https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey:"AIzaSyCfmUdXAvdktAZ7RRFYGq5R2ZMgFQjBIHg",
+  authDomain:"t-wealth-6c492.firebaseapp.com",
+  projectId:"t-wealth-6c492",
+  storageBucket:"t-wealth-6c492.firebasestorage.app",
+  messagingSenderId:"920631507931",
+  appId:"1:920631507931:web:ec6769afe5feebfed0c5fe"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+const DAY = 24 * 60 * 60 * 1000;
+
+const currencySymbols = {
+  USD:"$", EUR:"€", GBP:"£", NGN:"₦", CAD:"C$", AUD:"A$",
+  JPY:"¥", CNY:"¥", BTC:"₿", ETH:"Ξ"
+};
+
+const currencyRates = {
+  USD:1, EUR:0.92, GBP:0.79, NGN:1550, CAD:1.37,
+  AUD:1.53, JPY:161, CNY:7.25, BTC:0.0000085, ETH:0.00026
+};
+
+const $ = id => document.getElementById(id);
+const balanceEl = $("balance");
+const currencyPill = $("currencyPill");
+const investmentsEl = $("investments");
+const toast = $("toast");
+const refreshBtn = $("refreshBtn");
+
+let currentUser = null;
+let currentCurrency = "USD";
+let investments = [];
+let countdownTimer = null;
+let toastTimer = null;
+
+function money(value, currency = currentCurrency) {
+  const n = Number(value || 0);
+  const rate = currencyRates[currency] || 1;
+  const symbol = currencySymbols[currency] || "$";
+  const converted = n * rate;
+  const decimals = (currency === "BTC" || currency === "ETH") ? 8 : 2;
+  return symbol + converted.toLocaleString(undefined, {
+    minimumFractionDigits: decimals,
+    maximumFractionDigits: decimals
+  });
+}
+
+function escapeHTML(value) {
+  return String(value ?? "")
+    .replace(/&/g,"&amp;").replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;").replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+}
+
+function timestampMs(value) {
+  if (!value) return null;
+  if (typeof value.toMillis === "function") return value.toMillis();
+  if (value.seconds != null) return Number(value.seconds) * 1000;
+  if (value instanceof Date) return value.getTime();
+  if (typeof value === "number") return value;
+  return null;
+}
+
+function showToast(title, message) {
+  $("toastTitle").textContent = title;
+  $("toastMessage").textContent = message;
+  toast.classList.add("show");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => toast.classList.remove("show"), 3500);
+}
+
+function setState(title, message, icon="bi-hourglass-split", error=false) {
+  investmentsEl.innerHTML = `
+    <div class="state">
+      <i class="bi ${icon}"></i>
+      <h3>${escapeHTML(title)}</h3>
+      <p class="${error ? "error" : ""}">${escapeHTML(message)}</p>
+    </div>`;
+}
+
+function calculateInvestment(inv) {
+  const start = timestampMs(inv.createdAt);
+  const duration = Math.max(0, Number(inv.duration || 0));
+  const dailyProfit = Number(inv.dailyProfit || 0);
+  const recordedDays = Math.max(0, Number(inv.daysCompleted || 0));
+  const recordedEarned = Number(inv.totalEarned || 0);
+
+  if (!start || !duration) {
+    return {
+      ...inv,
+      completedDays: recordedDays,
+      totalEarned: recordedEarned,
+      progress: Math.min(100, (recordedDays / Math.max(duration,1)) * 100),
+      remainingMs: 0,
+      nextProfitMs: null,
+      active: inv.status === "active"
+    };
+  }
+
+  const elapsedDays = Math.floor((Date.now() - start) / DAY);
+  const theoreticalDays = Math.max(0, Math.min(duration, elapsedDays));
+  const completedDays = Math.max(recordedDays, theoreticalDays);
+
+  const earned = recordedEarned > 0
+    ? recordedEarned
+    : completedDays * dailyProfit;
+
+  const nextProfitMs = start + (Math.min(completedDays + 1, duration) * DAY);
+  const remainingMs = Math.max(0, nextProfitMs - Date.now());
+
+  return {
+    ...inv,
+    completedDays,
+    totalEarned: earned,
+    progress: Math.min(100, (completedDays / duration) * 100),
+    remainingMs,
+    nextProfitMs,
+    active: inv.status === "active" && completedDays < duration
+  };
+}
+
+async function settleDueProfits(uid, rawInvestments) {
+  let changed = false;
+
+  for (const raw of rawInvestments) {
+    if (raw.status !== "active" || !raw.createdAt) continue;
+
+    const start = timestampMs(raw.createdAt);
+    const duration = Math.max(0, Number(raw.duration || 0));
+    const dailyProfit = Number(raw.dailyProfit || 0);
+
+    if (!start || duration <= 0 || dailyProfit <= 0) continue;
+
+    const elapsedDays = Math.max(0, Math.min(
+      duration,
+      Math.floor((Date.now() - start) / DAY)
+    ));
+
+    const alreadyPaid = Math.max(0, Number(raw.daysCompleted || 0));
+    const dueDays = elapsedDays - alreadyPaid;
+
+    if (dueDays <= 0) continue;
+
+    const invRef = doc(db, "investments", raw.id);
+    const userRef = doc(db, "users", uid);
+
+    await runTransaction(db, async transaction => {
+      const invSnap = await transaction.get(invRef);
+      const userSnap = await transaction.get(userRef);
+
+      if (!invSnap.exists() || !userSnap.exists()) return;
+
+      const inv = invSnap.data();
+      if (inv.status !== "active") return;
+
+      const liveStart = timestampMs(inv.createdAt);
+      if (!liveStart) return;
+
+      const liveDuration = Math.max(0, Number(inv.duration || duration));
+      const liveDaily = Number(inv.dailyProfit || dailyProfit);
+      const liveAlreadyPaid = Math.max(0, Number(inv.daysCompleted || 0));
+      const liveElapsed = Math.max(0, Math.min(
+        liveDuration,
+        Math.floor((Date.now() - liveStart) / DAY)
+      ));
+      const liveDue = liveElapsed - liveAlreadyPaid;
+
+      if (liveDue <= 0) return;
+
+      const user = userSnap.data();
+      const oldBalance = Number(user.balance || 0);
+      const oldEarned = Number(inv.totalEarned || 0);
+      const profit = liveDue * liveDaily;
+      const newDays = Math.min(liveDuration, liveAlreadyPaid + liveDue);
+      const completed = newDays >= liveDuration;
+
+      transaction.update(userRef, {
+        balance: oldBalance + profit,
+        totalProfit: Number(user.totalProfit || 0) + profit,
+        lastProfitAt: Timestamp.now()
+      });
+
+      transaction.update(invRef, {
+        daysCompleted: newDays,
+        totalEarned: oldEarned + profit,
+        lastProfitAt: Timestamp.fromMillis(liveStart + newDays * DAY),
+        nextProfitAt: completed
+          ? null
+          : Timestamp.fromMillis(liveStart + (newDays + 1) * DAY),
+        status: completed ? "completed" : "active",
+        ...(completed ? { completedAt: Timestamp.now() } : {})
+      });
+
+      changed = true;
+    });
+  }
+
+  return changed;
+}
+
+async function loadWallet() {
+  if (!currentUser) return;
+
+  refreshBtn.classList.add("loading");
+  $("balanceStatus").textContent = "Synchronizing account…";
+
+  try {
+    const userSnap = await getDoc(doc(db, "users", currentUser.uid));
+    if (!userSnap.exists()) {
+      throw new Error("Your user profile could not be found.");
+    }
+
+    let user = userSnap.data();
+    currentCurrency = user.currency || "USD";
+    currencyPill.textContent = currentCurrency;
+
+    const invSnap = await getDocs(
+      query(collection(db, "investments"), where("uid","==",currentUser.uid))
+    );
+
+    let raw = invSnap.docs.map(d => ({ id:d.id, ...d.data() }));
+
+    // Credit any daily profits that have become due.
+    await settleDueProfits(currentUser.uid, raw);
+
+    // Reload after settlement so the UI always reflects the database.
+    const freshUser = await getDoc(doc(db, "users", currentUser.uid));
+    user = freshUser.data();
+
+    const freshInvSnap = await getDocs(
+      query(collection(db, "investments"), where("uid","==",currentUser.uid))
+    );
+
+    raw = freshInvSnap.docs.map(d => ({ id:d.id, ...d.data() }));
+
+    const depositsSnap = await getDocs(
+      query(
+        collection(db, "deposit_requests"),
+        where("uid","==",currentUser.uid),
+        where("status","==","Approved")
+      )
+    );
+
+    let deposits = 0;
+    depositsSnap.forEach(d => deposits += Number(d.data().amount || 0));
+
+    // Supports both your current withdrawal_requests collection and the older withdrawals collection.
+    let withdrawals = 0;
+    const requestSnap = await getDocs(
+      query(
+        collection(db, "withdrawal_requests"),
+        where("uid","==",currentUser.uid),
+        where("status","==","Approved")
+      )
+    );
+    requestSnap.forEach(d => withdrawals += Number(d.data().amount || 0));
+
+    try {
+      const oldWithdrawSnap = await getDocs(
+        query(
+          collection(db, "withdrawals"),
+          where("uid","==",currentUser.uid),
+          where("status","==","approved")
+        )
+      );
+      oldWithdrawSnap.forEach(d => withdrawals += Number(d.data().amount || 0));
+    } catch (_) {}
+
+    investments = raw.map(calculateInvestment);
+
+    const totalInvested = raw.reduce((sum, inv) => sum + Number(inv.amount || 0), 0);
+    const totalProfit = raw.reduce((sum, inv) => sum + Number(inv.totalEarned || 0), 0);
+
+    balanceEl.textContent = money(user.balance || 0);
+    $("totalDeposits").textContent = money(deposits);
+    $("totalWithdrawals").textContent = money(withdrawals);
+    $("totalProfit").textContent = money(totalProfit);
+    $("totalInvested").textContent = money(totalInvested);
+
+    $("updatedText").textContent = "Updated just now";
+    $("balanceStatus").textContent = "Account synchronized";
+    $("investmentCount").textContent =
+      investments.filter(i => i.active).length + " running";
+
+    renderInvestments();
+    startCountdownLoop();
+
+  } catch (error) {
+    console.error("Wallet load error:", error);
+    setState("Wallet unavailable", error.message || "Unable to load your wallet.", "bi-exclamation-triangle", true);
+    $("balanceStatus").textContent = "Synchronization failed";
+  } finally {
+    refreshBtn.classList.remove("loading");
+  }
+}
+
+function renderInvestments() {
+
+  // Only show currently active/running investments.
+  // Completed investments remain in Firestore for records/statistics,
+  // but they are removed from the active wallet display.
+  const activeInvestments = investments.filter(inv => inv.active);
+
+  if (!activeInvestments.length) {
+    setState(
+      "No active investments",
+      "You currently have no running investments.",
+      "bi-briefcase"
+    );
+    return;
+  }
+
+  const sorted = [...activeInvestments].sort((a,b) => {
+    const aa = timestampMs(a.createdAt) || 0;
+    const bb = timestampMs(b.createdAt) || 0;
+    return bb - aa;
+  });
+
+  investmentsEl.innerHTML = sorted.map(inv => {
+
+    const duration = Math.max(1, Number(inv.duration || 1));
+
+    const days = Math.min(
+      duration,
+      Number(inv.completedDays || 0)
+    );
+
+    const progress = Math.min(
+      100,
+      Number(inv.progress || 0)
+    );
+
+    const earned = Number(inv.totalEarned || 0);
+    const daily = Number(inv.dailyProfit || 0);
+    const plan = inv.plan || "Investment";
+    const amount = Number(inv.amount || 0);
+
+    const countdownText =
+      formatCountdown(inv.remainingMs);
+
+    return `
+      <article class="investment"
+        data-id="${escapeHTML(inv.id)}">
+
+        <div class="inv-head">
+
+          <div>
+
+            <div class="inv-name">
+              ${escapeHTML(plan)}
+            </div>
+
+            <div class="inv-sub">
+              Investment ${money(amount)} · ${duration} day term
+            </div>
+
+          </div>
+
+          <span class="badge active">
+            ACTIVE
+          </span>
+
+        </div>
+
+        <div class="details">
+
+          <div class="detail">
+
+            <p>Investment</p>
+
+            <strong>
+              ${money(amount)}
+            </strong>
+
+          </div>
+
+          <div class="detail profit">
+
+            <p>Daily profit</p>
+
+            <strong>
+              ${money(daily)}
+            </strong>
+
+          </div>
+
+          <div class="detail">
+
+            <p>Total earned</p>
+
+            <strong>
+              ${money(earned)}
+            </strong>
+
+          </div>
+
+        </div>
+
+        <div class="progress-meta">
+
+          <span>
+            ${days}/${duration} days
+          </span>
+
+          <strong>
+            ${Math.round(progress)}%
+          </strong>
+
+        </div>
+
+        <div class="progress">
+
+          <span
+            style="width:${progress}%">
+          </span>
+
+        </div>
+
+        <div class="countdown-wrap">
+
+          <div class="countdown-label">
+            Next profit in
+          </div>
+
+          <div
+            class="countdown"
+            data-countdown="${escapeHTML(inv.id)}">
+            ${countdownText}
+          </div>
+
+          <div class="countdown-note">
+            Profit is credited automatically when the 24-hour cycle completes.
+          </div>
+
+          <div
+            class="next-time"
+            data-next="${escapeHTML(inv.id)}">
+          </div>
+
+        </div>
+
+      </article>
+    `;
+
+  }).join("");
+
+  updateCountdownDOM();
+}
+
+function formatCountdown(ms) {
+  const seconds = Math.max(0, Math.floor(ms / 1000));
+  const h = Math.floor(seconds / 3600);
+  const m = Math.floor((seconds % 3600) / 60);
+  const s = seconds % 60;
+  return String(h).padStart(2,"0") + ":" +
+         String(m).padStart(2,"0") + ":" +
+         String(s).padStart(2,"0");
+}
+
+function updateCountdownDOM() {
+  const now = Date.now();
+
+  document.querySelectorAll("[data-countdown]").forEach(el => {
+    const id = el.dataset.countdown;
+    const inv = investments.find(i => i.id === id);
+    if (!inv) return;
+
+    if (!inv.active) {
+      el.textContent = "00:00:00";
+      return;
+    }
+
+    // Recalculate from the investment's fixed start time.
+    const start = timestampMs(inv.createdAt);
+    const duration = Number(inv.duration || 0);
+    const completedDays = Number(inv.completedDays || 0);
+
+    if (!start || !duration) {
+      el.textContent = "00:00:00";
+      return;
+    }
+
+    const nextAt = start + (completedDays + 1) * DAY;
+    const remaining = Math.max(0, nextAt - now);
+
+    el.textContent = formatCountdown(remaining);
+
+    const nextEl = document.querySelector(`[data-next="${CSS.escape(id)}"]`);
+    if (nextEl) {
+      nextEl.textContent = "Next cycle: " + new Date(nextAt).toLocaleString([], {
+        month:"short", day:"numeric", hour:"2-digit", minute:"2-digit"
+      });
+    }
+
+    // If the countdown reaches zero, refresh from Firestore so the profit is settled.
+    if (remaining <= 0) {
+      loadWallet();
+    }
+  });
+}
+
+function startCountdownLoop() {
+  clearInterval(countdownTimer);
+  countdownTimer = setInterval(updateCountdownDOM, 1000);
+  updateCountdownDOM();
+}
+
+$("backBtn").onclick = () => location.href = "dashboard.html";
+$("depositBtn").onclick = () => location.href = "deposit.html";
+$("withdrawBtn").onclick = () => location.href = "withdraw.html";
+$("investBtn").onclick = () => location.href = "invest.html";
+refreshBtn.onclick = () => loadWallet();
+
+onAuthStateChanged(auth, async user => {
+  if (!user) {
+    location.href = "login.html";
+    return;
+  }
+  currentUser = user;
+  await loadWallet();
+});
+</script>
+</body>
+</html>

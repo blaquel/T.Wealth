@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+<title>T.Wealth | USDT Deposit</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet"
+href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+-webkit-tap-highlight-color:transparent;
+}
+
+html{
+scroll-behavior:smooth;
+overflow-x:hidden;
+}
+
+body{
+font-family:"Poppins",sans-serif;
+background:#050505;
+color:#fff;
+padding:18px;
+overflow-x:hidden;
+}
+
+.container{
+max-width:650px;
+margin:auto;
+}
+
+/* HEADER */
+
+.header{
+display:flex;
+align-items:center;
+gap:15px;
+margin-bottom:25px;
+}
+
+.back-btn{
+width:45px;
+height:45px;
+border:none;
+border-radius:50%;
+background:#111;
+color:#FFD54A;
+font-size:20px;
+cursor:pointer;
+}
+
+.header h2{
+font-size:24px;
+font-weight:700;
+color:#FFD54A;
+}
+
+/* CARD */
+
+.card{
+background:#111;
+border:1px solid rgba(212,175,55,.25);
+border-radius:20px;
+padding:20px;
+margin-bottom:20px;
+box-shadow:0 10px 25px rgba(0,0,0,.35);
+}
+
+/* QR */
+
+.qr-box{
+width:220px;
+height:220px;
+margin:auto;
+background:#fff;
+border-radius:18px;
+padding:10px;
+display:flex;
+align-items:center;
+justify-content:center;
+}
+
+.qr-box img{
+width:100%;
+height:100%;
+object-fit:contain;
+}
+
+.coin{
+text-align:center;
+margin-top:15px;
+font-size:18px;
+font-weight:700;
+color:#FFD54A;
+}
+
+.network{
+text-align:center;
+font-size:14px;
+color:#aaa;
+margin-top:5px;
+}
+
+/* ADDRESS */
+
+.label{
+font-size:15px;
+font-weight:600;
+margin-bottom:10px;
+color:#FFD54A;
+}
+
+.address-box{
+background:#050505;
+border:1px solid rgba(212,175,55,.25);
+border-radius:14px;
+padding:15px;
+font-size:13px;
+word-break:break-all;
+margin-bottom:15px;
+}
+
+.btn{
+width:100%;
+height:52px;
+border:none;
+border-radius:14px;
+background:linear-gradient(135deg,#FFD54A,#C89B09);
+color:#111;
+font-size:16px;
+font-weight:700;
+cursor:pointer;
+transition:.3s;
+margin-top:10px;
+}
+
+.btn:hover{
+transform:translateY(-2px);
+}
+
+/* INPUT */
+
+.input-group{
+margin-top:20px;
+}
+
+.input-group input{
+width:100%;
+height:52px;
+background:#050505;
+border:1px solid rgba(212,175,55,.25);
+border-radius:14px;
+padding:0 15px;
+color:#FFD54A;
+font-size:18px;
+outline:none;
+}
+
+.input-group input:focus{
+border-color:#FFD54A;
+}
+
+.preview{
+margin-top:12px;
+text-align:center;
+color:#aaa;
+font-size:15px;
+}
+
+.preview span{
+display:block;
+margin-top:6px;
+font-size:22px;
+font-weight:700;
+color:#FFD54A;
+}
+
+/* PROOF */
+
+.upload-box{
+margin-top:20px;
+padding:18px;
+border:2px dashed rgba(212,175,55,.30);
+border-radius:16px;
+text-align:center;
+}
+
+.upload-box i{
+font-size:35px;
+color:#FFD54A;
+margin-bottom:10px;
+display:block;
+}
+
+.upload-box p{
+color:#bbb;
+font-size:14px;
+margin-bottom:15px;
+}
+
+/* NOTICE */
+
+.notice{
+display:flex;
+gap:12px;
+background:#171717;
+border-left:4px solid #FFD54A;
+padding:15px;
+border-radius:12px;
+margin-bottom:20px;
+}
+
+.notice i{
+color:#FFD54A;
+font-size:22px;
+}
+
+.notice p{
+font-size:14px;
+line-height:1.6;
+color:#ccc;
+}
+
+@media(max-width:600px){
+
+.qr-box{
+width:180px;
+height:180px;
+}
+
+.header h2{
+font-size:21px;
+}
+
+}
+
+/*==========================
+OVERLAY
+==========================*/
+
+.overlay{
+
+position:fixed;
+
+top:0;
+
+left:0;
+
+width:100%;
+
+height:100%;
+
+background:rgba(0,0,0,.75);
+
+display:none;
+
+justify-content:center;
+
+align-items:center;
+
+z-index:9999;
+
+padding:20px;
+
+}
+
+.loading-card,
+.success-card{
+
+width:100%;
+max-width:360px;
+
+background:#111;
+
+border:1px solid rgba(212,175,55,.25);
+
+border-radius:20px;
+
+padding:30px 25px;
+
+text-align:center;
+
+}
+
+.loader{
+
+width:55px;
+
+height:55px;
+
+margin:auto;
+
+border:5px solid #222;
+
+border-top:5px solid #FFD54A;
+
+border-radius:50%;
+
+animation:spin .8s linear infinite;
+
+margin-bottom:20px;
+
+}
+
+@keyframes spin{
+
+100%{
+
+transform:rotate(360deg);
+
+}
+
+}
+
+.success-icon{
+
+font-size:70px;
+
+color:#00d26a;
+
+margin-bottom:15px;
+
+}
+
+.loading-card h3,
+.success-card h2{
+
+color:#FFD54A;
+
+margin-bottom:12px;
+
+}
+
+.loading-card p,
+.success-card p{
+
+color:#bbb;
+
+line-height:1.7;
+
+font-size:14px;
+
+}
+
+#doneBtn{
+
+width:100%;
+
+height:50px;
+
+margin-top:25px;
+
+border:none;
+
+border-radius:14px;
+
+background:linear-gradient(135deg,#FFD54A,#C89B09);
+
+color:#111;
+
+font-weight:700;
+
+font-size:16px;
+
+cursor:pointer;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="header">
+
+<button class="back-btn" id="backBtn">
+
+<i class="bi bi-arrow-left"></i>
+
+</button>
+
+<h2>USDT Deposit</h2>
+
+</div>
+
+<div class="notice">
+
+<i class="bi bi-info-circle-fill"></i>
+
+<p>
+
+Only send <b>USDT (ERC20)</b> to the wallet below.
+
+</p>
+
+</div>
+
+<div class="card">
+
+<div class="qr-box">
+
+<img
+src="images/usdt-qr.png"
+alt="USDT QR Code"
+id="qrImage">
+
+</div>
+
+<div class="coin">
+
+USDT (ERC20)
+
+</div>
+
+<div class="network">
+
+Scan QR Code
+
+</div>
+
+</div>
+
+<div class="card">
+
+<div class="label">
+
+Deposit Address
+
+</div>
+
+<div class="address-box" id="walletAddress">
+
+0x677D2b0133b2F405731b9F5f2B878ACe2D3a548e
+
+</div>
+
+<button class="btn" id="copyBtn">
+
+<i class="bi bi-copy"></i>
+
+Copy Address
+
+</button>
+
+<div class="input-group">
+
+<div class="label">
+
+Amount (USDT)
+
+</div>
+
+<input
+type="number"
+id="amount"
+placeholder="Enter amount">
+
+</div>
+
+<div class="preview">
+
+You are sending
+
+<span id="amountPreview">
+
+0.00 USDT
+
+</span>
+
+</div>
+
+<div class="upload-box">
+
+<i class="bi bi-cloud-arrow-up"></i>
+
+<p>
+
+Upload Payment Screenshot
+
+</p>
+
+<button class="btn" id="uploadBtn">
+
+Choose Image
+
+</button>
+
+<input
+type="file"
+id="proofInput"
+accept="image/*"
+hidden>
+
+</div>
+
+<button class="btn" id="submitBtn">
+
+<i class="bi bi-send-fill"></i>
+
+I Have Sent
+
+</button>
+
+</div>
+
+<!-- Loading -->
+
+<div id="loadingOverlay" class="overlay">
+
+<div class="loading-card">
+
+<div class="loader"></div>
+
+<h3>Submitting Transaction</h3>
+
+<p>Please wait while we verify your request...</p>
+
+</div>
+
+</div>
+
+<!-- Success Alert -->
+
+<div id="successAlert" class="overlay">
+
+<div class="success-card">
+
+<div class="success-icon">
+
+<i class="bi bi-check-circle-fill"></i>
+
+</div>
+
+<h2>Transaction Submitted</h2>
+
+<p>
+
+Your deposit request has been received successfully.
+
+Your payment is now awaiting admin approval.
+
+Once approved, your wallet balance will be updated automatically.
+
+</p>
+
+<button id="doneBtn">
+
+Continue
+
+</button>
+
+</div>
+
+</div>
+
+<script type="module">
+
+/*=========================================
+FIREBASE
+=========================================*/
+
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
+
+import {
+getAuth,
+onAuthStateChanged
+}
+from "https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js";
+
+import {
+getFirestore,
+doc,
+getDoc,
+collection,
+addDoc,
+serverTimestamp
+}
+from "https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
+
+/*=========================================
+CONFIG
+=========================================*/
+
+const firebaseConfig={
+
+apiKey:"AIzaSyCfmUdXAvdktAZ7RRFYGq5R2ZMgFQjBIHg",
+
+authDomain:"t-wealth-6c492.firebaseapp.com",
+
+projectId:"t-wealth-6c492",
+
+storageBucket:"t-wealth-6c492.firebasestorage.app",
+
+messagingSenderId:"920631507931",
+
+appId:"1:920631507931:web:ec6769afe5feebfed0c5fe"
+
+};
+
+const app=initializeApp(firebaseConfig);
+
+const auth=getAuth(app);
+
+const db=getFirestore(app);
+
+/*=========================================
+ELEMENTS
+=========================================*/
+
+const backBtn=document.getElementById("backBtn");
+
+const copyBtn=document.getElementById("copyBtn");
+
+const uploadBtn=document.getElementById("uploadBtn");
+
+const proofInput=document.getElementById("proofInput");
+
+const submitBtn=document.getElementById("submitBtn");
+
+const amount=document.getElementById("amount");
+
+const amountPreview=document.getElementById("amountPreview");
+
+const walletAddress=document.getElementById("walletAddress");
+
+let proofImage="";
+
+/*=========================================
+AUTH
+=========================================*/
+
+onAuthStateChanged(auth,(user)=>{
+
+if(!user){
+
+window.location.href="login.html";
+
+}
+
+});
+
+/*=========================================
+BACK
+=========================================*/
+
+backBtn.onclick=()=>{
+
+window.location.href="deposit.html";
+
+};
+
+/*=========================================
+COPY ADDRESS
+=========================================*/
+
+copyBtn.onclick=async()=>{
+
+await navigator.clipboard.writeText(walletAddress.textContent);
+
+copyBtn.innerHTML='<i class="bi bi-check-circle-fill"></i> Address Copied';
+
+setTimeout(()=>{
+
+copyBtn.innerHTML='<i class="bi bi-copy"></i> Copy Address';
+
+},2000);
+
+};
+
+/*=========================================
+LIVE AMOUNT
+=========================================*/
+
+amount.oninput=()=>{
+
+const value=Number(amount.value)||0;
+
+amountPreview.textContent=
+
+value.toLocaleString(undefined,{
+
+minimumFractionDigits:2,
+
+maximumFractionDigits:2
+
+})+" USDT";
+
+submitBtn.innerHTML=
+
+'<i class="bi bi-send-fill"></i> I Have Sent '+
+
+value.toLocaleString(undefined,{
+
+minimumFractionDigits:2,
+
+maximumFractionDigits:2
+
+})+
+
+' USDT';
+
+};
+
+/*=========================================
+UPLOAD IMAGE
+=========================================*/
+
+uploadBtn.onclick=()=>{
+
+proofInput.click();
+
+};
+
+proofInput.onchange=(e)=>{
+
+const file=e.target.files[0];
+
+if(!file)return;
+
+const reader=new FileReader();
+
+reader.onload=()=>{
+
+proofImage=reader.result;
+
+uploadBtn.innerHTML=
+
+'<i class="bi bi-check-circle-fill"></i> Screenshot Selected';
+
+};
+
+reader.readAsDataURL(file);
+
+};
+
+/*=========================================
+SUBMIT DEPOSIT
+=========================================*/
+
+submitBtn.onclick = async () => {
+
+const user = auth.currentUser;
+
+if(!user){
+
+alert("Please login again.");
+
+return;
+
+}
+
+const value = Number(amount.value);
+
+if(value <= 0){
+
+alert("Enter deposit amount.");
+
+return;
+
+}
+
+if(!proofImage){
+
+alert("Upload your payment screenshot.");
+
+return;
+
+}
+
+loadingOverlay.style.display = "flex";
+
+try{
+
+const userSnap = await getDoc(doc(db,"users",user.uid));
+
+const userData = userSnap.data();
+
+try {
+
+    await addDoc(collection(db,"deposit_requests"),{
+        uid:user.uid,
+        fullname:userData.fullname || "",
+        username:userData.username || "",
+        email:userData.email || "",
+        currency:userData.currency || "USD",
+        wallet:"USDT",
+        network:"ERC20",
+        walletAddress:"0x677D2b0133b2F405731b9F5f2B878ACe2D3a548e",
+        amount:value,
+        proof:proofImage,
+        status:"Pending",
+        createdAt:serverTimestamp()
+    });
+
+    console.log("Deposit request saved.");
+
+    await addDoc(collection(db,"history"),{
+        uid:user.uid,
+        title:"USDT Deposit",
+        type:"Deposit",
+        amount:value,
+        status:"Pending",
+        createdAt:serverTimestamp()
+    });
+
+    console.log("History saved.");
+
+} catch(err){
+
+    console.error("History Error:", err);
+
+    alert(err.message);
+
+}
+
+loadingOverlay.style.display = "none";
+
+successAlert.style.display = "flex";
+
+}catch(error){
+
+loadingOverlay.style.display = "none";
+
+alert(error.message);
+
+console.error(error);
+
+}
+
+};
+
+const loadingOverlay=document.getElementById("loadingOverlay");
+
+const successAlert=document.getElementById("successAlert");
+
+const doneBtn=document.getElementById("doneBtn");
+
+doneBtn.onclick=()=>{
+
+window.location.href="history.html";
+
+};
+
+</script>

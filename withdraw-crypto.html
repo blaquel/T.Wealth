@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+
+<title>T.Wealth | Crypto Withdrawal</title>
+
+<link rel="preconnect"
+href="https://fonts.googleapis.com">
+
+<link rel="preconnect"
+href="https://fonts.gstatic.com"
+crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+rel="stylesheet">
+
+<link rel="stylesheet"
+href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Poppins,sans-serif;
+-webkit-tap-highlight-color:transparent;
+}
+
+body{
+background:#050505;
+color:#fff;
+padding:20px;
+}
+
+.container{
+max-width:650px;
+margin:auto;
+}
+
+/* Header */
+
+.header{
+display:flex;
+align-items:center;
+gap:15px;
+margin-bottom:30px;
+}
+
+.back{
+width:48px;
+height:48px;
+border-radius:50%;
+background:#151515;
+display:flex;
+align-items:center;
+justify-content:center;
+cursor:pointer;
+color:#FFD54A;
+font-size:22px;
+transition:.3s;
+}
+
+.back:hover{
+background:#FFD54A;
+color:#111;
+}
+
+.header h2{
+font-size:30px;
+font-weight:700;
+color:#FFD54A;
+}
+
+/* Card */
+
+.card{
+background:#111;
+border:1px solid rgba(212,175,55,.20);
+border-radius:22px;
+padding:25px;
+box-shadow:0 20px 40px rgba(0,0,0,.35);
+}
+
+.balance{
+text-align:center;
+margin-bottom:25px;
+}
+
+.balance p{
+font-size:15px;
+color:#999;
+margin-bottom:8px;
+}
+
+.balance h1{
+font-size:38px;
+color:#FFD54A;
+}
+
+/* Form */
+
+.form-group{
+margin-bottom:22px;
+}
+
+.form-group label{
+display:block;
+margin-bottom:8px;
+font-size:15px;
+font-weight:600;
+color:#FFD54A;
+}
+
+.form-group select,
+.form-group input{
+
+width:100%;
+height:56px;
+background:#1a1a1a;
+border:1px solid rgba(212,175,55,.20);
+border-radius:14px;
+padding:0 18px;
+font-size:15px;
+color:#fff;
+outline:none;
+
+}
+
+.form-group input:focus,
+.form-group select:focus{
+border-color:#FFD54A;
+}
+
+/* Info */
+
+.info{
+background:#181818;
+border-left:4px solid #FFD54A;
+padding:18px;
+border-radius:12px;
+margin-bottom:25px;
+}
+
+.info p{
+font-size:14px;
+line-height:1.8;
+color:#ccc;
+}
+
+/* Button */
+
+button{
+width:100%;
+height:58px;
+border:none;
+border-radius:15px;
+background:linear-gradient(135deg,#FFD54A,#c99b00);
+font-size:18px;
+font-weight:700;
+cursor:pointer;
+color:#111;
+transition:.3s;
+}
+
+button:hover{
+transform:translateY(-2px);
+}
+
+@media(max-width:768px){
+
+body{
+padding:16px;
+}
+
+.header h2{
+font-size:25px;
+}
+
+.balance h1{
+font-size:32px;
+}
+
+}
+
+/* Loading Overlay */
+
+.loading-overlay{
+
+position:fixed;
+
+top:0;
+
+left:0;
+
+width:100%;
+
+height:100%;
+
+background:rgba(5,5,5,.88);
+
+display:none;
+
+justify-content:center;
+
+align-items:center;
+
+z-index:9999;
+
+backdrop-filter:blur(6px);
+
+}
+
+.loading-box{
+
+background:#111;
+
+padding:35px;
+
+border-radius:20px;
+
+border:1px solid rgba(212,175,55,.25);
+
+text-align:center;
+
+width:280px;
+
+}
+
+.loader{
+
+width:65px;
+
+height:65px;
+
+margin:auto auto 20px;
+
+border:5px solid rgba(255,255,255,.12);
+
+border-top:5px solid #FFD54A;
+
+border-radius:50%;
+
+animation:spin .9s linear infinite;
+
+}
+
+.loading-box h3{
+
+color:#FFD54A;
+
+margin-bottom:10px;
+
+font-size:22px;
+
+}
+
+.loading-box p{
+
+color:#aaa;
+
+font-size:14px;
+
+}
+
+@keyframes spin{
+
+100%{
+
+transform:rotate(360deg);
+
+}
+
+}
+
+/* Premium Alert */
+
+.alert-overlay{
+
+position:fixed;
+
+top:0;
+
+left:0;
+
+width:100%;
+
+height:100%;
+
+background:rgba(0,0,0,.78);
+
+display:none;
+
+justify-content:center;
+
+align-items:center;
+
+z-index:10000;
+
+backdrop-filter:blur(6px);
+
+}
+
+.alert-box{
+
+width:340px;
+
+background:#111;
+
+border:1px solid rgba(212,175,55,.25);
+
+border-radius:24px;
+
+padding:30px;
+
+text-align:center;
+
+box-shadow:0 25px 60px rgba(0,0,0,.45);
+
+animation:popup .25s ease;
+
+}
+
+.alert-icon{
+
+font-size:70px;
+
+color:#FFD54A;
+
+margin-bottom:15px;
+
+}
+
+.alert-box h2{
+
+font-size:28px;
+
+color:#FFD54A;
+
+margin-bottom:10px;
+
+}
+
+.alert-box p{
+
+color:#bbb;
+
+line-height:1.8;
+
+margin-bottom:25px;
+
+}
+
+.alert-box button{
+
+width:100%;
+
+height:55px;
+
+border:none;
+
+border-radius:14px;
+
+background:linear-gradient(135deg,#FFD54A,#C89B09);
+
+font-size:17px;
+
+font-weight:700;
+
+cursor:pointer;
+
+color:#111;
+
+}
+
+@keyframes popup{
+
+from{
+
+opacity:0;
+
+transform:scale(.8);
+
+}
+
+to{
+
+opacity:1;
+
+transform:scale(1);
+
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="header">
+
+<div class="back"
+onclick="window.location.href='withdraw.html'">
+
+<i class="bi bi-arrow-left"></i>
+
+</div>
+
+<h2>Crypto Withdrawal</h2>
+
+</div>
+
+<div class="card">
+
+<div class="balance">
+
+<p>Available Balance</p>
+
+<h1 id="balance">$0.00</h1>
+
+</div>
+
+<div class="form-group">
+
+<label>Cryptocurrency</label>
+
+<select id="coin">
+
+<option value="BTC">Bitcoin (BTC)</option>
+
+<option value="ETH">Ethereum (ETH)</option>
+
+<option value="USDT">Tether (USDT)</option>
+
+</select>
+
+</div>
+
+<div class="form-group">
+
+<label>Wallet Address</label>
+
+<input
+type="text"
+id="walletAddress"
+placeholder="Enter your wallet address">
+
+</div>
+
+<div class="form-group">
+
+<label>Withdrawal Amount</label>
+
+<input
+type="number"
+id="amount"
+placeholder="Enter amount">
+
+</div>
+
+<div class="info">
+
+<p>
+
+• Minimum withdrawal depends on your account.<br>
+
+• Ensure your wallet address is correct before submitting.<br>
+
+• Crypto withdrawals are processed after admin approval.
+
+</p>
+
+</div>
+
+<button id="withdrawBtn">
+
+Submit Withdrawal
+
+</button>
+
+</div>
+
+</div>
+
+<div id="loadingOverlay" class="loading-overlay">
+
+<div class="loading-box">
+
+<div class="loader"></div>
+
+<h3>Processing Withdrawal</h3>
+
+<p>Please wait...</p>
+
+</div>
+
+</div>
+
+<div id="alertOverlay" class="alert-overlay">
+
+    <div class="alert-box">
+
+        <div class="alert-icon">
+            <i class="bi bi-check-circle-fill"></i>
+        </div>
+
+        <h2 id="alertTitle">Success</h2>
+
+        <p id="alertMessage">
+            Your withdrawal request has been received.
+        </p>
+
+        <button id="alertButton">
+            Continue
+        </button>
+
+    </div>
+
+</div>
+
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
+
+import {
+getAuth,
+onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js";
+
+import {
+getFirestore,
+doc,
+getDoc,
+updateDoc,
+collection,
+addDoc,
+serverTimestamp
+} from "https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
+
+const firebaseConfig={
+apiKey:"AIzaSyCfmUdXAvdktAZ7RRFYGq5R2ZMgFQjBIHg",
+authDomain:"t-wealth-6c492.firebaseapp.com",
+projectId:"t-wealth-6c492",
+storageBucket:"t-wealth-6c492.firebasestorage.app",
+messagingSenderId:"920631507931",
+appId:"1:920631507931:web:ec6769afe5feebfed0c5fe"
+};
+
+const app=initializeApp(firebaseConfig);
+const auth=getAuth(app);
+const db=getFirestore(app);
+
+const balance=document.getElementById("balance");
+const coin=document.getElementById("coin");
+const address=document.getElementById("walletAddress");
+const amount=document.getElementById("amount");
+const withdrawBtn=document.getElementById("withdrawBtn");
+
+const alertOverlay = document.getElementById("alertOverlay");
+
+const alertTitle = document.getElementById("alertTitle");
+
+const alertMessage = document.getElementById("alertMessage");
+
+const alertButton = document.getElementById("alertButton");
+
+function showAlert(title,message,redirect=null){
+
+alertTitle.textContent = title;
+
+alertMessage.textContent = message;
+
+alertOverlay.style.display = "flex";
+
+alertButton.onclick = ()=>{
+
+alertOverlay.style.display = "none";
+
+if(redirect){
+
+location.href = redirect;
+
+}
+
+};
+
+}
+
+const loadingOverlay = document.getElementById("loadingOverlay");
+
+function showLoading(){
+
+loadingOverlay.style.display="flex";
+
+}
+
+function hideLoading(){
+
+loadingOverlay.style.display="none";
+
+}
+
+let currentUser;
+let currentBalance=0;
+
+onAuthStateChanged(auth,async(user)=>{
+
+if(!user){
+
+location.href="login.html";
+return;
+
+}
+
+currentUser=user;
+
+const snap=await getDoc(doc(db,"users",user.uid));
+
+if(!snap.exists()) return;
+
+const data=snap.data();
+
+currentBalance=Number(data.balance||0);
+
+balance.textContent="$"+currentBalance.toFixed(2);
+
+});
+
+withdrawBtn.onclick = async () => {
+
+const wallet=address.value.trim();
+const amt=Number(amount.value);
+
+if(wallet===""){
+
+showAlert("Please enter your wallet address.");
+
+return;
+
+}
+
+if(amt<=0){
+
+showAlert("Please enter a valid amount.");
+
+return;
+
+}
+
+if(amt>currentBalance){
+
+showAlert("Insufficient balance.");
+
+return;
+
+}
+
+withdrawBtn.disabled = true;
+
+showLoading();
+
+try{
+
+await addDoc(collection(db,"withdrawals"),{
+
+uid:currentUser.uid,
+
+method:"Crypto",
+
+coin:coin.value,
+
+walletAddress:wallet,
+
+amount:amt,
+
+status:"pending",
+
+createdAt:serverTimestamp()
+
+});
+
+await updateDoc(doc(db,"users",currentUser.uid),{
+
+balance:currentBalance-amt
+
+});
+
+currentBalance -= amt;
+
+hideLoading();
+
+showAlert(
+
+"Request Submitted",
+
+"Your crypto withdrawal request has been received successfully. The requested amount has been placed on hold while our finance team reviews your transaction. You'll be notified once it has been approved or declined.",
+
+"wallet.html"
+
+);
+
+}catch(error){
+
+console.log(error);
+
+showAlert(
+"Something went wrong. Please try again."
+);
+
+hideLoading();
+
+withdrawBtn.disabled = false;
+
+withdrawBtn.innerHTML = "Submit Withdrawal";
+
+}
+
+};
+
+</script>
+
+</body>
+</html>

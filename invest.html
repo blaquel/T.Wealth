@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#070707">
+<title>T.Wealth | Invest</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{min-height:100%;background:#070707;color:#fff}
+body{font-family:Poppins,sans-serif;overflow-x:hidden}
+button,input{font:inherit}
+button{cursor:pointer}
+.bg{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:-1}
+.glow{position:absolute;border-radius:50%;filter:blur(110px);opacity:.11}
+.g1{width:360px;height:360px;background:#d4af37;top:-180px;left:-180px}
+.g2{width:300px;height:300px;background:#ffd54a;right:-160px;bottom:-150px}
+
+.app{max-width:620px;margin:auto;padding:18px 16px 45px}
+.top{display:flex;align-items:center;gap:13px;margin-bottom:18px}
+.back{width:44px;height:44px;border:1px solid #282828;border-radius:14px;background:#111;color:#d4af37}
+.title h1{font-size:21px;font-weight:700}
+.title p{font-size:9px;color:#686868;letter-spacing:1px;margin-top:3px}
+
+.balance{
+background:linear-gradient(135deg,#171717,#0d0d0d);
+border:1px solid rgba(212,175,55,.2);
+border-radius:24px;padding:18px;margin-bottom:18px;
+display:flex;align-items:center;justify-content:space-between;gap:12px
+}
+.balance small{display:block;color:#777;font-size:9px;text-transform:uppercase;letter-spacing:1px}
+.balance strong{display:block;color:#e7c75b;font-size:19px;margin-top:4px}
+.balance i{font-size:22px;color:#d4af37}
+
+.hero{
+border:1px solid rgba(212,175,55,.2);border-radius:26px;padding:22px;
+background:linear-gradient(145deg,#17150e,#0e0e0e);margin-bottom:22px
+}
+.hero .eyebrow{font-size:9px;color:#d4af37;letter-spacing:1.4px;text-transform:uppercase;font-weight:700}
+.hero h2{font-size:25px;line-height:1.2;margin:8px 0}
+.hero p{font-size:10px;color:#8c8c8c;line-height:1.7;max-width:470px}
+
+.section-head{display:flex;justify-content:space-between;align-items:end;margin:0 2px 12px}
+.section-head h3{font-size:15px}
+.section-head span{font-size:9px;color:#696969}
+
+.plans{display:grid;gap:12px}
+.plan{
+background:#101010;border:1px solid #242424;border-radius:21px;padding:15px;
+transition:.2s;position:relative;overflow:hidden
+}
+.plan:hover{border-color:rgba(212,175,55,.4);transform:translateY(-2px)}
+.plan.featured{border-color:rgba(212,175,55,.4);background:linear-gradient(145deg,#16140d,#101010)}
+.plan-top{display:flex;gap:12px;align-items:center}
+.plan-icon{
+width:48px;height:48px;flex:0 0 48px;border-radius:15px;
+background:linear-gradient(135deg,#e4c257,#9c7510);display:flex;align-items:center;justify-content:center;color:#111;font-size:21px
+}
+.plan-info{min-width:0;flex:1}
+.plan-info h4{font-size:13px}
+.plan-info p{font-size:9px;color:#6f6f6f;margin-top:3px}
+.price{text-align:right}
+.price strong{font-size:15px;color:#e6c65d}
+.price small{display:block;font-size:8px;color:#666;margin-top:2px}
+.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin:13px 0}
+.metric{background:#0b0b0b;border:1px solid #1e1e1e;border-radius:11px;padding:9px}
+.metric span{display:block;color:#666;font-size:7px;text-transform:uppercase}
+.metric b{display:block;font-size:10px;margin-top:3px}
+.plan button,.custom button{
+width:100%;height:43px;border:0;border-radius:12px;background:linear-gradient(135deg,#e8c75c,#a97e12);
+color:#111;font-weight:800;font-size:10px
+}
+
+.custom{
+margin-top:20px;background:#101010;border:1px solid rgba(212,175,55,.2);
+border-radius:22px;padding:18px
+}
+.custom h3{font-size:15px}.custom p{font-size:9px;color:#777;margin:4px 0 15px}
+.custom label{font-size:9px;color:#999;display:block;margin-bottom:7px}
+.custom input{width:100%;height:46px;background:#080808;border:1px solid #292929;border-radius:12px;color:#fff;padding:0 13px;outline:none;font-size:12px;margin-bottom:12px}
+.custom input:focus{border-color:#d4af37}
+.custom-summary{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+.custom-summary div{background:#0b0b0b;border:1px solid #1e1e1e;border-radius:11px;padding:10px}
+.custom-summary span{display:block;color:#666;font-size:7px}
+.custom-summary b{display:block;color:#e4c257;font-size:11px;margin-top:3px}
+
+.modal{
+position:fixed;inset:0;background:rgba(0,0,0,.8);backdrop-filter:blur(8px);
+display:none;align-items:center;justify-content:center;padding:18px;z-index:100
+}
+.modal.show{display:flex}
+.box{width:100%;max-width:370px;background:#111;border:1px solid rgba(212,175,55,.25);border-radius:24px;padding:22px;text-align:center}
+.box .icon{width:58px;height:58px;border-radius:50%;margin:0 auto 13px;display:flex;align-items:center;justify-content:center;background:rgba(212,175,55,.1);color:#d4af37;font-size:25px}
+.box h2{font-size:18px}.box p{font-size:10px;color:#999;line-height:1.7;margin:8px 0 18px}
+.box button{width:100%;height:44px;border:0;border-radius:12px;background:linear-gradient(135deg,#e8c75c,#a97e12);font-weight:800;font-size:11px}
+
+.loading{position:fixed;inset:0;background:rgba(5,5,5,.92);display:none;align-items:center;justify-content:center;flex-direction:column;z-index:200}
+.loading.show{display:flex}
+.spinner{width:42px;height:42px;border:3px solid #29220d;border-top-color:#d4af37;border-radius:50%;animation:spin .7s linear infinite}
+.loading p{font-size:10px;color:#888;margin-top:12px}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+@media(max-width:430px){
+.app{padding:15px 12px 35px}.hero h2{font-size:22px}.price strong{font-size:13px}
+.metrics{gap:5px}.metric{padding:8px 6px}.metric b{font-size:9px}
+}
+</style>
+</head>
+
+<body>
+<div class="bg"><div class="glow g1"></div><div class="glow g2"></div></div>
+
+<main class="app">
+<header class="top">
+<button class="back" id="backBtn"><i class="bi bi-arrow-left"></i></button>
+<div class="title"><h1>Investment Center</h1><p>T.WEALTH · WEALTH MANAGEMENT</p></div>
+</header>
+
+<section class="balance">
+<div><small>Available Balance</small><strong id="availableBalance">$0.00</strong></div>
+<i class="bi bi-wallet2"></i>
+</section>
+
+<section class="hero">
+<div class="eyebrow">Build your portfolio</div>
+<h2>Choose an investment plan</h2>
+<p>Explore the available T.Wealth plans below. Review the amount, duration and projected return before confirming an investment.</p>
+</section>
+
+<div class="section-head"><h3>Investment Plans</h3><span>8 available plans</span></div>
+
+<section class="plans">
+
+<div class="plan" data-plan="Tesla Starter" data-price="100" data-duration="10" data-daily="30" data-total="300">
+<div class="plan-top"><div class="plan-icon"><i class="bi bi-lightning-charge"></i></div><div class="plan-info"><h4>Tesla Starter</h4><p>Entry portfolio</p></div><div class="price"><strong>$100</strong><small>minimum</small></div></div>
+<div class="metrics"><div class="metric"><span>Term</span><b>10 days</b></div><div class="metric"><span>Daily</span><b>$30</b></div><div class="metric"><span>Return</span><b>$300</b></div></div>
+<button class="invest-btn">Invest Now</button>
+</div>
+
+<div class="plan featured" data-plan="Tesla Model 3" data-price="500" data-duration="11" data-daily="120" data-total="1200">
+<div class="plan-top"><div class="plan-icon"><i class="bi bi-car-front"></i></div><div class="plan-info"><h4>Tesla Model 3</h4><p>Growth portfolio</p></div><div class="price"><strong>$500</strong><small>minimum</small></div></div>
+<div class="metrics"><div class="metric"><span>Term</span><b>11 days</b></div><div class="metric"><span>Daily</span><b>$120</b></div><div class="metric"><span>Return</span><b>$1,200</b></div></div>
+<button class="invest-btn">Invest Now</button>
+</div>
+
+<div class="plan" data-plan="Tesla Model Y" data-price="1000" data-duration="12" data-daily="250" data-total="2500">
+<div class="plan-top"><div class="plan-icon"><i class="bi bi-bar-chart"></i></div><div class="plan-info"><h4>Tesla Model Y</h4><p>Balanced portfolio</p></div><div class="price"><strong>$1,000</strong><small>minimum</small></div></div>
+<div class="metrics"><div class="metric"><span>Term</span><b>12 days</b></div><div class="metric"><span>Daily</span><b>$250</b></div><div class="metric"><span>Return</span><b>$2,500</b></div></div>
+<button class="invest-btn">Invest Now</button>
+</div>
+
+<div class="plan" data-plan="Tesla Model S" data-price="5000" data-duration="13" data-daily="1200" data-total="12000">
+<div class="plan-top"><div class="plan-icon"><i class="bi bi-gem"></i></div><div class="plan-info"><h4>Tesla Model S</h4><p>Premium portfolio</p></div><div class="price"><strong>$5,000</strong><small>minimum</small></div></div>
+<div class="metrics"><div class="metric"><span>Term</span><b>13 days</b></div><div class="metric"><span>Daily</span><b>$1,200</b></div><div class="metric"><span>Return</span><b>$12,000</b></div></div>
+<button class="invest-btn">Invest Now</button>
+</div>
+
+<div class="plan" data-plan="Tesla Model X" data-price="10000" data-duration="14" data-daily="2500" data-total="25000">
+<div class="plan-top"><div class="plan-icon"><i class="bi bi-stars"></i></div><div class="plan-info"><h4>Tesla Model X</h4><p>Advanced portfolio</p></div><div class="price"><strong>$10,000</strong><small>minimum</small></div></div>
+<div class="metrics"><div class="metric"><span>Term</span><b>14 days</b></div><div class="metric"><span>Daily</span><b>$2,500</b></div><div class="metric"><span>Return</span><b>$25,000</b></div></div>
+<button class="invest-btn">Invest Now</button>
+</div>
+
+<div class="plan" data-plan="Cybertruck" data-price="50000" data-duration="15" data-daily="12000" data-total="120000">
+<div class="plan-top"><div class="plan-icon"><i class="bi bi-shield-check"></i></div><div class="plan-info"><h4>Cybertruck</h4><p>Elite portfolio</p></div><div class="price"><strong>$50,000</strong><small>minimum</small></div></div>
+<div class="metrics"><div class="metric"><span>Term</span><b>15 days</b></div><div class="metric"><span>Daily</span><b>$12,000</b></div><div class="metric"><span>Return</span><b>$120,000</b></div></div>
+<button class="invest-btn">Invest Now</button>
+</div>
+
+<div class="plan" data-plan="Tesla Semi" data-price="100000" data-duration="16" data-daily="25000" data-total="250000">
+<div class="plan-top"><div class="plan-icon"><i class="bi bi-truck"></i></div><div class="plan-info"><h4>Tesla Semi</h4><p>Institutional portfolio</p></div><div class="price"><strong>$100,000</strong><small>minimum</small></div></div>
+<div class="metrics"><div class="metric"><span>Term</span><b>16 days</b></div><div class="metric"><span>Daily</span><b>$25,000</b></div><div class="metric"><span>Return</span><b>$250,000</b></div></div>
+<button class="invest-btn">Invest Now</button>
+</div>
+
+<div class="plan" data-plan="Tesla Optimus" data-price="500000" data-duration="17" data-daily="120000" data-total="1200000">
+<div class="plan-top"><div class="plan-icon"><i class="bi bi-cpu"></i></div><div class="plan-info"><h4>Tesla Optimus</h4><p>Private portfolio</p></div><div class="price"><strong>$500,000</strong><small>minimum</small></div></div>
+<div class="metrics"><div class="metric"><span>Term</span><b>17 days</b></div><div class="metric"><span>Daily</span><b>$120,000</b></div><div class="metric"><span>Return</span><b>$1,200,000</b></div></div>
+<button class="invest-btn">Invest Now</button>
+</div>
+
+</section>
+
+<section class="custom">
+<h3>Custom Investment</h3>
+<p>Set your own amount from the $2,000 minimum.</p>
+<label for="customAmount">Investment amount</label>
+<input id="customAmount" type="number" min="2000" placeholder="2,000">
+<div class="custom-summary">
+<div><span>Duration</span><b>15 days</b></div>
+<div><span>Daily profit</span><b id="dailyProfit">$300</b></div>
+<div><span>Total return</span><b id="totalReturn">$4,500</b></div>
+<div><span>Rate</span><b>15% / day</b></div>
+</div>
+<button id="customInvestBtn">Invest Custom Amount</button>
+</section>
+</main>
+
+<div class="modal" id="modal">
+<div class="box">
+<div class="icon" id="modalIcon"><i class="bi bi-check-circle-fill"></i></div>
+<h2 id="modalTitle">Success</h2>
+<p id="modalMessage"></p>
+<button id="modalButton">Continue</button>
+</div>
+</div>
+
+<div class="loading" id="loading">
+<div class="spinner"></div><p id="loadingText">Processing investment...</p>
+</div>
+
+<script type="module">
+import {initializeApp} from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
+import {getAuth,onAuthStateChanged} from "https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js";
+import {getFirestore,doc,getDoc,collection,addDoc,updateDoc,serverTimestamp} from "https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
+
+const firebaseConfig={
+apiKey:"AIzaSyCfmUdXAvdktAZ7RRFYGq5R2ZMgFQjBIHg",
+authDomain:"t-wealth-6c492.firebaseapp.com",
+projectId:"t-wealth-6c492",
+storageBucket:"t-wealth-6c492.firebasestorage.app",
+messagingSenderId:"920631507931",
+appId:"1:920631507931:web:ec6769afe5feebfed0c5fe"
+};
+const app=initializeApp(firebaseConfig),auth=getAuth(app),db=getFirestore(app);
+
+let currentUser=null,userData=null;
+
+const rates={USD:1,EUR:.92,GBP:.79,NGN:1550,CAD:1.37,AUD:1.53,JPY:161,CNY:7.25,BTC:.0000085,ETH:.00026};
+const symbols={USD:"$",EUR:"€",GBP:"£",NGN:"₦",CAD:"C$",AUD:"A$",JPY:"¥",CNY:"¥",BTC:"₿",ETH:"Ξ"};
+
+const balanceEl=document.getElementById("availableBalance");
+const customAmount=document.getElementById("customAmount");
+const dailyProfit=document.getElementById("dailyProfit");
+const totalReturn=document.getElementById("totalReturn");
+const loading=document.getElementById("loading");
+const modal=document.getElementById("modal");
+
+function money(n){
+const c=userData?.currency||"USD",s=symbols[c]||"$",r=rates[c]||1;
+return s+Number(n*r).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});
+}
+function updateBalance(){balanceEl.textContent=money(Number(userData?.balance||0));}
+
+function showModal(type,title,message){
+document.getElementById("modalIcon").innerHTML=type==="error"
+?'<i class="bi bi-x-circle-fill"></i>':'<i class="bi bi-check-circle-fill"></i>';
+document.getElementById("modalTitle").textContent=title;
+document.getElementById("modalMessage").textContent=message;
+modal.classList.add("show");
+}
+document.getElementById("modalButton").onclick=()=>{modal.classList.remove("show");};
+
+document.getElementById("backBtn").onclick=()=>location.href="dashboard.html";
+
+onAuthStateChanged(auth,async user=>{
+if(!user){location.href="login.html";return}
+currentUser=user;
+try{
+const snap=await getDoc(doc(db,"users",user.uid));
+if(!snap.exists()){location.href="login.html";return}
+userData=snap.data();updateBalance();
+}catch(e){showModal("error","Unable to load","Your account data could not be loaded.");}
+});
+
+customAmount.addEventListener("input",()=>{
+const amount=Number(customAmount.value);
+const symbol=symbols[userData?.currency||"USD"]||"$";
+if(!amount||amount<2000){dailyProfit.textContent=symbol+"300";totalReturn.textContent=symbol+"4,500";return}
+dailyProfit.textContent=symbol+(amount*.15).toLocaleString();
+totalReturn.textContent=symbol+(amount*.15*15).toLocaleString();
+});
+
+async function submitInvestment(inv){
+if(!currentUser||!userData)return;
+const balance=Number(userData.balance||0);
+if(balance<inv.amount){showModal("error","Insufficient balance","You do not have enough available funds for this investment.");return}
+
+loading.classList.add("show");
+try{
+await updateDoc(doc(db,"users",currentUser.uid),{
+balance:balance-inv.amount,
+totalInvested:Number(userData.totalInvested||0)+inv.amount,
+activePlans:Number(userData.activePlans||0)+1
+});
+
+await addDoc(collection(db,"investments"),{
+uid:currentUser.uid,fullname:userData.fullname||"",email:currentUser.email||"",
+plan:inv.plan,amount:inv.amount,duration:inv.duration,dailyProfit:inv.dailyProfit,
+totalReturn:inv.totalReturn,status:"active",createdAt:serverTimestamp()
+});
+
+await addDoc(collection(db,"history"),{
+uid:currentUser.uid,title:inv.plan,type:"Investment",amount:inv.amount,status:"Completed",createdAt:serverTimestamp()
+});
+
+await addDoc(collection(db,"wallet"),{
+uid:currentUser.uid,type:"Investment Debit",amount:inv.amount,status:"Completed",createdAt:serverTimestamp()
+});
+
+await addDoc(collection(db,"notifications"),{
+uid:currentUser.uid,title:"Investment Successful",
+message:`You have successfully invested $${inv.amount.toLocaleString()} in ${inv.plan}.`,
+type:"investment",read:false,createdAt:serverTimestamp()
+});
+
+const fresh=await getDoc(doc(db,"users",currentUser.uid));
+userData=fresh.data();updateBalance();
+showModal("success","Investment activated","Your investment has been recorded successfully.");
+}catch(e){
+console.error(e);showModal("error","Investment failed",e.message||"Unable to complete the investment.");
+}finally{loading.classList.remove("show");}
+}
+
+document.querySelectorAll(".invest-btn").forEach(btn=>{
+btn.onclick=()=>{
+const card=btn.closest(".plan");
+submitInvestment({
+plan:card.dataset.plan,amount:Number(card.dataset.price),duration:Number(card.dataset.duration),
+dailyProfit:Number(card.dataset.daily),totalReturn:Number(card.dataset.total)
+});
+};
+});
+
+document.getElementById("customInvestBtn").onclick=()=>{
+const amount=Number(customAmount.value);
+if(!amount||amount<2000){showModal("error","Minimum investment","The minimum custom investment is $2,000.");return}
+submitInvestment({plan:"Custom Investment",amount,duration:15,dailyProfit:amount*.15,totalReturn:amount*.15*15});
+};
+</script>
+</body>
+</html>

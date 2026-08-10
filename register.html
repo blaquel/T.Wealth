@@ -1,0 +1,1531 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+<meta
+name="theme-color"
+content="#0b0b0b">
+
+<meta
+name="apple-mobile-web-app-capable"
+content="yes">
+
+<meta
+name="apple-mobile-web-app-status-bar-style"
+content="black-translucent">
+
+<title>T.Wealth | Create Account</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+/* ==========================
+RESET
+========================== */
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+-webkit-tap-highlight-color:transparent;
+}
+
+html{
+scroll-behavior:smooth;
+touch-action:manipulation;
+}
+
+body{
+
+background:#080808;
+color:#fff;
+overflow-x:hidden;
+min-height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+padding:25px 15px;
+position:relative;
+
+}
+
+/* ==========================
+BACKGROUND
+========================== */
+
+.bg-gradient{
+
+position:fixed;
+border-radius:50%;
+filter:blur(130px);
+z-index:-1;
+animation:floatGlow 10s ease-in-out infinite;
+
+}
+
+.bg1{
+
+width:380px;
+height:380px;
+background:#D4AF37;
+top:-180px;
+left:-180px;
+opacity:.10;
+
+}
+
+.bg2{
+
+width:320px;
+height:320px;
+background:#FFD54A;
+bottom:-150px;
+right:-150px;
+opacity:.08;
+animation-delay:4s;
+
+}
+
+@keyframes floatGlow{
+
+0%,100%{
+
+transform:translateY(0);
+
+}
+
+50%{
+
+transform:translateY(30px);
+
+}
+
+}
+
+/* ==========================
+REGISTER CARD
+========================== */
+
+.register-card{
+
+width:100%;
+max-width:470px;
+background:#121212;
+border:1px solid rgba(212,175,55,.18);
+border-radius:28px;
+padding:35px 28px;
+box-shadow:
+
+0 20px 50px rgba(0,0,0,.55),
+
+0 0 35px rgba(212,175,55,.08);
+
+animation:cardIn .6s ease;
+
+}
+
+@keyframes cardIn{
+
+from{
+
+opacity:0;
+transform:translateY(40px);
+
+}
+
+to{
+
+opacity:1;
+transform:translateY(0);
+
+}
+
+}
+
+/* ==========================
+LOGO
+========================== */
+
+.logo-area{
+
+text-align:center;
+margin-bottom:30px;
+
+}
+
+.logo{
+
+width:90px;
+height:90px;
+object-fit:contain;
+margin-bottom:15px;
+animation:logoFloat 3s ease-in-out infinite;
+
+}
+
+@keyframes logoFloat{
+
+0%,100%{
+
+transform:translateY(0);
+
+}
+
+50%{
+
+transform:translateY(-6px);
+
+}
+
+}
+
+.logo-area h1{
+
+font-size:30px;
+font-weight:700;
+color:#D4AF37;
+
+}
+
+.logo-area p{
+
+margin-top:8px;
+font-size:14px;
+color:#999;
+
+}
+
+/* ==========================
+FORM
+========================== */
+
+.input-group{
+
+margin-bottom:18px;
+
+}
+
+.input-group label{
+
+display:block;
+margin-bottom:8px;
+font-size:14px;
+font-weight:500;
+color:#ddd;
+
+}
+
+.input-group input,
+.input-group select{
+
+width:100%;
+height:58px;
+padding:0 18px;
+border:none;
+outline:none;
+border-radius:16px;
+background:#1b1b1b;
+border:1px solid #2d2d2d;
+color:#fff;
+font-size:15px;
+transition:.3s;
+
+}
+
+.input-group input::placeholder{
+
+color:#777;
+
+}
+
+.input-group input:focus,
+.input-group select:focus{
+
+border-color:#D4AF37;
+box-shadow:0 0 18px rgba(212,175,55,.18);
+
+}
+
+/* ==========================
+PHONE
+========================== */
+
+.phone-container{
+display:grid;
+grid-template-columns:110px 1fr;
+gap:12px;
+width:100%;
+}
+
+.phone-container select{
+width:100%;
+height:58px;
+}
+
+.phone-container input{
+width:100%;
+height:58px;
+}
+
+/* ==========================
+PASSWORD
+========================== */
+
+.password-box{
+
+position:relative;
+
+}
+
+.password-box input{
+
+padding-right:85px;
+
+}
+
+.toggle-password{
+
+position:absolute;
+right:14px;
+top:50%;
+transform:translateY(-50%);
+border:none;
+background:none;
+color:#D4AF37;
+font-size:14px;
+font-weight:600;
+cursor:pointer;
+transition:.3s;
+
+}
+
+.toggle-password:hover{
+
+color:#FFD54A;
+
+}
+
+/* ==========================
+TERMS
+========================== */
+
+.terms-box{
+
+display:flex;
+align-items:flex-start;
+gap:10px;
+margin:22px 0;
+
+}
+
+.terms-box input{
+
+width:18px;
+height:18px;
+margin-top:3px;
+accent-color:#D4AF37;
+
+}
+
+.terms-box label{
+
+font-size:14px;
+line-height:1.7;
+color:#aaa;
+
+}
+
+.terms-box a{
+
+color:#D4AF37;
+text-decoration:none;
+font-weight:600;
+
+}
+
+.terms-box a:hover{
+
+text-decoration:underline;
+
+}
+
+/* ==========================
+REGISTER BUTTON
+========================== */
+
+.register-btn{
+
+width:100%;
+height:58px;
+border:none;
+border-radius:50px;
+background:linear-gradient(135deg,#FFD54A,#C99A06);
+color:#111;
+font-size:16px;
+font-weight:700;
+cursor:pointer;
+transition:.35s;
+
+}
+
+.register-btn:hover{
+
+transform:translateY(-3px);
+
+box-shadow:
+
+0 15px 35px rgba(212,175,55,.35);
+
+}
+
+.register-btn:active{
+
+transform:scale(.98);
+
+}
+
+/* ==========================
+BOTTOM LINK
+========================== */
+
+.bottom-text{
+
+margin-top:25px;
+text-align:center;
+color:#999;
+font-size:15px;
+
+}
+
+.bottom-text a{
+
+color:#D4AF37;
+font-weight:600;
+text-decoration:none;
+
+}
+
+/* ==========================
+PREMIUM LOADING OVERLAY
+========================== */
+
+.loading-overlay{
+    position:fixed;
+    inset:0;
+    display:none;
+    justify-content:center;
+    align-items:center;
+    background:rgba(0,0,0,.96);
+    backdrop-filter:blur(15px);
+    z-index:999999;
+}
+
+.loading-box{
+    position:relative;
+    text-align:center;
+}
+
+.logo-ring{
+
+    position:absolute;
+    width:150px;
+    height:150px;
+
+    border-radius:50%;
+
+    border:4px solid rgba(212,175,55,.15);
+
+    border-top:4px solid #FFD54A;
+
+    left:50%;
+    top:18px;
+
+    transform:translateX(-50%);
+
+    animation:ringSpin 1.2s linear infinite;
+
+}
+
+.loading-logo{
+
+    width:100px;
+    height:100px;
+
+    object-fit:contain;
+
+    position:relative;
+
+    z-index:2;
+
+    animation:logoPulse 1.5s ease-in-out infinite;
+
+    filter:
+    drop-shadow(0 0 10px gold)
+    drop-shadow(0 0 30px rgba(255,215,0,.8));
+
+}
+
+.loading-box h2{
+
+    margin-top:40px;
+
+    color:#FFD54A;
+
+    font-size:26px;
+
+    font-weight:700;
+
+}
+
+.loading-box p{
+
+    margin-top:10px;
+
+    color:#cccccc;
+
+    font-size:15px;
+
+    line-height:1.8;
+
+}
+
+.loading-dots{
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:8px;
+
+    margin-top:28px;
+
+}
+
+.loading-dots span{
+
+    width:10px;
+
+    height:10px;
+
+    border-radius:50%;
+
+    background:#FFD54A;
+
+    animation:dots 1.2s infinite;
+
+}
+
+.loading-dots span:nth-child(2){
+
+    animation-delay:.2s;
+
+}
+
+.loading-dots span:nth-child(3){
+
+    animation-delay:.4s;
+
+}
+
+@keyframes ringSpin{
+
+    from{
+
+        transform:translateX(-50%) rotate(0deg);
+
+    }
+
+    to{
+
+        transform:translateX(-50%) rotate(360deg);
+
+    }
+
+}
+
+@keyframes logoPulse{
+
+    0%,100%{
+
+        transform:scale(1);
+
+    }
+
+    50%{
+
+        transform:scale(1.08);
+
+    }
+
+}
+
+@keyframes dots{
+
+    0%,100%{
+
+        opacity:.3;
+
+        transform:translateY(0);
+
+    }
+
+    50%{
+
+        opacity:1;
+
+        transform:translateY(-10px);
+
+    }
+
+}
+
+/* ==========================
+PREMIUM ALERT
+========================== */
+
+.alert-overlay{
+
+position:fixed;
+inset:0;
+display:none;
+justify-content:center;
+align-items:center;
+background:rgba(0,0,0,.88);
+backdrop-filter:blur(10px);
+z-index:100000;
+
+}
+
+.alert-card{
+
+width:90%;
+max-width:360px;
+background:#151515;
+border:1px solid rgba(212,175,55,.25);
+border-radius:24px;
+padding:35px 28px;
+text-align:center;
+animation:alertIn .35s ease;
+
+}
+
+@keyframes alertIn{
+
+from{
+
+opacity:0;
+transform:scale(.85);
+
+}
+
+to{
+
+opacity:1;
+transform:scale(1);
+
+}
+
+}
+
+.alert-icon{
+
+width:78px;
+height:78px;
+margin:0 auto 20px;
+border-radius:50%;
+display:flex;
+justify-content:center;
+align-items:center;
+background:linear-gradient(135deg,#FFD54A,#C99A06);
+color:#111;
+font-size:34px;
+font-weight:700;
+
+}
+
+.alert-card h2{
+
+font-size:24px;
+margin-bottom:12px;
+color:#fff;
+
+}
+
+.alert-card p{
+
+font-size:15px;
+line-height:1.8;
+color:#bcbcbc;
+
+}
+
+.alert-card button{
+
+margin-top:25px;
+width:100%;
+height:52px;
+border:none;
+border-radius:50px;
+background:linear-gradient(135deg,#FFD54A,#C99A06);
+color:#111;
+font-size:15px;
+font-weight:700;
+cursor:pointer;
+transition:.3s;
+
+}
+
+.alert-card button:hover{
+
+transform:translateY(-2px);
+
+}
+
+/* ==========================
+RESPONSIVE
+========================== */
+
+@media(max-width:600px){
+
+.register-card{
+
+padding:28px 22px;
+
+}
+
+.logo{
+
+width:75px;
+height:75px;
+
+}
+
+.logo-area h1{
+
+font-size:26px;
+
+}
+
+.phone-container{
+
+flex-direction:column;
+
+}
+
+.phone-container select{
+
+width:100%;
+
+}
+
+.phone-container input{
+
+width:100%;
+
+}
+
+}
+
+.phone-container input{
+width:100% !important;
+height:58px !important;
+flex:none !important;
+}
+
+.phone-container select{
+width:100% !important;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- Animated Background -->
+
+<div class="bg-gradient bg1"></div>
+
+<div class="bg-gradient bg2"></div>
+
+<!-- Register Card -->
+
+<div class="register-card">
+
+<!-- Logo -->
+
+<div class="logo-area">
+
+<img
+src="logo.png"
+alt="T.Wealth Logo"
+class="logo">
+
+<h1>T.Wealth</h1>
+
+<p>
+
+Secure Wealth. Smarter Investing.
+
+</p>
+
+</div>
+
+<!-- Register Form -->
+
+<form id="registerForm" autocomplete="off">
+
+<!-- Full Name -->
+
+<div class="input-group">
+
+<label>
+
+Full Name
+
+</label>
+
+<input
+type="text"
+id="fullname"
+placeholder="Enter your full name"
+required>
+
+</div>
+
+<!-- Username -->
+
+<div class="input-group">
+
+<label>
+
+Username
+
+</label>
+
+<input
+type="text"
+id="username"
+placeholder="Choose a unique username"
+required>
+
+</div>
+
+<!-- Email -->
+
+<div class="input-group">
+
+<label>
+
+Email Address
+
+</label>
+
+<input
+type="email"
+id="email"
+placeholder="Enter your email"
+required>
+
+</div>
+
+<!-- Phone -->
+
+<div class="input-group">
+
+<label>
+
+Phone Number
+
+</label>
+
+<div class="phone-container">
+
+<select id="countryCode">
+
+<option value="+1" selected>🇺🇸 +1</option>
+<option value="+44">🇬🇧 +44</option>
+<option value="+1">🇨🇦 +1</option>
+<option value="+61">🇦🇺 +61</option>
+<option value="+234">🇳🇬 +234</option>
+<option value="+27">🇿🇦 +27</option>
+<option value="+233">🇬🇭 +233</option>
+<option value="+254">🇰🇪 +254</option>
+<option value="+91">🇮🇳 +91</option>
+<option value="+86">🇨🇳 +86</option>
+<option value="+81">🇯🇵 +81</option>
+<option value="+49">🇩🇪 +49</option>
+<option value="+33">🇫🇷 +33</option>
+<option value="+39">🇮🇹 +39</option>
+<option value="+34">🇪🇸 +34</option>
+<option value="+971">🇦🇪 +971</option>
+<option value="+966">🇸🇦 +966</option>
+<option value="+55">🇧🇷 +55</option>
+<option value="+52">🇲🇽 +52</option>
+<option value="+90">🇹🇷 +90</option>
+
+</select>
+
+<input
+type="tel"
+id="phone"
+placeholder="Enter phone number"
+inputmode="numeric"
+autocomplete="tel"
+required>
+
+</div>
+
+</div>
+
+<!-- Password -->
+
+<div class="input-group">
+
+<label>
+
+Password
+
+</label>
+
+<div class="password-box">
+
+<input
+type="password"
+id="password"
+placeholder="Create a strong password"
+autocomplete="new-password"
+required>
+
+<button
+type="button"
+class="toggle-password"
+data-target="password">
+
+Show
+
+</button>
+
+</div>
+
+</div>
+
+<!-- Confirm Password -->
+
+<div class="input-group">
+
+<label>
+
+Confirm Password
+
+</label>
+
+<div class="password-box">
+
+<input
+type="password"
+id="confirmPassword"
+placeholder="Confirm your password"
+autocomplete="new-password"
+required>
+
+<button
+type="button"
+class="toggle-password"
+data-target="confirmPassword">
+
+Show
+
+</button>
+
+</div>
+
+</div>
+
+<!-- Terms -->
+
+<div class="terms-box">
+
+<input
+type="checkbox"
+id="terms"
+required>
+
+<label for="terms">
+
+I agree to the
+
+<a href="terms.html">
+
+Terms & Conditions
+
+</a>
+
+</label>
+
+</div>
+
+<!-- Register Button -->
+
+<button
+type="submit"
+class="register-btn">
+
+Create Account
+
+</button>
+
+</form>
+
+<!-- Login -->
+
+<div class="bottom-text">
+
+Already have an account?
+
+<a href="login.html">
+
+Login
+
+</a>
+
+</div>
+
+</div>
+
+<!-- ==========================
+Loading Overlay
+========================== -->
+
+<div class="loading-overlay" id="loadingOverlay">
+
+    <div class="loading-box">
+
+        <div class="logo-ring"></div>
+
+        <img
+            src="logo.png"
+            class="loading-logo"
+            alt="Tesla">
+
+        <h2 id="loadingTitle">
+            Please Wait...
+        </h2>
+
+        <p id="loadingText">
+            Securing your request...
+        </p>
+
+        <div class="loading-dots">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+    </div>
+
+</div>
+
+</div>
+
+<div
+class="alert-overlay"
+id="alertOverlay">
+
+<div class="alert-card">
+
+<div
+class="alert-icon"
+id="alertIcon">
+
+✓
+
+</div>
+
+<h2
+id="alertTitle">
+
+Success
+
+</h2>
+
+<p
+id="alertMessage">
+
+Your request was completed successfully.
+
+</p>
+
+<button
+type="button"
+id="alertButton">
+
+Continue
+
+</button>
+
+</div>
+
+</div>
+
+<!-- ==========================
+Firebase & JavaScript
+(Part 2)
+========================== -->
+
+<script type="module">
+
+/* ==========================
+FIREBASE
+========================== */
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
+
+import {
+getAuth,
+createUserWithEmailAndPassword
+} from "https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js";
+
+import {
+getFirestore,
+collection,
+query,
+where,
+getDocs,
+doc,
+setDoc,
+serverTimestamp
+} from "https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
+
+const firebaseConfig={
+
+apiKey:"AIzaSyCfmUdXAvdktAZ7RRFYGq5R2ZMgFQjBIHg",
+
+authDomain:"t-wealth-6c492.firebaseapp.com",
+
+projectId:"t-wealth-6c492",
+
+storageBucket:"t-wealth-6c492.firebasestorage.app",
+
+messagingSenderId:"920631507931",
+
+appId:"1:920631507931:web:ec6769afe5feebfed0c5fe"
+
+};
+
+const app=initializeApp(firebaseConfig);
+
+const auth=getAuth(app);
+
+const db=getFirestore(app);
+
+/* ==========================
+ELEMENTS
+========================== */
+
+const form=document.getElementById("registerForm");
+
+const loadingOverlay=document.getElementById("loadingOverlay");
+
+const alertOverlay=document.getElementById("alertOverlay");
+
+const alertIcon=document.getElementById("alertIcon");
+
+const alertTitle=document.getElementById("alertTitle");
+
+const alertMessage=document.getElementById("alertMessage");
+
+const alertButton=document.getElementById("alertButton");
+
+const password=document.getElementById("password");
+
+const confirmPassword=document.getElementById("confirmPassword");
+
+/* ==========================
+SHOW / HIDE PASSWORD
+========================== */
+
+document.querySelectorAll(".toggle-password").forEach(button => {
+
+    button.addEventListener("click", () => {
+
+        const input = document.getElementById(button.dataset.target);
+
+        if (!input) return;
+
+        if (input.type === "password") {
+
+            input.type = "text";
+            button.textContent = "Hide";
+
+        } else {
+
+            input.type = "password";
+            button.textContent = "Show";
+
+        }
+
+    });
+
+});
+
+/* ==========================
+LOADING
+========================== */
+
+function showLoading(){
+
+loadingOverlay.style.display="flex";
+
+}
+
+function hideLoading(){
+
+loadingOverlay.style.display="none";
+
+}
+
+/* ==========================
+PREMIUM ALERT
+========================== */
+
+function showAlert(type,title,message){
+
+hideLoading();
+
+alertOverlay.style.display="flex";
+
+alertTitle.textContent=title;
+
+alertMessage.textContent=message;
+
+switch(type){
+
+case "success":
+
+alertIcon.innerHTML="✓";
+
+alertIcon.style.background="linear-gradient(135deg,#FFD54A,#C99A06)";
+
+break;
+
+case "warning":
+
+alertIcon.innerHTML="!";
+
+alertIcon.style.background="#d4af37";
+
+break;
+
+case "error":
+
+alertIcon.innerHTML="✕";
+
+alertIcon.style.background="#d32f2f";
+
+break;
+
+}
+
+}
+
+alertButton.onclick=function(){
+
+alertOverlay.style.display="none";
+
+};
+
+/* ==========================
+REGISTER VALIDATION
+PART 2A-2
+========================== */
+
+form.addEventListener("submit",async(e)=>{
+
+e.preventDefault();
+
+const fullname=document.getElementById("fullname").value.trim();
+
+const username=document.getElementById("username").value.trim().toLowerCase();
+
+const email=document.getElementById("email").value.trim();
+
+const countryCode=document.getElementById("countryCode").value;
+
+const phone=document.getElementById("phone").value.trim();
+
+const passwordValue=password.value;
+
+const confirmValue=confirmPassword.value;
+
+const terms=document.getElementById("terms").checked;
+
+const fullPhone=countryCode+phone;
+
+/* FULL NAME */
+
+if(fullname.length<3){
+
+showAlert(
+
+"warning",
+
+"Invalid Name",
+
+"Please enter your full name."
+
+);
+
+return;
+
+}
+
+/* USERNAME */
+
+if(username.length<4){
+
+showAlert(
+
+"warning",
+
+"Invalid Username",
+
+"Username must contain at least 4 characters."
+
+);
+
+return;
+
+}
+
+/* EMAIL */
+
+const emailPattern=/^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+if(!emailPattern.test(email)){
+
+showAlert(
+
+"warning",
+
+"Invalid Email",
+
+"Please enter a valid email address."
+
+);
+
+return;
+
+}
+
+/* PHONE */
+
+if(phone.length<7){
+
+showAlert(
+
+"warning",
+
+"Invalid Phone Number",
+
+"Please enter a valid phone number."
+
+);
+
+return;
+
+}
+
+/* PASSWORD */
+
+if(passwordValue.length<6){
+
+showAlert(
+
+"warning",
+
+"Weak Password",
+
+"Password must be at least 6 characters long."
+
+);
+
+return;
+
+}
+
+if(passwordValue!==confirmValue){
+
+showAlert(
+
+"error",
+
+"Password Mismatch",
+
+"The passwords you entered do not match."
+
+);
+
+return;
+
+}
+
+/* TERMS */
+
+if(!terms){
+
+showAlert(
+
+"warning",
+
+"Terms Required",
+
+"You must agree to the Terms & Conditions before creating your account."
+
+);
+
+return;
+
+}
+
+/* SHOW LOADING */
+
+showLoading();
+
+
+try{
+
+console.log("Step 1: Loading shown");
+
+// Check whether the username already exists
+
+const usernameQuery = query(
+collection(db,"users"),
+where("username","==",username)
+);
+
+const usernameSnapshot = await getDocs(usernameQuery);
+
+console.log("Step 2: Username checked");
+
+if(!usernameSnapshot.empty){
+
+hideLoading();
+
+showAlert(
+"error",
+"Username Already Exists",
+"Please choose another username."
+);
+
+return;
+
+}
+
+// Create Firebase Authentication account
+
+const userCredential = await createUserWithEmailAndPassword(
+
+auth,
+email,
+passwordValue
+
+);
+
+const user = userCredential.user;
+
+console.log("Step 3: Auth account created");
+
+// Save user document
+
+await setDoc(doc(db,"users",user.uid),{
+
+uid:user.uid,
+
+fullname:fullname,
+
+username:username,
+
+email:email,
+
+phone:fullPhone,
+
+balance:0,
+
+totalDeposit:0,
+
+totalWithdrawal:0,
+
+totalProfit:0,
+
+status:"Active",
+
+kycVerified:false,
+
+createdAt:serverTimestamp()
+
+});
+
+console.log("Step 4: Firestore document saved");
+
+// Registration Successful
+
+hideLoading();
+
+console.log("Step 5: Loading hidden");
+
+showAlert(
+
+"success",
+
+"Registration Successful",
+
+"Welcome to T.Wealth! Your account has been created successfully."
+
+);
+
+// Redirect after clicking Continue
+
+alertButton.onclick=function(){
+
+alertOverlay.style.display="none";
+
+window.location.href="dashboard.html";
+
+};
+
+}catch(error){
+
+hideLoading();
+
+console.log(error);
+console.error(error);
+
+showAlert(
+    "error",
+    "Registration Failed",
+    error.code + "\n\n" + error.message
+);
+
+}
+
+});
+
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+<meta name="theme-color" content="#050505">
+
+<title>T.Wealth | Admin Login</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link rel="preconnect"
+href="https://fonts.gstatic.com"
+crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+rel="stylesheet">
+
+<link rel="stylesheet"
+href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    -webkit-tap-highlight-color:transparent;
+}
+
+html,
+body{
+    width:100%;
+    min-height:100%;
+    overflow-x:hidden;
+}
+
+body{
+    font-family:"Poppins",sans-serif;
+    background:#050505;
+    color:#fff;
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+}
+
+.container{
+    width:100%;
+    max-width:430px;
+}
+
+/* LOGO */
+
+.logo-area{
+    text-align:center;
+    margin-bottom:28px;
+}
+
+.logo{
+    width:76px;
+    height:76px;
+    object-fit:contain;
+    margin-bottom:15px;
+}
+
+.logo-area h1{
+    font-size:28px;
+    font-weight:800;
+    color:#FFD54A;
+}
+
+.logo-area p{
+    color:#777;
+    font-size:12px;
+    margin-top:5px;
+}
+
+/* CARD */
+
+.login-card{
+    background:#111;
+    border:1px solid rgba(212,175,55,.22);
+    border-radius:24px;
+    padding:28px 22px;
+    box-shadow:0 20px 50px rgba(0,0,0,.4);
+}
+
+.admin-badge{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    color:#FFD54A;
+    font-size:12px;
+    font-weight:700;
+    margin-bottom:22px;
+}
+
+.admin-badge i{
+    font-size:17px;
+}
+
+/* INPUT */
+
+.input-group{
+    margin-bottom:16px;
+}
+
+.input-group label{
+    display:block;
+    font-size:12px;
+    color:#aaa;
+    margin-bottom:8px;
+}
+
+.input-box{
+    position:relative;
+}
+
+.input-box i{
+    position:absolute;
+    left:15px;
+    top:50%;
+    transform:translateY(-50%);
+    color:#777;
+    font-size:17px;
+}
+
+.input-box input{
+    width:100%;
+    height:52px;
+    background:#080808;
+    border:1px solid rgba(212,175,55,.16);
+    border-radius:14px;
+    padding:0 48px;
+    color:#fff;
+    font-family:"Poppins",sans-serif;
+    font-size:14px;
+    outline:none;
+}
+
+.input-box input:focus{
+    border-color:#FFD54A;
+}
+
+.input-box input::placeholder{
+    color:#555;
+}
+
+/* PASSWORD */
+
+.password-toggle{
+    position:absolute;
+    right:14px;
+    top:50%;
+    transform:translateY(-50%);
+    border:none;
+    background:none;
+    color:#FFD54A;
+    font-family:"Poppins",sans-serif;
+    font-size:11px;
+    font-weight:700;
+    cursor:pointer;
+}
+
+/* BUTTON */
+
+.login-btn{
+    width:100%;
+    height:52px;
+    border:none;
+    border-radius:14px;
+    background:linear-gradient(135deg,#FFD54A,#C89B09);
+    color:#111;
+    font-family:"Poppins",sans-serif;
+    font-size:14px;
+    font-weight:800;
+    cursor:pointer;
+    margin-top:7px;
+}
+
+.login-btn:disabled{
+    opacity:.55;
+    cursor:not-allowed;
+}
+
+/* ERROR */
+
+.message{
+    display:none;
+    background:rgba(255,70,70,.09);
+    border:1px solid rgba(255,70,70,.22);
+    border-radius:13px;
+    padding:12px;
+    margin-bottom:16px;
+    color:#ff8585;
+    font-size:12px;
+    line-height:1.5;
+}
+
+/* FOOTER */
+
+.security{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:7px;
+    margin-top:20px;
+    color:#555;
+    font-size:10px;
+}
+
+.security i{
+    color:#777;
+}
+
+/* LOADING */
+
+.loading-overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.88);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    z-index:9999;
+}
+
+.loading-card{
+    width:280px;
+    background:#111;
+    border:1px solid rgba(212,175,55,.2);
+    border-radius:20px;
+    padding:30px;
+    text-align:center;
+}
+
+.loader{
+    width:45px;
+    height:45px;
+    border:5px solid #292929;
+    border-top:5px solid #FFD54A;
+    border-radius:50%;
+    animation:spin .8s linear infinite;
+    margin:0 auto 17px;
+}
+
+@keyframes spin{
+    to{
+        transform:rotate(360deg);
+    }
+}
+
+.loading-card h3{
+    color:#FFD54A;
+    font-size:16px;
+}
+
+.loading-card p{
+    color:#777;
+    font-size:11px;
+    margin-top:5px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="logo-area">
+
+        <img
+            src="logo.png"
+            class="logo"
+            alt="T.Wealth">
+
+        <h1>T.Wealth</h1>
+
+        <p>Secure Administration Portal</p>
+
+    </div>
+
+
+    <div class="login-card">
+
+        <div class="admin-badge">
+
+            <i class="bi bi-shield-lock-fill"></i>
+
+            ADMINISTRATOR LOGIN
+
+        </div>
+
+
+        <div
+            id="errorMessage"
+            class="message">
+        </div>
+
+
+        <!-- EMAIL -->
+
+        <div class="input-group">
+
+            <label>Email Address</label>
+
+            <div class="input-box">
+
+                <i class="bi bi-envelope"></i>
+
+                <input
+                    type="email"
+                    id="email"
+                    placeholder="Enter admin email"
+                    autocomplete="username">
+
+            </div>
+
+        </div>
+
+
+        <!-- PASSWORD -->
+
+        <div class="input-group">
+
+            <label>Password</label>
+
+            <div class="input-box">
+
+                <i class="bi bi-lock"></i>
+
+                <input
+                    type="password"
+                    id="password"
+                    placeholder="Enter admin password"
+                    autocomplete="current-password">
+
+                <button
+                    type="button"
+                    class="password-toggle"
+                    id="passwordToggle">
+
+                    Show
+
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <button
+            class="login-btn"
+            id="loginBtn">
+
+            <i class="bi bi-box-arrow-in-right"></i>
+
+            Sign In
+
+        </button>
+
+    </div>
+
+
+    <div class="security">
+
+        <i class="bi bi-shield-check"></i>
+
+        Protected by Firebase Authentication
+
+    </div>
+
+</div>
+
+
+<!-- LOADING -->
+
+<div
+    class="loading-overlay"
+    id="loadingOverlay">
+
+    <div class="loading-card">
+
+        <div class="loader"></div>
+
+        <h3>Signing In</h3>
+
+        <p>Verifying administrator credentials...</p>
+
+    </div>
+
+</div>
+
+
+<script type="module">
+
+/*=========================================
+FIREBASE
+=========================================*/
+
+import {
+    initializeApp
+}
+from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
+
+import {
+    getAuth,
+    signInWithEmailAndPassword,
+    signOut
+}
+from "https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js";
+
+
+/*=========================================
+FIREBASE CONFIG
+=========================================*/
+
+const firebaseConfig = {
+
+    apiKey:"AIzaSyCfmUdXAvdktAZ7RRFYGq5R2ZMgFQjBIHg",
+
+    authDomain:"t-wealth-6c492.firebaseapp.com",
+
+    projectId:"t-wealth-6c492",
+
+    storageBucket:"t-wealth-6c492.firebasestorage.app",
+
+    messagingSenderId:"920631507931",
+
+    appId:"1:920631507931:web:ec6769afe5feebfed0c5fe"
+
+};
+
+
+/*=========================================
+INITIALIZE
+=========================================*/
+
+const app =
+    initializeApp(firebaseConfig);
+
+const auth =
+    getAuth(app);
+
+await signOut(auth);
+
+
+/*=========================================
+ELEMENTS
+=========================================*/
+
+const email =
+    document.getElementById("email");
+
+const password =
+    document.getElementById("password");
+
+const loginBtn =
+    document.getElementById("loginBtn");
+
+const passwordToggle =
+    document.getElementById("passwordToggle");
+
+const errorMessage =
+    document.getElementById("errorMessage");
+
+const loadingOverlay =
+    document.getElementById("loadingOverlay");
+
+
+/*=========================================
+PASSWORD TOGGLE
+=========================================*/
+
+passwordToggle.onclick = ()=>{
+
+    if(password.type === "password"){
+
+        password.type = "text";
+
+        passwordToggle.textContent =
+            "Hide";
+
+    }
+    else{
+
+        password.type = "password";
+
+        passwordToggle.textContent =
+            "Show";
+
+    }
+
+};
+
+
+/*=========================================
+ERROR MESSAGE
+=========================================*/
+
+function showError(message){
+
+    errorMessage.textContent =
+        message;
+
+    errorMessage.style.display =
+        "block";
+
+}
+
+
+/*=========================================
+HIDE ERROR
+=========================================*/
+
+function hideError(){
+
+    errorMessage.textContent = "";
+
+    errorMessage.style.display =
+        "none";
+
+}
+
+
+/*=========================================
+LOGIN
+=========================================*/
+
+async function login(){
+
+    hideError();
+
+    const adminEmail =
+        email.value.trim();
+
+    const adminPassword =
+        password.value;
+
+
+    if(!adminEmail){
+
+        showError(
+            "Please enter your admin email address."
+        );
+
+        email.focus();
+
+        return;
+
+    }
+
+
+    if(!adminPassword){
+
+        showError(
+            "Please enter your admin password."
+        );
+
+        password.focus();
+
+        return;
+
+    }
+
+
+    loginBtn.disabled = true;
+
+    loadingOverlay.style.display =
+        "flex";
+
+
+    try{
+
+        await signInWithEmailAndPassword(
+            auth,
+            adminEmail,
+            adminPassword
+        );
+
+
+        window.location.href =
+            "admin.html";
+
+    }
+    catch(error){
+
+        console.error(
+            "Admin login error:",
+            error
+        );
+
+        loadingOverlay.style.display =
+            "none";
+
+        loginBtn.disabled = false;
+
+
+        let message =
+            "Unable to sign in. Please check your credentials.";
+
+
+        if(
+            error.code ===
+            "auth/invalid-credential"
+        ){
+
+            message =
+                "Invalid admin email or password.";
+
+        }
+
+        else if(
+            error.code ===
+            "auth/user-not-found"
+        ){
+
+            message =
+                "No Firebase Authentication account was found for this email.";
+
+        }
+
+        else if(
+            error.code ===
+            "auth/wrong-password"
+        ){
+
+            message =
+                "Incorrect admin password.";
+
+        }
+
+        else if(
+            error.code ===
+            "auth/invalid-email"
+        ){
+
+            message =
+                "Please enter a valid email address.";
+
+        }
+
+        else if(
+            error.code ===
+            "auth/too-many-requests"
+        ){
+
+            message =
+                "Too many login attempts. Please wait and try again.";
+
+        }
+
+        showError(message);
+
+    }
+
+}
+
+
+/*=========================================
+LOGIN BUTTON
+=========================================*/
+
+loginBtn.onclick = login;
+
+
+/*=========================================
+ENTER KEY
+=========================================*/
+
+[email,password].forEach(input=>{
+
+    input.addEventListener(
+        "keydown",
+        (event)=>{
+
+            if(event.key === "Enter"){
+
+                login();
+
+            }
+
+        }
+    );
+
+});
+
+</script>
+
+</body>
+
+</html>

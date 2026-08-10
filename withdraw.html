@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+<title>T.Wealth | Withdraw</title>
+
+<link rel="stylesheet"
+href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
+<link rel="preconnect"
+href="https://fonts.googleapis.com">
+
+<link rel="preconnect"
+href="https://fonts.gstatic.com"
+crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+rel="stylesheet">
+
+<style>
+
+/*=========================================
+T.WEALTH WITHDRAW
+PART 2
+PREMIUM CSS
+=========================================*/
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+-webkit-tap-highlight-color:transparent;
+}
+
+html{
+scroll-behavior:smooth;
+}
+
+body{
+font-family:"Poppins",sans-serif;
+background:#050505;
+color:#fff;
+overflow-x:hidden;
+padding:20px;
+position:relative;
+}
+
+/*=========================================
+BACKGROUND GLOW
+=========================================*/
+
+.bg-glow{
+position:fixed;
+border-radius:50%;
+filter:blur(120px);
+opacity:.18;
+z-index:-1;
+}
+
+.glow1{
+width:320px;
+height:320px;
+background:#D4AF37;
+top:-120px;
+left:-120px;
+}
+
+.glow2{
+width:320px;
+height:320px;
+background:#FFD54A;
+bottom:-120px;
+right:-120px;
+}
+
+/*=========================================
+CONTAINER
+=========================================*/
+
+.container{
+max-width:700px;
+margin:auto;
+}
+
+/*=========================================
+HEADER
+=========================================*/
+
+header{
+display:flex;
+align-items:center;
+justify-content:space-between;
+margin-bottom:30px;
+}
+
+header h2{
+font-size:28px;
+font-weight:700;
+color:#FFD54A;
+flex:1;
+text-align:center;
+margin-right:48px;
+}
+
+#backBtn{
+width:48px;
+height:48px;
+border:none;
+border-radius:50%;
+background:#111;
+color:#FFD54A;
+font-size:20px;
+cursor:pointer;
+transition:.3s;
+}
+
+#backBtn:hover{
+background:#D4AF37;
+color:#000;
+}
+
+/*=========================================
+BALANCE CARD
+=========================================*/
+
+.balance-card{
+margin-bottom:30px;
+padding:25px;
+background:linear-gradient(135deg,#181818,#111);
+border:1px solid rgba(212,175,55,.30);
+border-radius:24px;
+text-align:center;
+box-shadow:0 12px 30px rgba(212,175,55,.12);
+}
+
+.balance-card p{
+font-size:15px;
+color:#bdbdbd;
+margin-bottom:8px;
+}
+
+.balance-card h2{
+font-size:34px;
+font-weight:700;
+color:#FFD54A;
+}
+
+/*=========================================
+WITHDRAW OPTIONS
+=========================================*/
+
+.withdraw-options{
+display:flex;
+flex-direction:column;
+gap:25px;
+}
+
+/*=========================================
+WITHDRAW CARD
+=========================================*/
+
+.withdraw-card{
+background:#111;
+border:1px solid rgba(212,175,55,.25);
+border-radius:24px;
+padding:30px;
+text-align:center;
+transition:.35s;
+box-shadow:0 15px 40px rgba(0,0,0,.35);
+}
+
+.withdraw-card:hover{
+transform:translateY(-6px);
+border-color:#FFD54A;
+box-shadow:0 18px 40px rgba(212,175,55,.22);
+}
+
+/*=========================================
+ICON
+=========================================*/
+
+.withdraw-icon{
+width:90px;
+height:90px;
+margin:auto;
+margin-bottom:22px;
+border-radius:50%;
+background:rgba(212,175,55,.12);
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:42px;
+color:#FFD54A;
+transition:.35s;
+}
+
+.withdraw-card:hover .withdraw-icon{
+transform:scale(1.08);
+background:rgba(212,175,55,.18);
+}
+
+/*=========================================
+TEXT
+=========================================*/
+
+.withdraw-card h3{
+font-size:24px;
+font-weight:700;
+color:#FFD54A;
+margin-bottom:15px;
+}
+
+.withdraw-card p{
+font-size:15px;
+color:#d4d4d4;
+line-height:1.8;
+margin-bottom:25px;
+}
+
+/*=========================================
+BUTTONS
+=========================================*/
+
+.withdraw-card button{
+width:100%;
+height:56px;
+border:none;
+border-radius:16px;
+background:linear-gradient(135deg,#FFD54A,#C99A06);
+color:#111;
+font-size:17px;
+font-weight:700;
+cursor:pointer;
+transition:.3s;
+}
+
+.withdraw-card button:hover{
+transform:translateY(-2px);
+box-shadow:0 10px 25px rgba(212,175,55,.35);
+}
+
+/*=========================================
+SCROLLBAR
+=========================================*/
+
+::-webkit-scrollbar{
+width:6px;
+}
+
+::-webkit-scrollbar-thumb{
+background:#D4AF37;
+border-radius:20px;
+}
+
+/*=========================================
+MOBILE
+=========================================*/
+
+@media(max-width:768px){
+
+body{
+padding:16px;
+}
+
+header h2{
+font-size:24px;
+}
+
+.balance-card h2{
+font-size:30px;
+}
+
+.withdraw-card{
+padding:25px;
+}
+
+.withdraw-card h3{
+font-size:22px;
+}
+
+.withdraw-icon{
+width:80px;
+height:80px;
+font-size:38px;
+}
+
+}
+
+@media(max-width:480px){
+
+.withdraw-card{
+padding:22px;
+}
+
+.withdraw-card h3{
+font-size:20px;
+}
+
+.withdraw-card p{
+font-size:14px;
+}
+
+.withdraw-card button{
+height:52px;
+font-size:16px;
+}
+
+.withdraw-icon{
+width:75px;
+height:75px;
+font-size:34px;
+}
+
+.balance-card h2{
+font-size:28px;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- Background Glow -->
+
+<div class="bg-glow glow1"></div>
+
+<div class="bg-glow glow2"></div>
+
+<div class="container">
+
+<!-- Header -->
+
+<header>
+
+<button id="backBtn">
+
+<i class="bi bi-arrow-left"></i>
+
+</button>
+
+<h2>
+
+Withdraw
+
+</h2>
+
+</header>
+
+<!-- Balance Card -->
+
+<div class="balance-card">
+
+<p>
+
+Available Balance
+
+</p>
+
+<h2 id="availableBalance">
+
+$0.00
+
+</h2>
+
+</div>
+
+<!-- Withdraw Options -->
+
+<div class="withdraw-options">
+
+<!-- Bank Transfer -->
+
+<div class="withdraw-card">
+
+<div class="withdraw-icon">
+
+<i class="bi bi-bank"></i>
+
+</div>
+
+<h3>
+
+Bank Transfer
+
+</h3>
+
+<p>
+
+Withdraw funds directly into your local bank account securely.
+
+</p>
+
+<button
+id="bankTransferBtn">
+
+Continue
+
+</button>
+
+</div>
+
+<!-- Cryptocurrency -->
+
+<div class="withdraw-card">
+
+<div class="withdraw-icon">
+
+<i class="bi bi-currency-bitcoin"></i>
+
+</div>
+
+<h3>
+
+Cryptocurrency
+
+</h3>
+
+<p>
+
+Withdraw using Bitcoin, Ethereum, USDT and other supported cryptocurrencies.
+
+</p>
+
+<button
+id="cryptoWithdrawBtn">
+
+Continue
+
+</button>
+
+</div>
+
+<!-- PayPal -->
+
+<div class="withdraw-card">
+
+<div class="withdraw-icon">
+
+<i class="bi bi-paypal"></i>
+
+</div>
+
+<h3>
+
+PayPal
+
+</h3>
+
+<p>
+
+Transfer your earnings directly to your PayPal account instantly.
+
+</p>
+
+<button
+id="paypalWithdrawBtn">
+
+Continue
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<script type="module">
+
+/*=========================================
+FIREBASE
+=========================================*/
+
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
+
+import {
+getAuth,
+onAuthStateChanged
+}
+from "https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js";
+
+import {
+getFirestore,
+doc,
+getDoc
+}
+from "https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
+
+const firebaseConfig={
+
+apiKey:"AIzaSyCfmUdXAvdktAZ7RRFYGq5R2ZMgFQjBIHg",
+
+authDomain:"t-wealth-6c492.firebaseapp.com",
+
+projectId:"t-wealth-6c492",
+
+storageBucket:"t-wealth-6c492.firebasestorage.app",
+
+messagingSenderId:"920631507931",
+
+appId:"1:920631507931:web:ec6769afe5feebfed0c5fe"
+
+};
+
+const app=initializeApp(firebaseConfig);
+
+const auth=getAuth(app);
+
+const db=getFirestore(app);
+
+/*=========================================
+ELEMENTS
+=========================================*/
+
+const availableBalance=
+document.getElementById("availableBalance");
+
+const backBtn=
+document.getElementById("backBtn");
+
+const bankTransferBtn=
+document.getElementById("bankTransferBtn");
+
+const cryptoWithdrawBtn=
+document.getElementById("cryptoWithdrawBtn");
+
+const paypalWithdrawBtn=
+document.getElementById("paypalWithdrawBtn");
+
+/*=========================================
+GLOBAL VARIABLES
+=========================================*/
+
+let currentUser=null;
+
+let userData=null;
+
+/*=========================================
+CURRENCY SETTINGS
+=========================================*/
+
+const currencyRates={
+
+USD:1,
+EUR:0.92,
+GBP:0.79,
+NGN:1550,
+CAD:1.37,
+AUD:1.53,
+JPY:161,
+CNY:7.25,
+BTC:0.0000085,
+ETH:0.00026
+
+};
+
+const currencySymbols={
+
+USD:"$",
+EUR:"€",
+GBP:"£",
+NGN:"₦",
+CAD:"C$",
+AUD:"A$",
+JPY:"¥",
+CNY:"¥",
+BTC:"₿",
+ETH:"Ξ"
+
+};
+
+/*=========================================
+DISPLAY BALANCE
+=========================================*/
+
+function updateAvailableBalance(){
+
+const selected=userData.currency||"USD";
+
+const rate=currencyRates[selected]||1;
+
+const symbol=currencySymbols[selected]||"$";
+
+const total=
+Number(userData.balance||0)*rate;
+
+availableBalance.textContent=
+
+symbol+
+
+total.toLocaleString(undefined,{
+
+minimumFractionDigits:2,
+
+maximumFractionDigits:2
+
+});
+
+}
+
+/*=========================================
+AUTHENTICATION
+=========================================*/
+
+onAuthStateChanged(auth,async(user)=>{
+
+if(!user){
+
+window.location.href="login.html";
+
+return;
+
+}
+
+currentUser=user;
+
+try{
+
+const snap=await getDoc(
+
+doc(db,"users",user.uid)
+
+);
+
+if(!snap.exists()){
+
+window.location.href="login.html";
+
+return;
+
+}
+
+userData=snap.data();
+
+updateAvailableBalance();
+
+console.log("Withdraw Page Loaded");
+
+}catch(error){
+
+console.log(error);
+
+}
+
+});
+
+/*=========================================
+BACK BUTTON
+=========================================*/
+
+backBtn.onclick=()=>{
+
+window.location.href="dashboard.html";
+
+};
+
+/*=========================================
+WITHDRAW OPTIONS
+=========================================*/
+
+bankTransferBtn.onclick=()=>{
+
+window.location.href="withdraw-banktransfer.html";
+
+};
+
+cryptoWithdrawBtn.onclick=()=>{
+
+window.location.href="withdraw-crypto.html";
+
+};
+
+paypalWithdrawBtn.onclick=()=>{
+
+window.location.href="withdraw-paypal.html";
+
+};
+
+/*=========================================
+READY
+=========================================*/
+
+console.log("Withdraw Part 3 Loaded");
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<meta name="theme-color" content="#050505">
+<title>Tesla.Wealth | Tesla Marketplace</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:Poppins,sans-serif;-webkit-tap-highlight-color:transparent}
+html,body{background:#050505;color:#fff;min-height:100%;touch-action:manipulation}
+body{padding-bottom:50px}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+body:before,body:after{content:"";position:fixed;width:340px;height:340px;border-radius:50%;filter:blur(130px);z-index:-1;opacity:.11}
+body:before{background:#d4af37;top:-150px;left:-130px}
+body:after{background:#ffd54a;right:-170px;bottom:-140px}
+.app{max-width:980px;margin:auto;padding:18px 16px}
+.header{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.back,.orders-btn{height:46px;border:1px solid rgba(212,175,55,.22);background:#111;color:#ffd54a;border-radius:15px}
+.back{width:46px;font-size:19px}
+.orders-btn{padding:0 15px;font-size:12px;font-weight:700;margin-left:auto;display:flex;align-items:center;gap:7px}
+.header h1{font-size:24px;font-weight:800;letter-spacing:-.3px}
+.header p{font-size:11px;color:#777;margin-top:2px}
+.search{height:52px;display:flex;align-items:center;background:#101010;border:1px solid rgba(212,175,55,.18);border-radius:17px;padding:0 15px;margin-bottom:12px}
+.search i{color:#d4af37;font-size:18px}
+.search input{flex:1;background:none;border:0;outline:0;color:#fff;padding-left:10px;font-size:13px}
+.filters{display:flex;gap:8px;overflow:auto;padding-bottom:4px;margin-bottom:18px;scrollbar-width:none}
+.filters::-webkit-scrollbar{display:none}
+.filters button{white-space:nowrap;border:1px solid rgba(212,175,55,.16);background:#101010;color:#999;border-radius:30px;padding:9px 14px;font-size:11px}
+.filters button.active{background:#d4af37;color:#080808;border-color:#d4af37;font-weight:800}
+.hero{position:relative;overflow:hidden;background:linear-gradient(135deg,#181818,#0d0d0d);border:1px solid rgba(212,175,55,.2);border-radius:24px;padding:21px;margin-bottom:20px}
+.hero:after{content:"TESLA";position:absolute;right:-15px;bottom:-25px;font-size:76px;font-weight:800;color:rgba(255,255,255,.025);letter-spacing:5px}
+.hero h2{font-size:22px;position:relative;z-index:1}
+.hero p{max-width:620px;color:#999;font-size:12px;line-height:1.75;margin-top:6px;position:relative;z-index:1}
+.hero-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:13px;position:relative;z-index:1}
+.badge{display:inline-flex;align-items:center;gap:6px;padding:7px 10px;border-radius:20px;background:rgba(212,175,55,.1);color:#ffd54a;font-size:10px}
+.notice{font-size:10px;color:#777;margin:-8px 2px 16px;line-height:1.6}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px;align-items:start}
+.card{background:#101010;border:1px solid rgba(212,175,55,.15);border-radius:21px;overflow:hidden;box-shadow:0 14px 38px rgba(0,0,0,.28);position:relative}
+.card:nth-child(3n+2){transform:translateY(18px)}
+.card:nth-child(5n){transform:translateY(-10px)}
+.card:hover{border-color:rgba(212,175,55,.45)}
+.photo{height:205px;background:#181818;position:relative;overflow:hidden}
+.photo img{width:100%;height:100%;display:block;object-fit:cover;transition:.35s}
+.card:hover .photo img{transform:scale(1.035)}
+.tag{position:absolute;top:9px;left:9px;background:rgba(0,0,0,.72);backdrop-filter:blur(8px);padding:6px 8px;border-radius:20px;color:#ffd54a;font-size:9px}
+.view{position:absolute;right:9px;bottom:9px;background:rgba(0,0,0,.72);color:#fff;border:1px solid rgba(255,255,255,.12);border-radius:20px;padding:6px 8px;font-size:9px}
+.card-body{padding:14px}
+.card h3{font-size:15px;line-height:1.3}
+.variant{font-size:10px;color:#777;margin:3px 0 9px}
+.price{font-size:16px;color:#ffd54a;font-weight:800;margin-bottom:10px}
+.card-btn{width:100%;height:42px;border:0;border-radius:12px;background:linear-gradient(135deg,#ffd54a,#c89b08);color:#111;font-weight:800;font-size:11px}
+.empty{text-align:center;color:#777;padding:50px 10px;display:none}
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.84);backdrop-filter:blur(12px);z-index:50;display:none;align-items:flex-end;justify-content:center}
+.overlay.show{display:flex}
+.sheet{width:100%;max-width:800px;max-height:95vh;overflow:auto;background:#101010;border:1px solid rgba(212,175,55,.25);border-radius:28px 28px 0 0;padding:16px}
+.close{float:right;width:40px;height:40px;border:0;border-radius:13px;background:#1d1d1d;color:#fff;font-size:18px}
+.gallery{clear:both;height:300px;margin-top:8px;border-radius:20px;overflow:hidden;background:#181818}
+.gallery img{width:100%;height:100%;object-fit:cover}
+.thumbs{display:flex;gap:8px;overflow:auto;margin:9px 0 16px}
+.thumbs button{border:2px solid transparent;background:none;padding:0;border-radius:10px;overflow:hidden;flex:0 0 auto}
+.thumbs button.active{border-color:#d4af37}
+.thumbs img{width:70px;height:54px;object-fit:cover;display:block}
+.detail h2{font-size:24px}.muted{color:#888;font-size:11px;margin:3px 0 10px}.detail-price{font-size:21px;color:#ffd54a;font-weight:800;margin-bottom:14px}
+.buy-btn,.submit{width:100%;height:52px;border:0;border-radius:15px;background:linear-gradient(135deg,#ffd54a,#c89b08);color:#111;font-weight:800}
+.form{display:none;margin-top:18px;border-top:1px solid #242424;padding-top:17px}.form.show{display:block}
+.form h3{color:#ffd54a;font-size:16px;margin-bottom:12px}
+.input{width:100%;height:49px;background:#181818;border:1px solid #2b2b2b;border-radius:12px;color:#fff;padding:0 13px;margin-bottom:10px;outline:0;font-size:12px}
+textarea.input{height:82px;padding-top:12px;resize:none}
+.paybox{background:#181818;border:1px solid #292929;border-radius:16px;padding:14px;margin:4px 0 12px}
+.paybox label{display:block;color:#aaa;font-size:11px;margin-bottom:7px}
+.paybox select{width:100%;height:43px;background:#101010;border:1px solid #333;border-radius:10px;color:#fff;padding:0 10px;outline:0;font-size:12px;margin-bottom:9px}
+.paygrid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.stat{background:#111;border:1px solid #292929;border-radius:12px;padding:10px}
+.stat small{display:block;color:#777;font-size:9px;margin-bottom:3px}.stat strong{color:#ffd54a;font-size:12px}
+.payment-note{font-size:10px;color:#888;line-height:1.65;margin-top:9px}
+.loading,.alert{position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:100;display:none;align-items:center;justify-content:center;flex-direction:column;padding:20px}
+.spinner{width:55px;height:55px;border:4px solid #292929;border-top-color:#d4af37;border-radius:50%;animation:spin .8s linear infinite}
+.loading p{margin-top:13px;color:#ffd54a;font-size:13px;font-weight:700}
+.alert{z-index:110;background:rgba(0,0,0,.78);backdrop-filter:blur(9px)}
+.alertbox{width:100%;max-width:380px;background:#111;border:1px solid rgba(212,175,55,.3);border-radius:24px;padding:28px;text-align:center}
+.alertbox i{font-size:43px;color:#ffd54a}.alertbox h2{margin:10px 0;font-size:21px}.alertbox p{color:#aaa;font-size:12px;line-height:1.7;margin-bottom:19px}.alertbox button{width:100%;height:47px;border:0;border-radius:13px;background:#d4af37;color:#111;font-weight:800}
+@keyframes spin{to{transform:rotate(360deg)}}
+@media(max-width:760px){.grid{grid-template-columns:repeat(2,1fr)}.photo{height:175px}.card:nth-child(3n+2){transform:none}.card:nth-child(5n){transform:translateY(-5px)}}
+@media(max-width:430px){.grid{gap:11px}.photo{height:145px}.card-body{padding:11px}.card h3{font-size:13px}.price{font-size:14px}.gallery{height:235px}.hero h2{font-size:19px}.header h1{font-size:21px}}
+</style>
+</head>
+
+<body>
+<div class="app">
+  <header class="header">
+    <button class="back" id="backBtn" aria-label="Back"><i class="bi bi-arrow-left"></i></button>
+    <div><h1>T.Wealth Marketplace</h1><p>Tesla vehicles & technology</p></div>
+    <button class="orders-btn" id="ordersBtn"><i class="bi bi-bag-check"></i> Orders</button>
+  </header>
+
+  <div class="search"><i class="bi bi-search"></i><input id="search" placeholder="Search Tesla products..."></div>
+
+  <div class="filters">
+    <button class="active" data-cat="all">All</button>
+    <button data-cat="sedans">Sedans</button>
+    <button data-cat="suv">SUVs</button>
+    <button data-cat="truck">Truck</button>
+    <button data-cat="commercial">Commercial</button>
+    <button data-cat="future">Future</button>
+  </div>
+
+  <section class="hero">
+    <h2>Selected Tesla vehicles, presented your way.</h2>
+    <p>Browse different configurations and finishes, open a vehicle to inspect several views, then choose your delivery details and an installment schedule.</p>
+    <div class="hero-row">
+      <span class="badge"><i class="bi bi-images"></i> Multiple views</span>
+      <span class="badge"><i class="bi bi-calendar2-check"></i> Up to 6 months</span>
+      <span class="badge"><i class="bi bi-truck"></i> 6-day delivery</span>
+    </div>
+  </section>
+
+  <div class="notice">Marketplace prices shown here are illustrative T.Wealth catalogue prices and are not Tesla's official retail prices. Tesla product names and vehicles belong to Tesla, Inc. Product imagery is sourced from public/Creative Commons media or Tesla's official gallery where applicable.</div>
+
+  <main class="grid" id="productGrid"></main>
+  <div class="empty" id="empty"><i class="bi bi-search" style="font-size:30px;color:#d4af37"></i><p>No Tesla product matches your search.</p></div>
+</div>
+
+<div class="overlay" id="productOverlay">
+  <div class="sheet">
+    <button class="close" id="closeProduct"><i class="bi bi-x-lg"></i></button>
+    <div class="gallery"><img id="mainImage" alt="Tesla vehicle"></div>
+    <div class="thumbs" id="thumbs"></div>
+    <div class="detail">
+      <h2 id="detailName"></h2>
+      <div class="muted" id="detailType"></div>
+      <div class="detail-price" id="detailPrice"></div>
+      <button class="buy-btn" id="continueBtn">Continue to order</button>
+
+      <form class="form" id="orderForm">
+        <h3>Delivery information</h3>
+        <input class="input" id="customerName" placeholder="Full name" autocomplete="name" required>
+        <input class="input" id="phone" placeholder="Phone number" autocomplete="tel" required>
+        <input class="input" id="email" type="email" placeholder="Email address" autocomplete="email" required>
+        <textarea class="input" id="address" placeholder="Complete delivery address" required></textarea>
+        <input class="input" id="city" placeholder="City / State / Country" required>
+
+        <div class="paybox">
+          <label>Payment procedure</label>
+          <select id="paymentMode">
+            <option value="full">Full payment</option>
+            <option value="installment">Gradual / installment payment</option>
+          </select>
+
+          <div id="installmentFields" style="display:none">
+            <label style="margin-top:9px">Payment frequency</label>
+            <select id="frequency">
+              <option value="daily">Daily</option>
+              <option value="weekly">Weekly</option>
+              <option value="monthly">Monthly</option>
+            </select>
+
+            <label>Duration — maximum 6 months</label>
+            <select id="duration"></select>
+
+            <div class="paygrid">
+              <div class="stat"><small>Initial payment</small><strong id="initialDue">$0.00</strong></div>
+              <div class="stat"><small>Each payment</small><strong id="periodPayment">$0.00</strong></div>
+              <div class="stat"><small>Remaining</small><strong id="remainingDue">$0.00</strong></div>
+              <div class="stat"><small>Next payment</small><strong id="nextDate">—</strong></div>
+            </div>
+            <div class="payment-note" id="paymentNote"></div>
+          </div>
+
+          <div class="payment-note" id="fullNote">Full payment is due when the order is placed. Standard delivery target is 6 days after the order is accepted.</div>
+        </div>
+
+        <button class="submit" type="submit">Place order</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="loading" id="loading"><div class="spinner"></div><p>Processing your order...</p></div>
+
+<div class="alert" id="alert">
+  <div class="alertbox">
+    <i id="alertIcon" class="bi bi-check-circle-fill"></i>
+    <h2 id="alertTitle">Order placed</h2>
+    <p id="alertText"></p>
+    <button id="alertOk">Continue</button>
+  </div>
+</div>
+
+<script type="module">
+import {initializeApp} from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
+import {getAuth,onAuthStateChanged} from "https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js";
+import {getFirestore,doc,getDoc,addDoc,collection,serverTimestamp,updateDoc,increment} from "https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
+
+const firebaseConfig={
+ apiKey:"AIzaSyCfmUdXAvdktAZ7RRFYGq5R2ZMgFQjBIHg",
+ authDomain:"t-wealth-6c492.firebaseapp.com",
+ projectId:"t-wealth-6c492",
+ storageBucket:"t-wealth-6c492.firebasestorage.app",
+ messagingSenderId:"920631507931",
+ appId:"1:920631507931:web:ec6769afe5feebfed0c5fe"
+};
+const app=initializeApp(firebaseConfig),auth=getAuth(app),db=getFirestore(app);
+let currentUser=null,userData=null,currentProduct=null;
+
+const W="https://commons.wikimedia.org/wiki/Special:Redirect/file/";
+const img=(file)=>W+encodeURIComponent(file);
+
+const modelImages={
+ "Model 3":[
+  img("Tesla Model3.jpg"),
+  img("Tesla model 3.jpg"),
+  img("Tesla Model3.jpg")
+ ],
+ "Model Y":[
+  img("Tesla Model Y.jpg"),
+  img("Tesla Model Y (Facelift) – f 05052026.jpg"),
+  img("Tesla Model Y (Facelift) – h 05052026.jpg")
+ ],
+ "Model S":[
+  img("TESLA MODEL S.jpg"),
+  img("2024 Tesla Model S.jpg"),
+  img("Tesla Model S (14384152460).jpg")
+ ],
+ "Model X":[
+  img("Tesla Model X (39912982353).jpg"),
+  img("White Tesla Model X 2016.jpg"),
+  img("2017 Tesla Model X front 5.27.18.jpg")
+ ],
+ "Cybertruck":[
+  img("Tesla Cybertruck.jpg"),
+  img("Tesla cybertruck.jpg"),
+  img("Tesla Cybertruck (55371027864).jpg")
+ ],
+ "Semi":[
+  img("Tesla Semi 1.jpg"),
+  img("Tesla Semi 2.jpg"),
+  img("Tesla Semi 5.jpg")
+ ],
+ "Roadster":[
+  img("Tesla Roadster.jpg"),
+  img("Tesla Roadster.jpg"),
+  img("Tesla Roadster.jpg")
+ ],
+ "Cybercab":[
+  img("Tesla Cybercab.jpg"),
+  img("Tesla Cybercab.jpg"),
+  img("Tesla Cybercab.jpg")
+ ],
+ "Robovan":[
+  img("Tesla Robovan.jpg"),
+  img("Tesla Robovan.jpg"),
+  img("Tesla Robovan.jpg")
+ ]
+};
+
+const variants=[
+ ["Model 3","Midnight Silver","sedans",32900],["Model Y","Pearl White","suv",36900],
+ ["Model S","Solid Black","sedans",49900],["Model X","Ultra Red","suv",52900],
+ ["Cybertruck","Stainless Steel","truck",57900],["Model 3","Deep Blue","sedans",34100],
+ ["Model Y","Quicksilver","suv",38900],["Model S","Pearl White","sedans",51400],
+ ["Model X","Stealth Grey","suv",54800],["Cybertruck","Black Interior","truck",58900],
+ ["Model 3","Ultra Red","sedans",34900],["Model Y","Solid Black","suv",38100],
+ ["Model S","Deep Blue","sedans",52100],["Model X","Pearl White","suv",55900],
+ ["Cybertruck","Black Trim","truck",60200],["Model 3","Pearl White","sedans",33400],
+ ["Model Y","Ultra Red","suv",39700],["Model S","Midnight Silver","sedans",50500],
+ ["Model X","Deep Blue","suv",54100],["Cybertruck","Silver Finish","truck",61200],
+ ["Model 3","Quicksilver","sedans",35700],["Model Y","Pearl White","suv",37400],
+ ["Model S","Solid Black","sedans",49300],["Model X","Ultra Red","suv",56700],
+ ["Cybertruck","Stealth Finish","truck",62500],["Model 3","Deep Blue","sedans",33700],
+ ["Model Y","Solid Black","suv",36200],["Model S","Pearl White","sedans",51800],
+ ["Model X","Stealth Grey","suv",53300],["Cybertruck","Cyberbeast Style","truck",64900],
+ ["Model 3","Midnight Silver","sedans",34500],["Model Y","Quicksilver","suv",39200],
+ ["Model S","Ultra Red","sedans",52700],["Model X","Pearl White","suv",57200],
+ ["Cybertruck","Stainless Steel","truck",61800],["Model 3","Pearl White","sedans",33100],
+ ["Model Y","Deep Blue","suv",37900],["Model S","Deep Blue","sedans",50900],
+ ["Model X","Solid Black","suv",55200],["Cybertruck","Black Interior","truck",59400],
+ ["Semi","Fleet Silver","commercial",89900],["Semi","Fleet Black","commercial",92500],
+ ["Roadster","Signature Red","future",119900],["Roadster","Pearl White","future",122500],
+ ["Cybercab","Autonomous Edition","future",75900],["Cybercab","Urban Edition","future",72900],
+ ["Robovan","Passenger Concept","future",89900],["Robovan","Fleet Concept","future",94900],
+ ["Model Y","Performance Red","suv",41500],["Model 3","Performance Black","sedans",38900]
+];
+
+const products=variants.map((v,i)=>({
+ id:"tesla-"+i,
+ name:v[0],
+ variant:v[1],
+ cat:v[2],
+ price:v[3],
+ type:v[2]==="commercial"?"Commercial vehicle":v[2]==="future"?"Future Tesla vehicle":v[2]==="truck"?"Electric pickup":v[2]==="suv"?"Electric SUV":"Electric sedan",
+ images:modelImages[v[0]]||modelImages["Model 3"],
+ view:i%3
+}));
+
+const grid=document.getElementById("productGrid"),empty=document.getElementById("empty"),search=document.getElementById("search");
+let activeCat="all";
+const money=n=>"$"+Number(n).toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2});
+
+function render(){
+ const term=search.value.toLowerCase().trim();
+ const list=products.filter(p=>
+  (activeCat==="all"||p.cat===activeCat)&&
+  (!term||(p.name+" "+p.variant+" "+p.type).toLowerCase().includes(term))
+ );
+ grid.innerHTML=list.map((p,i)=>`
+  <article class="card">
+   <div class="photo">
+    <img src="${p.images[p.view]}" alt="Tesla ${p.name} ${p.variant}" loading="lazy" referrerpolicy="no-referrer">
+    <span class="tag">${p.name}</span>
+    <span class="view">${p.view===0?"Front / road":p.view===1?"Side / angle":"Alternate view"}</span>
+   </div>
+   <div class="card-body">
+    <h3>Tesla ${p.name}</h3>
+    <div class="variant">${p.variant} • ${p.type}</div>
+    <div class="price">${money(p.price)}</div>
+    <button class="card-btn" data-id="${p.id}">View vehicle</button>
+   </div>
+  </article>`).join("");
+ empty.style.display=list.length?"none":"block";
+ grid.querySelectorAll(".card-btn").forEach(b=>b.onclick=()=>openProduct(products.find(p=>p.id===b.dataset.id)));
+}
+search.oninput=render;
+
+document.querySelectorAll(".filters button").forEach(b=>b.onclick=()=>{
+ document.querySelectorAll(".filters button").forEach(x=>x.classList.remove("active"));
+ b.classList.add("active");activeCat=b.dataset.cat;render();
+});
+document.getElementById("backBtn").onclick=()=>location.href="dashboard.html";
+document.getElementById("ordersBtn").onclick=()=>location.href="orders.html";
+
+const overlay=document.getElementById("productOverlay"),mainImage=document.getElementById("mainImage"),thumbs=document.getElementById("thumbs"),form=document.getElementById("orderForm");
+function openProduct(p){
+ currentProduct=p;
+ document.getElementById("detailName").textContent="Tesla "+p.name;
+ document.getElementById("detailType").textContent=p.variant+" • "+p.type;
+ document.getElementById("detailPrice").textContent=money(p.price);
+ mainImage.src=p.images[0];
+ thumbs.innerHTML=p.images.map((src,i)=>`<button type="button" class="${i===0?"active":""}" data-src="${src}"><img src="${src}" alt="View ${i+1}" referrerpolicy="no-referrer"></button>`).join("");
+ thumbs.querySelectorAll("button").forEach(t=>t.onclick=()=>{
+  mainImage.src=t.dataset.src;
+  thumbs.querySelectorAll("button").forEach(x=>x.classList.remove("active"));
+  t.classList.add("active");
+ });
+ form.reset();
+ document.getElementById("installmentFields").style.display="none";
+ document.getElementById("fullNote").style.display="block";
+ form.classList.remove("show");
+ overlay.classList.add("show");
+}
+document.getElementById("closeProduct").onclick=()=>overlay.classList.remove("show");
+overlay.addEventListener("click",e=>{if(e.target===overlay)overlay.classList.remove("show")});
+document.getElementById("continueBtn").onclick=()=>form.classList.add("show");
+
+const paymentMode=document.getElementById("paymentMode"),frequency=document.getElementById("frequency"),duration=document.getElementById("duration");
+const initialDue=document.getElementById("initialDue"),periodPayment=document.getElementById("periodPayment"),remainingDue=document.getElementById("remainingDue"),nextDate=document.getElementById("nextDate"),paymentNote=document.getElementById("paymentNote");
+
+function populateDurations(){
+ duration.innerHTML="";
+ const unit=frequency.value;
+ const values=unit==="daily"?[7,14,30,60,90,120,150,180]:unit==="weekly"?[1,2,4,8,12,16,20,24]:[1,2,3,4,5,6];
+ values.forEach(v=>{
+  const o=document.createElement("option");
+  o.value=v;o.textContent=unit==="daily"?`${v} days`:unit==="weekly"?`${v} weeks`:`${v} month${v>1?"s":""}`;
+  duration.appendChild(o);
+ });
+ updatePayment();
+}
+function addPeriod(date,unit){
+ const d=new Date(date);
+ if(unit==="daily")d.setDate(d.getDate()+1);
+ if(unit==="weekly")d.setDate(d.getDate()+7);
+ if(unit==="monthly")d.setMonth(d.getMonth()+1);
+ return d;
+}
+function fmtDate(d){return d.toLocaleDateString(undefined,{day:"2-digit",month:"short",year:"numeric"})}
+
+function updatePayment(){
+ if(!currentProduct)return;
+ const mode=paymentMode.value;
+ const inst=document.getElementById("installmentFields");
+ const fullNote=document.getElementById("fullNote");
+ if(mode==="full"){
+  inst.style.display="none";fullNote.style.display="block";return;
+ }
+ inst.style.display="block";fullNote.style.display="none";
+ const unit=frequency.value, dur=Number(duration.value||1), total=currentProduct.price;
+ const periods=unit==="daily"?dur:unit==="weekly"?dur:(dur);
+ const initial=total*0.20;
+ const remaining=total-initial;
+ const each=remaining/periods;
+ const next=addPeriod(new Date(),unit);
+ initialDue.textContent=money(initial);
+ periodPayment.textContent=money(each);
+ remainingDue.textContent=money(remaining);
+ nextDate.textContent=fmtDate(next);
+ paymentNote.textContent=`20% initial payment today. The remaining ${money(remaining)} is split across ${periods} ${unit} payment${periods>1?"s":""}. The next payment date is ${fmtDate(next)}. Maximum installment duration is 6 months.`;
+}
+paymentMode.onchange=updatePayment;
+frequency.onchange=populateDurations;
+duration.onchange=updatePayment;
+populateDurations();
+
+onAuthStateChanged(auth,async user=>{
+ if(!user){location.href="login.html";return}
+ currentUser=user;
+ const s=await getDoc(doc(db,"users",user.uid));
+ if(s.exists())userData=s.data();
+});
+
+const loading=document.getElementById("loading"),alertEl=document.getElementById("alert");
+document.getElementById("alertOk").onclick=()=>{alertEl.style.display="none";location.href="orders.html"};
+
+form.onsubmit=async e=>{
+ e.preventDefault();
+ if(!currentUser){location.href="login.html";return}
+ if(!currentProduct)return;
+ const mode=paymentMode.value;
+ const total=currentProduct.price;
+ let initial=total,remaining=0,each=0,periods=0,next=null,unit=null,dur=0;
+ if(mode==="installment"){
+  unit=frequency.value;dur=Number(duration.value);
+  periods=unit==="daily"?dur:unit==="weekly"?dur:dur;
+  initial=total*.20;remaining=total-initial;each=remaining/periods;next=addPeriod(new Date(),unit);
+ }
+ const balance=Number(userData?.balance||0);
+ if(balance<initial){
+  document.getElementById("alertIcon").className="bi bi-exclamation-triangle-fill";
+  document.getElementById("alertIcon").style.color="#ff6868";
+  document.getElementById("alertTitle").textContent="Order not placed";
+  document.getElementById("alertText").textContent=`Insufficient balance. Required now: ${money(initial)}. Available balance: ${money(balance)}.`;
+  alertEl.style.display="flex";return;
+ }
+ loading.style.display="flex";
+ try{
+  await updateDoc(doc(db,"users",currentUser.uid),{balance:increment(-initial)});
+  const orderRef=await addDoc(collection(db,"orders"),{
+   uid:currentUser.uid,
+   productId:currentProduct.id,
+   product:"Tesla "+currentProduct.name,
+   variant:currentProduct.variant,
+   productType:currentProduct.type,
+   totalAmount:total,
+   initialPayment:initial,
+   remainingBalance:remaining,
+   installmentAmount:each,
+   installmentFrequency:unit,
+   installmentDuration:dur,
+   installmentPeriods:periods,
+   nextPaymentAt:next?next:null,
+   paymentPlan:mode,
+   paymentStatus:mode==="full"?"paid":"partial",
+   deliveryDays:6,
+   deliveryStatus:"Processing",
+   customerName:document.getElementById("customerName").value.trim(),
+   phone:document.getElementById("phone").value.trim(),
+   email:document.getElementById("email").value.trim(),
+   address:document.getElementById("address").value.trim(),
+   city:document.getElementById("city").value.trim(),
+   image:currentProduct.images[0],
+   createdAt:serverTimestamp()
+  });
+  await addDoc(collection(db,"history"),{
+   uid:currentUser.uid,title:"Tesla "+currentProduct.name,type:"Purchase",
+   amount:initial,status:mode==="full"?"Paid":"Partially Paid",
+   orderId:orderRef.id,createdAt:serverTimestamp()
+  });
+  await addDoc(collection(db,"wallet"),{
+   uid:currentUser.uid,type:"Purchase Payment",amount:initial,
+   status:"Completed",orderId:orderRef.id,createdAt:serverTimestamp()
+  });
+  await addDoc(collection(db,"notifications"),{
+   uid:currentUser.uid,title:"Order Placed",
+   message:`Your Tesla ${currentProduct.name} order is being processed. Standard delivery target: 6 days.`,
+   type:"order",read:false,createdAt:serverTimestamp()
+  });
+  userData.balance=balance-initial;
+  loading.style.display="none";
+  document.getElementById("alertIcon").className="bi bi-check-circle-fill";
+  document.getElementById("alertIcon").style.color="#ffd54a";
+  document.getElementById("alertTitle").textContent="Order confirmed";
+  document.getElementById("alertText").textContent=mode==="full"
+   ? `Tesla ${currentProduct.name} has been ordered. Delivery target: 6 days.`
+   : `Your order is confirmed. Initial payment: ${money(initial)}. Next payment: ${money(each)} on ${fmtDate(next)}.`;
+  alertEl.style.display="flex";
+ }catch(err){
+  loading.style.display="none";
+  document.getElementById("alertIcon").className="bi bi-exclamation-triangle-fill";
+  document.getElementById("alertIcon").style.color="#ff6868";
+  document.getElementById("alertTitle").textContent="Order not placed";
+  document.getElementById("alertText").textContent=err.message||"Unable to place the order.";
+  alertEl.style.display="flex";
+ }
+};
+
+render();
+</script>
+</body>
+</html>

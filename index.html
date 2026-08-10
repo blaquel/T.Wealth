@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>T.Wealth | Invest Smarter</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+scroll-behavior:smooth;
+}
+
+body{
+background:#090909;
+color:#fff;
+overflow-x:hidden;
+}
+
+body::before{
+content:"";
+position:fixed;
+width:500px;
+height:500px;
+background:radial-gradient(circle,#D4AF37 0%,transparent 70%);
+opacity:.08;
+top:-200px;
+right:-150px;
+z-index:-1;
+}
+
+body::after{
+content:"";
+position:fixed;
+width:500px;
+height:500px;
+background:radial-gradient(circle,#D4AF37 0%,transparent 70%);
+opacity:.05;
+bottom:-250px;
+left:-200px;
+z-index:-1;
+}
+
+header{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+padding:18px 7%;
+display:flex;
+justify-content:space-between;
+align-items:center;
+background:rgba(0,0,0,.7);
+backdrop-filter:blur(20px);
+border-bottom:1px solid rgba(212,175,55,.2);
+z-index:999;
+}
+
+.logo{
+display:flex;
+align-items:center;
+gap:12px;
+text-decoration:none;
+}
+
+.logo img{
+width:55px;
+height:55px;
+border-radius:50%;
+}
+
+.logo span{
+font-size:26px;
+font-weight:700;
+color:#D4AF37;
+}
+
+nav{
+display:flex;
+gap:35px;
+}
+
+nav a{
+text-decoration:none;
+color:#fff;
+font-size:15px;
+transition:.3s;
+}
+
+nav a:hover{
+color:#D4AF37;
+}
+
+.auth-buttons{
+display:flex;
+gap:15px;
+}
+
+.btn{
+padding:12px 25px;
+border-radius:40px;
+text-decoration:none;
+font-weight:600;
+transition:.3s;
+}
+
+.login{
+border:1px solid #D4AF37;
+color:#D4AF37;
+}
+
+.login:hover{
+background:#D4AF37;
+color:#000;
+}
+
+.signup{
+background:linear-gradient(135deg,#F4C542,#B8860B);
+color:#000;
+}
+
+.signup:hover{
+transform:translateY(-3px);
+box-shadow:0 0 20px rgba(212,175,55,.5);
+}
+
+.hero{
+min-height:100vh;
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:120px 7% 50px;
+gap:60px;
+}
+
+.hero-text{
+flex:1;
+}
+
+.hero-text h1{
+font-size:60px;
+line-height:1.2;
+margin-bottom:20px;
+}
+
+.hero-text h1 span{
+color:#D4AF37;
+}
+
+.hero-text p{
+font-size:18px;
+color:#bbb;
+line-height:1.8;
+margin-bottom:35px;
+max-width:600px;
+}
+
+.hero-buttons{
+display:flex;
+gap:20px;
+}
+
+.hero-buttons a{
+padding:16px 35px;
+border-radius:50px;
+text-decoration:none;
+font-weight:600;
+transition:.3s;
+}
+
+.start{
+background:linear-gradient(135deg,#F4C542,#B8860B);
+color:#000;
+}
+
+.start:hover{
+transform:translateY(-4px);
+box-shadow:0 0 30px rgba(212,175,55,.6);
+}
+
+.learn{
+border:1px solid #D4AF37;
+color:#D4AF37;
+}
+
+.learn:hover{
+background:#D4AF37;
+color:#000;
+}
+
+.hero-image{
+flex:1;
+display:flex;
+justify-content:center;
+}
+
+.hero-image img{
+width:420px;
+max-width:100%;
+animation:float 4s ease-in-out infinite;
+filter:drop-shadow(0 0 40px rgba(212,175,55,.4));
+}
+
+@keyframes float{
+0%,100%{transform:translateY(0);}
+50%{transform:translateY(-15px);}
+}
+
+.stats{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:25px;
+padding:60px 7%;
+}
+
+.stat-card{
+background:#121212;
+border:1px solid rgba(212,175,55,.2);
+border-radius:20px;
+padding:30px;
+text-align:center;
+transition:.3s;
+}
+
+.stat-card:hover{
+transform:translateY(-8px);
+border-color:#D4AF37;
+box-shadow:0 0 25px rgba(212,175,55,.2);
+}
+
+.stat-card h2{
+font-size:38px;
+color:#D4AF37;
+margin-bottom:10px;
+}
+
+.stat-card p{
+color:#aaa;
+}
+
+@media(max-width:900px){
+
+header{
+flex-wrap:wrap;
+gap:20px;
+}
+
+nav{
+display:none;
+}
+
+.hero{
+flex-direction:column-reverse;
+text-align:center;
+}
+
+.hero-text h1{
+font-size:42px;
+}
+
+.hero-buttons{
+justify-content:center;
+}
+
+.logo span{
+font-size:22px;
+}
+
+.hero-image img{
+width:280px;
+}
+
+}
+
+html,
+body{
+touch-action:manipulation;
+overscroll-behavior:none;
+-webkit-text-size-adjust:100%;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<a href="#" class="logo">
+<img src="logo.png">
+<span>T.Wealth</span>
+</a>
+
+<nav>
+<a href="#">Home</a>
+<a href="#plans">Plans</a>
+<a href="#about">About</a>
+<a href="#faq">FAQ</a>
+<a href="#contact">Contact</a>
+</nav>
+
+<div class="auth-buttons">
+<a href="login.html" class="btn login">Login</a>
+<a href="register.html" class="btn signup">Get Started</a>
+</div>
+
+</header>
+
+<section class="hero">
+
+<div class="hero-text">
+
+<h1>
+Invest In Your <span>Future</span><br>
+With Confidence.
+</h1>
+
+<p>
+Grow your wealth through secure investment opportunities, transparent returns, and a trusted platform designed to help you achieve your financial goals.
+</p>
+
+<div class="hero-buttons">
+<a href="register.html" class="start">Start Investing</a>
+<a href="#plans" class="learn">View Plans</a>
+</div>
+
+</div>
+
+<div class="hero-image">
+<img src="logo.png" alt="T.Wealth Logo">
+</div>
+
+</section>
+
+<section class="stats">
+
+<div class="stat-card">
+<h2>50K+</h2>
+<p>Registered Investors</p>
+</div>
+
+<div class="stat-card">
+<h2>₦500M+</h2>
+<p>Total Investments</p>
+</div>
+
+<div class="stat-card">
+<h2>98%</h2>
+<p>Customer Satisfaction</p>
+</div>
+
+<div class="stat-card">
+<h2>24/7</h2>
+<p>Customer Support</p>
+</div>
+
+</section>
+
+</body>
+</html>

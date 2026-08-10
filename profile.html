@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#070707">
+<title>T.Wealth | Profile</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{min-height:100%;background:#070707;color:#f7f7f7;font-family:Poppins,sans-serif}
+body{overflow-x:hidden}
+button{font-family:inherit}
+.bg{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:0}
+.glow{position:absolute;border-radius:50%;filter:blur(110px);opacity:.10}
+.glow.a{width:360px;height:360px;background:#d4af37;left:-190px;top:-150px}
+.glow.b{width:320px;height:320px;background:#f2c94c;right:-170px;bottom:-150px}
+.page{position:relative;z-index:1;width:min(100%,920px);margin:auto;padding:18px 18px 45px}
+
+.topbar{height:58px;display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+.back{width:44px;height:44px;border:1px solid #292929;border-radius:14px;background:#111;color:#d4af37;font-size:19px;cursor:pointer}
+.title{flex:1;margin-left:13px}.title h1{font-size:19px;font-weight:700}.title p{font-size:9px;color:#666;letter-spacing:1.3px;margin-top:3px}
+.top-status{font-size:8px;font-weight:700;letter-spacing:.8px;color:#cbaa38;padding:8px 10px;border:1px solid rgba(212,175,55,.2);border-radius:999px;background:rgba(212,175,55,.06)}
+
+.hero{position:relative;overflow:hidden;background:linear-gradient(145deg,#151515,#0d0d0d);border:1px solid #282828;border-radius:28px;padding:28px;margin-bottom:16px;box-shadow:0 25px 70px rgba(0,0,0,.35)}
+.hero:after{content:"";position:absolute;width:260px;height:260px;border-radius:50%;right:-150px;top:-170px;border:1px solid rgba(212,175,55,.13);box-shadow:0 0 0 35px rgba(212,175,55,.025),0 0 0 70px rgba(212,175,55,.018)}
+.hero-main{position:relative;z-index:2;display:flex;align-items:center;gap:18px}
+.avatar{width:76px;height:76px;flex:0 0 76px;border-radius:22px;background:linear-gradient(145deg,#f0cf63,#a67c15);color:#111;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:800}
+.identity{min-width:0}.identity h2{font-size:22px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.member{font-size:10px;color:#777;margin-top:4px}
+.uid{display:inline-flex;align-items:center;gap:6px;margin-top:9px;padding:6px 9px;background:#0a0a0a;border:1px solid #242424;border-radius:9px;font-size:8px;color:#777}.uid i{color:#c9a83e}
+.hero-balance{position:absolute;right:24px;bottom:22px;text-align:right;z-index:3}
+.hero-balance span{display:block;font-size:8px;color:#666;text-transform:uppercase;letter-spacing:1px}
+.hero-balance strong{display:block;margin-top:3px;font-size:16px;color:#e2c356}
+
+.grid{display:grid;grid-template-columns:1.25fr .75fr;gap:16px}
+.card{background:#101010;border:1px solid #252525;border-radius:23px;overflow:hidden;box-shadow:0 18px 45px rgba(0,0,0,.22)}
+.card-head{padding:18px 19px 13px;border-bottom:1px solid #1f1f1f;display:flex;align-items:center;justify-content:space-between}
+.card-head h3{font-size:13px}.card-head span{font-size:8px;color:#666}
+.info{padding:3px 18px}.row{min-height:53px;display:flex;align-items:center;justify-content:space-between;gap:18px;border-bottom:1px solid #1d1d1d}.row:last-child{border-bottom:0}
+.left{display:flex;align-items:center;min-width:0}.label{font-size:9px;color:#666;white-space:nowrap}
+.value{font-size:10px;font-weight:600;text-align:right;word-break:break-word;color:#eee}
+.row-icon{width:29px;height:29px;border-radius:9px;background:#171717;border:1px solid #262626;display:flex;align-items:center;justify-content:center;color:#b99a35;font-size:12px;margin-right:8px;flex:0 0 29px}
+
+.side{display:flex;flex-direction:column;gap:16px}
+.stat-card{padding:19px}.stat-label{font-size:9px;color:#666}.stat-value{font-size:23px;font-weight:700;margin-top:5px;color:#e4c85d}.stat-sub{font-size:8px;color:#555;margin-top:3px}
+.menu{padding:8px}.menu-item{display:flex;align-items:center;gap:12px;padding:13px 11px;border-radius:14px;color:#eee;text-decoration:none}.menu-item:hover{background:#171717}
+.menu-item i:first-child{width:31px;height:31px;border-radius:10px;background:#181818;color:#c9a83e;display:flex;align-items:center;justify-content:center}.menu-item span{font-size:10px;flex:1}.menu-item i:last-child{font-size:11px;color:#4f4f4f}
+.actions{margin-top:16px;display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.action{height:50px;border-radius:15px;border:1px solid #282828;background:#111;color:#ddd;font-weight:600;font-size:10px;cursor:pointer}.action.gold{border:0;background:linear-gradient(135deg,#e8ca62,#a87e13);color:#111}.action.logout{color:#ff7070;border-color:rgba(255,90,90,.16)}
+.footer-note{text-align:center;color:#444;font-size:8px;margin-top:22px}
+
+@media(max-width:720px){
+.page{padding:12px 12px 30px}.grid{grid-template-columns:1fr}.side{display:grid;grid-template-columns:1fr 1fr;align-items:start}
+.hero{padding:22px 18px 72px}.hero-balance{left:18px;right:auto;bottom:18px;text-align:left}
+}
+@media(max-width:480px){
+.top-status{display:none}.hero-main{gap:13px}.avatar{width:64px;height:64px;flex-basis:64px;border-radius:19px;font-size:23px}.identity h2{font-size:18px}.uid{font-size:7px}.side{display:flex}
+}
+</style>
+</head>
+
+<body>
+<div class="bg"><div class="glow a"></div><div class="glow b"></div></div>
+
+<main class="page">
+<header class="topbar">
+<button class="back" id="backBtn"><i class="bi bi-chevron-left"></i></button>
+<div class="title"><h1>Profile</h1><p>ACCOUNT &amp; PERSONAL DETAILS</p></div>
+<div class="top-status">T.WEALTH</div>
+</header>
+
+<section class="hero">
+<div class="hero-main">
+<div class="avatar" id="avatar">E</div>
+<div class="identity">
+<h2 id="fullName">Loading...</h2>
+<div class="member">Premium Member</div>
+<div class="uid"><i class="bi bi-shield-check"></i><span id="userId">Loading...</span></div>
+</div>
+</div>
+<div class="hero-balance"><span>Available balance</span><strong id="availableBalance">$0.00</strong></div>
+</section>
+
+<div class="grid">
+<section class="card">
+<div class="card-head"><h3>Account information</h3><span>PROFILE</span></div>
+<div class="info">
+<div class="row"><div class="left"><div class="row-icon"><i class="bi bi-person"></i></div><span class="label">Full Name</span></div><strong class="value" id="profileName">Loading...</strong></div>
+<div class="row"><div class="left"><div class="row-icon"><i class="bi bi-at"></i></div><span class="label">Username</span></div><strong class="value" id="profileUsername">Loading...</strong></div>
+<div class="row"><div class="left"><div class="row-icon"><i class="bi bi-envelope"></i></div><span class="label">Email</span></div><strong class="value" id="profileEmail">Loading...</strong></div>
+<div class="row"><div class="left"><div class="row-icon"><i class="bi bi-telephone"></i></div><span class="label">Phone</span></div><strong class="value" id="profilePhone">Loading...</strong></div>
+<div class="row"><div class="left"><div class="row-icon"><i class="bi bi-globe2"></i></div><span class="label">Country</span></div><strong class="value" id="profileCountry">Loading...</strong></div>
+<div class="row"><div class="left"><div class="row-icon"><i class="bi bi-currency-exchange"></i></div><span class="label">Currency</span></div><strong class="value" id="profileCurrency">Loading...</strong></div>
+<div class="row"><div class="left"><div class="row-icon"><i class="bi bi-calendar3"></i></div><span class="label">Member Since</span></div><strong class="value" id="memberSince">Loading...</strong></div>
+</div>
+</section>
+
+<aside class="side">
+<div class="card stat-card"><div class="stat-label">ACCOUNT STATUS</div><div class="stat-value">Active</div><div class="stat-sub"><i class="bi bi-check-circle"></i> Account in good standing</div></div>
+<div class="card menu">
+<a class="menu-item" href="history.html"><i class="bi bi-clock-history"></i><span>Transaction history</span><i class="bi bi-chevron-right"></i></a>
+<a class="menu-item" href="wallet.html"><i class="bi bi-wallet2"></i><span>Wallet</span><i class="bi bi-chevron-right"></i></a>
+<a class="menu-item" href="support.html"><i class="bi bi-headset"></i><span>Support</span><i class="bi bi-chevron-right"></i></a>
+</div>
+</aside>
+</div>
+
+<div class="actions">
+<button class="action gold" id="dashboardBtn"><i class="bi bi-grid"></i> Dashboard</button>
+<button class="action logout" id="logoutBtn"><i class="bi bi-box-arrow-right"></i> Logout</button>
+</div>
+<div class="footer-note">T.Wealth • Secure account access</div>
+</main>
+
+<script type="module">
+import {initializeApp} from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
+import {getAuth,onAuthStateChanged,signOut} from "https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js";
+import {getFirestore,doc,getDoc} from "https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
+
+const firebaseConfig={
+apiKey:"AIzaSyCfmUdXAvdktAZ7RRFYGq5R2ZMgFQjBIHg",
+authDomain:"t-wealth-6c492.firebaseapp.com",
+projectId:"t-wealth-6c492",
+storageBucket:"t-wealth-6c492.firebasestorage.app",
+messagingSenderId:"920631507931",
+appId:"1:920631507931:web:ec6769afe5feebfed0c5fe"
+};
+
+const app=initializeApp(firebaseConfig),auth=getAuth(app),db=getFirestore(app);
+const $=id=>document.getElementById(id);
+
+const rates={USD:1,EUR:.92,GBP:.79,NGN:1550,CAD:1.37,AUD:1.53,JPY:161,CNY:7.25,BTC:.0000085,ETH:.00026};
+const symbols={USD:"$",EUR:"€",GBP:"£",NGN:"₦",CAD:"C$",AUD:"A$",JPY:"¥",CNY:"¥",BTC:"₿",ETH:"Ξ"};
+
+function balanceText(data){
+const code=data.currency||"USD";
+const amount=Number(data.balance||0)*(rates[code]||1);
+return (symbols[code]||"$")+amount.toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});
+}
+function dateText(v){
+try{
+if(!v)return "-";
+if(typeof v.toDate==="function")return v.toDate().toLocaleDateString();
+const d=new Date(v);return isNaN(d.getTime())?"-":d.toLocaleDateString();
+}catch{return "-"}
+}
+
+onAuthStateChanged(auth,async user=>{
+if(!user){location.href="login.html";return}
+try{
+const snap=await getDoc(doc(db,"users",user.uid));
+if(!snap.exists()){ $("fullName").textContent="User"; $("avatar").textContent="U"; return; }
+const d=snap.data();
+
+$("fullName").textContent=d.fullname||"User";
+$("avatar").textContent=((d.fullname||"U").trim().charAt(0)||"U").toUpperCase();
+$("userId").textContent=user.uid.substring(0,10);
+$("availableBalance").textContent=balanceText(d);
+
+$("profileName").textContent=d.fullname||"-";
+$("profileUsername").textContent=d.username||"-";
+$("profileEmail").textContent=d.email||user.email||"-";
+$("profilePhone").textContent=d.phone||"-";
+$("profileCountry").textContent=d.country||"-";
+$("profileCurrency").textContent=d.currency||"USD";
+$("memberSince").textContent=dateText(d.createdAt);
+}catch(e){console.error("Profile loading error:",e)}
+});
+
+$("backBtn").onclick=()=>location.href="dashboard.html";
+$("dashboardBtn").onclick=()=>location.href="dashboard.html";
+$("logoutBtn").onclick=async()=>{
+const b=$("logoutBtn");b.disabled=true;b.textContent="Logging out...";
+try{await signOut(auth);location.href="login.html"}catch(e){console.error(e);b.disabled=false;b.innerHTML='<i class="bi bi-box-arrow-right"></i> Logout'}
+};
+</script>
+</body>
+</html>

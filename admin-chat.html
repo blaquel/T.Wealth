@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+<title>T.Wealth | Admin Support</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet"
+href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+-webkit-tap-highlight-color:transparent;
+}
+
+body{
+font-family:Poppins,sans-serif;
+background:#050505;
+color:#fff;
+height:100vh;
+display:flex;
+flex-direction:column;
+overflow:hidden;
+}
+
+/* Header */
+
+.header{
+height:80px;
+background:#111;
+border-bottom:1px solid rgba(212,175,55,.15);
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:0 20px;
+flex-shrink:0;
+}
+
+.left{
+display:flex;
+align-items:center;
+gap:15px;
+}
+
+.back{
+width:46px;
+height:46px;
+border-radius:50%;
+background:#181818;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:20px;
+color:#FFD54A;
+cursor:pointer;
+transition:.3s;
+}
+
+.back:hover{
+background:#FFD54A;
+color:#111;
+}
+
+.title h2{
+font-size:23px;
+color:#FFD54A;
+font-weight:700;
+}
+
+.title p{
+font-size:13px;
+color:#999;
+}
+
+.admin-icon{
+width:50px;
+height:50px;
+border-radius:50%;
+background:linear-gradient(135deg,#FFD54A,#C89B09);
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:22px;
+color:#111;
+}
+
+/* Search */
+
+.search-area{
+padding:18px;
+background:#050505;
+}
+
+.search-area input{
+width:100%;
+height:55px;
+background:#111;
+border:1px solid rgba(212,175,55,.15);
+border-radius:16px;
+padding:0 18px;
+color:#fff;
+font-size:15px;
+outline:none;
+}
+
+.search-area input::placeholder{
+color:#777;
+}
+
+/* Chat List */
+
+.chat-list{
+flex:1;
+overflow-y:auto;
+padding:0 18px 18px;
+}
+
+.chat-card{
+display:flex;
+align-items:center;
+gap:15px;
+background:#111;
+border:1px solid rgba(212,175,55,.12);
+border-radius:18px;
+padding:16px;
+margin-bottom:14px;
+cursor:pointer;
+transition:.3s;
+}
+
+.chat-card:hover{
+border-color:#FFD54A;
+transform:translateY(-2px);
+}
+
+.avatar{
+width:58px;
+height:58px;
+border-radius:50%;
+background:linear-gradient(135deg,#FFD54A,#b88900);
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:20px;
+font-weight:700;
+color:#111;
+flex-shrink:0;
+}
+
+.chat-info{
+flex:1;
+overflow:hidden;
+}
+
+.chat-info h3{
+font-size:17px;
+color:#FFD54A;
+margin-bottom:3px;
+white-space:nowrap;
+overflow:hidden;
+text-overflow:ellipsis;
+}
+
+.chat-info p{
+font-size:13px;
+color:#aaa;
+white-space:nowrap;
+overflow:hidden;
+text-overflow:ellipsis;
+}
+
+.right{
+display:flex;
+flex-direction:column;
+align-items:flex-end;
+gap:8px;
+}
+
+.time{
+font-size:12px;
+color:#888;
+}
+
+.badge{
+min-width:24px;
+height:24px;
+padding:0 7px;
+border-radius:30px;
+background:#FFD54A;
+color:#111;
+font-size:12px;
+font-weight:700;
+display:flex;
+align-items:center;
+justify-content:center;
+}
+
+.empty{
+height:100%;
+display:flex;
+align-items:center;
+justify-content:center;
+flex-direction:column;
+color:#777;
+text-align:center;
+}
+
+.empty i{
+font-size:60px;
+color:#FFD54A;
+margin-bottom:15px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="header">
+
+<div class="left">
+
+<div class="back"
+onclick="location.href='admin.html'">
+
+<i class="bi bi-arrow-left"></i>
+
+</div>
+
+<div class="title">
+
+<h2>Support Chats</h2>
+
+<p>Customer Messages</p>
+
+</div>
+
+</div>
+
+<div class="admin-icon">
+
+<i class="bi bi-headset"></i>
+
+</div>
+
+</div>
+
+<div class="search-area">
+
+<input
+type="text"
+id="searchInput"
+placeholder="Search user...">
+
+</div>
+
+<div
+class="chat-list"
+id="chatList">
+
+<div class="empty">
+
+<i class="bi bi-chat-dots"></i>
+
+<p>Loading conversations...</p>
+
+</div>
+
+</div>
+
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
+
+import {
+getAuth,
+onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js";
+
+import {
+getFirestore,
+collection,
+query,
+orderBy,
+onSnapshot
+} from "https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
+
+const firebaseConfig={
+
+apiKey:"AIzaSyCfmUdXAvdktAZ7RRFYGq5R2ZMgFQjBIHg",
+
+authDomain:"t-wealth-6c492.firebaseapp.com",
+
+projectId:"t-wealth-6c492",
+
+storageBucket:"t-wealth-6c492.firebasestorage.app",
+
+messagingSenderId:"920631507931",
+
+appId:"1:920631507931:web:ec6769afe5feebfed0c5fe"
+
+};
+
+const app=initializeApp(firebaseConfig);
+
+const auth=getAuth(app);
+
+const db=getFirestore(app);
+
+const chatList=document.getElementById("chatList");
+
+const searchInput=document.getElementById("searchInput");
+
+let chats = [];
+
+onAuthStateChanged(auth,(user)=>{
+
+if(!user){
+
+location.href="login.html";
+
+return;
+
+}
+
+loadChats();
+
+});
+
+function loadChats(){
+
+const q=query(
+
+collection(db,"support_chats"),
+
+orderBy("lastTime","desc")
+
+);
+
+onSnapshot(q,(snapshot)=>{
+
+chats=[];
+
+chatList.innerHTML="";
+
+if(snapshot.empty){
+
+chatList.innerHTML=`
+
+<div class="empty">
+
+<i class="bi bi-chat-dots"></i>
+
+<p>No conversations yet.</p>
+
+</div>
+
+`;
+
+return;
+
+}
+
+snapshot.forEach(doc=>{
+
+const chat={
+
+id:doc.id,
+
+...doc.data()
+
+};
+
+chats.push(chat);
+
+});
+
+renderChats(chats);
+
+});
+
+}
+
+function renderChats(data){
+
+chatList.innerHTML="";
+
+data.forEach(chat=>{
+
+const initials=(chat.fullname||"U")
+.substring(0,1)
+.toUpperCase();
+
+const time=chat.lastTime
+?chat.lastTime.toDate().toLocaleTimeString([],{
+hour:"2-digit",
+minute:"2-digit"
+})
+:"";
+
+chatList.innerHTML+=`
+
+<div class="chat-card"
+
+onclick="openChat('${chat.id}')">
+
+<div class="avatar">
+
+${initials}
+
+</div>
+
+<div class="chat-info">
+
+<h3>
+
+${chat.fullname||"Unknown User"}
+
+</h3>
+
+<p>
+
+${chat.lastMessage||"No messages yet"}
+
+</p>
+
+</div>
+
+<div class="right">
+
+<div class="time">
+
+${time}
+
+</div>
+
+${chat.unreadForAdmin?
+
+`<div class="badge">1</div>`
+
+:""}
+
+</div>
+
+</div>
+
+`;
+
+});
+
+}
+
+window.openChat=(id)=>{
+
+location.href=`admin-chat-room.html?id=${id}`;
+
+};
+
+searchInput.oninput=()=>{
+
+const keyword=searchInput.value.toLowerCase();
+
+const filtered=chats.filter(chat=>
+
+(chat.fullname||"")
+.toLowerCase()
+.includes(keyword)
+
+||
+
+(chat.username||"")
+.toLowerCase()
+.includes(keyword)
+
+);
+
+renderChats(filtered);
+
+};
+
+</script>
+
+</body>
+</html>

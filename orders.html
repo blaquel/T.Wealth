@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<meta name="theme-color" content="#050505">
+<title>T.Wealth | Orders</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:Poppins,sans-serif;-webkit-tap-highlight-color:transparent}
+html,body{background:#050505;color:#fff;min-height:100%;touch-action:manipulation}
+body{padding-bottom:45px;overflow-x:hidden}
+body:before,body:after{content:"";position:fixed;width:320px;height:320px;border-radius:50%;filter:blur(125px);z-index:-1;opacity:.12}
+body:before{background:#d4af37;top:-150px;left:-130px} body:after{background:#ffd54a;right:-170px;bottom:-150px}
+button,input,select{font:inherit}
+button{cursor:pointer}
+.app{width:100%;max-width:920px;margin:auto;padding:18px 16px}
+.header{display:flex;align-items:center;gap:13px;margin-bottom:22px}
+.back{width:48px;height:48px;border:1px solid rgba(212,175,55,.22);border-radius:15px;background:#111;color:#ffd54a;font-size:20px}
+.header h1{font-size:25px}.header p{font-size:11px;color:#777;margin-top:2px}
+.summary{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px}
+.summary-card{background:linear-gradient(145deg,#151515,#0e0e0e);border:1px solid rgba(212,175,55,.16);border-radius:18px;padding:15px}
+.summary-card i{color:#d4af37;font-size:17px}.summary-card span{display:block;color:#777;font-size:10px;margin-top:8px}.summary-card strong{display:block;color:#ffd54a;font-size:16px;margin-top:2px}
+.toolbar{display:flex;gap:10px;margin-bottom:15px}
+.search{flex:1;height:50px;background:#111;border:1px solid rgba(212,175,55,.18);border-radius:15px;display:flex;align-items:center;padding:0 14px}
+.search i{color:#d4af37}.search input{width:100%;background:none;border:0;outline:0;color:#fff;padding-left:9px;font-size:13px}
+.filter{height:50px;padding:0 14px;border-radius:15px;background:#111;color:#ddd;border:1px solid rgba(212,175,55,.18);outline:0;font-size:12px}
+.orders{display:flex;flex-direction:column;gap:13px}
+.order{background:linear-gradient(145deg,#141414,#0d0d0d);border:1px solid rgba(212,175,55,.16);border-radius:21px;padding:14px;box-shadow:0 12px 32px rgba(0,0,0,.22)}
+.order-top{display:flex;gap:13px;align-items:center}.product-img{width:82px;height:70px;border-radius:14px;overflow:hidden;background:#1a1a1a;flex:none}
+.product-img img{width:100%;height:100%;object-fit:cover}.order-main{min-width:0;flex:1}.order-main h3{font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.order-main p{font-size:10px;color:#777;margin-top:3px}
+.status{font-size:9px;font-weight:700;padding:6px 8px;border-radius:20px;white-space:nowrap}.processing{background:rgba(255,183,0,.12);color:#ffc107}.paid{background:rgba(76,175,80,.12);color:#75d27a}.partial{background:rgba(33,150,243,.12);color:#65b5ff}.delivered{background:rgba(212,175,55,.13);color:#ffd54a}.cancelled{background:rgba(244,67,54,.12);color:#ff7770}
+.progress-area{margin-top:14px;background:#101010;border-radius:14px;padding:12px}.progress-row{display:flex;justify-content:space-between;font-size:10px;color:#888;margin-bottom:8px}.progress-row strong{color:#ddd}.bar{height:6px;background:#292929;border-radius:10px;overflow:hidden}.bar span{display:block;height:100%;background:linear-gradient(90deg,#c89b08,#ffd54a);border-radius:10px}
+.details{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:12px}.detail{background:#101010;border-radius:12px;padding:10px}.detail small{display:block;color:#666;font-size:9px}.detail strong{display:block;color:#ddd;font-size:11px;margin-top:3px}
+.order-actions{display:flex;gap:8px;margin-top:12px}.action{flex:1;height:40px;border-radius:12px;border:1px solid rgba(212,175,55,.18);background:#111;color:#ffd54a;font-size:11px;font-weight:600}.action.primary{background:#d4af37;color:#111}
+.empty{text-align:center;padding:55px 20px;color:#777}.empty i{display:block;color:#d4af37;font-size:38px;margin-bottom:12px}.empty h2{font-size:18px;color:#ddd;margin-bottom:6px}.empty p{font-size:11px;line-height:1.7}
+.errorbox{display:none;background:#160e0e;border:1px solid rgba(255,80,80,.25);border-radius:16px;padding:14px;margin-bottom:14px;color:#ffaaa5;font-size:11px;line-height:1.6}
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.82);backdrop-filter:blur(10px);z-index:50;display:none;align-items:flex-end;justify-content:center}.overlay.show{display:flex}
+.sheet{width:100%;max-width:700px;max-height:92vh;overflow:auto;background:#101010;border:1px solid rgba(212,175,55,.24);border-radius:27px 27px 0 0;padding:18px}.close{float:right;width:40px;height:40px;border:0;border-radius:12px;background:#1c1c1c;color:#fff;font-size:17px}.sheet h2{clear:both;padding-top:14px;color:#ffd54a;font-size:22px}.sheet .sub{font-size:11px;color:#777;margin:4px 0 17px}
+.info-block{background:#171717;border:1px solid #242424;border-radius:17px;padding:14px;margin-bottom:10px}.info-block h3{font-size:12px;color:#d4af37;margin-bottom:10px}.info-line{display:flex;justify-content:space-between;gap:15px;padding:7px 0;border-bottom:1px solid rgba(255,255,255,.05);font-size:11px}.info-line:last-child{border-bottom:0}.info-line span{color:#777}.info-line strong{text-align:right;color:#ddd}
+.timeline{margin-top:8px}.step{display:flex;gap:12px;position:relative;padding-bottom:18px}.step:last-child{padding-bottom:0}.step-dot{width:25px;height:25px;border-radius:50%;background:#242424;border:1px solid #444;color:#777;display:flex;align-items:center;justify-content:center;font-size:11px;flex:none}.step.done .step-dot,.step.current .step-dot{background:#d4af37;color:#111;border-color:#d4af37}.step:not(:last-child):after{content:"";position:absolute;left:12px;top:25px;width:1px;height:calc(100% - 16px);background:#303030}.step div:last-child strong{display:block;font-size:11px}.step div:last-child small{color:#777;font-size:9px;line-height:1.5}
+.loading{position:fixed;inset:0;background:rgba(0,0,0,.93);z-index:100;display:none;align-items:center;justify-content:center;flex-direction:column}.spinner{width:52px;height:52px;border:4px solid #292929;border-top-color:#d4af37;border-radius:50%;animation:spin .8s linear infinite}.loading p{margin-top:13px;color:#ffd54a;font-size:12px;font-weight:600}@keyframes spin{to{transform:rotate(360deg)}}
+@media(max-width:600px){.summary{grid-template-columns:1fr 1fr}.summary-card:last-child{grid-column:span 2}}
+@media(max-width:430px){.app{padding:15px 12px}.product-img{width:70px;height:62px}.order-main h3{font-size:13px}.status{font-size:8px;padding:5px 6px}.toolbar{flex-direction:column}.filter{width:100%}}
+</style>
+</head>
+<body>
+<div class="app">
+<div class="header">
+<button class="back" id="backBtn" type="button"><i class="bi bi-arrow-left"></i></button>
+<div><h1>Orders</h1><p>Your T.Wealth marketplace purchases</p></div>
+</div>
+
+<div class="summary">
+<div class="summary-card"><i class="bi bi-bag-check"></i><span>Total Orders</span><strong id="totalOrders">0</strong></div>
+<div class="summary-card"><i class="bi bi-hourglass-split"></i><span>Active Orders</span><strong id="activeOrders">0</strong></div>
+<div class="summary-card"><i class="bi bi-wallet2"></i><span>Total Paid</span><strong id="totalPaid">$0.00</strong></div>
+</div>
+
+<div class="errorbox" id="errorBox"></div>
+
+<div class="toolbar">
+<div class="search"><i class="bi bi-search"></i><input id="search" placeholder="Search orders or products..."></div>
+<select class="filter" id="filter">
+<option value="all">All orders</option><option value="processing">Processing</option><option value="partial">Partially paid</option><option value="paid">Paid</option><option value="delivered">Delivered</option><option value="cancelled">Cancelled</option>
+</select>
+</div>
+
+<div class="orders" id="orders"></div>
+<div class="empty" id="empty">
+<i class="bi bi-bag-x"></i><h2>No orders yet</h2><p>Your marketplace purchases will appear here after you place an order.</p>
+</div>
+</div>
+
+<div class="overlay" id="detailOverlay">
+<div class="sheet">
+<button class="close" id="closeDetail" type="button"><i class="bi bi-x-lg"></i></button>
+<h2 id="detailTitle">Order details</h2><p class="sub" id="detailId"></p>
+<div class="info-block"><h3>Purchase</h3>
+<div class="info-line"><span>Product</span><strong id="dProduct">—</strong></div>
+<div class="info-line"><span>Variant</span><strong id="dVariant">—</strong></div>
+<div class="info-line"><span>Order total</span><strong id="dTotal">—</strong></div>
+<div class="info-line"><span>Paid</span><strong id="dPaid">—</strong></div>
+<div class="info-line"><span>Remaining</span><strong id="dRemaining">—</strong></div>
+<div class="info-line"><span>Payment procedure</span><strong id="dPlan">—</strong></div>
+<div class="info-line"><span>Next payment</span><strong id="dNext">—</strong></div>
+</div>
+<div class="info-block"><h3>Delivery</h3>
+<div class="info-line"><span>Status</span><strong id="dDelivery">—</strong></div>
+<div class="info-line"><span>Estimated delivery</span><strong id="dDeliveryDate">—</strong></div>
+<div class="info-line"><span>Address</span><strong id="dAddress">—</strong></div>
+</div>
+<div class="info-block"><h3>Order progress</h3>
+<div class="timeline">
+<div class="step" id="sPlaced"><div class="step-dot"><i class="bi bi-check"></i></div><div><strong>Order placed</strong><small>Order received successfully.</small></div></div>
+<div class="step" id="sProcessing"><div class="step-dot"><i class="bi bi-box-seam"></i></div><div><strong>Processing</strong><small>Preparing your order.</small></div></div>
+<div class="step" id="sTransit"><div class="step-dot"><i class="bi bi-truck"></i></div><div><strong>In transit</strong><small>Your order is on its way.</small></div></div>
+<div class="step" id="sDelivered"><div class="step-dot"><i class="bi bi-house-check"></i></div><div><strong>Delivered</strong><small>Order delivered.</small></div></div>
+</div></div>
+</div></div>
+
+<div class="loading" id="loading"><div class="spinner"></div><p id="loadingText">Loading your orders...</p></div>
+
+<script type="module">
+import {initializeApp} from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
+import {getAuth,onAuthStateChanged} from "https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js";
+import {getFirestore,collection,query,where,getDocs} from "https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
+
+const firebaseConfig={
+apiKey:"AIzaSyCfmUdXAvdktAZ7RRFYGq5R2ZMgFQjBIHg",
+authDomain:"t-wealth-6c492.firebaseapp.com",
+projectId:"t-wealth-6c492",
+storageBucket:"t-wealth-6c492.firebasestorage.app",
+messagingSenderId:"920631507931",
+appId:"1:920631507931:web:ec6769afe5feebfed0c5fe"
+};
+
+const app=initializeApp(firebaseConfig),auth=getAuth(app),db=getFirestore(app);
+const ordersEl=document.getElementById("orders"),empty=document.getElementById("empty"),loading=document.getElementById("loading"),errorBox=document.getElementById("errorBox");
+let allOrders=[],currentUser=null;
+
+const money=n=>"$"+Number(n||0).toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2});
+function safeDate(v){
+if(!v)return null;
+if(typeof v.toDate==="function")return v.toDate();
+if(v.seconds)return new Date(v.seconds*1000);
+const d=new Date(v);return isNaN(d.getTime())?null:d;
+}
+function dateText(v){
+const d=safeDate(v);return d?d.toLocaleDateString("en-US",{month:"short",day:"numeric",year:"numeric"}):"—";
+}
+function escapeHtml(v){return String(v??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));}
+
+function getFrequency(o){return o.installmentFrequency||o.paymentFrequency||"monthly"}
+function getDuration(o){return o.installmentDuration||o.paymentDuration||0}
+function getTotal(o){return Number(o.totalAmount??o.amount??0)}
+function getPaid(o){return Number(o.amountPaid??o.initialPayment??o.paidAmount??0)}
+
+function nextPayment(o){
+const remaining=Math.max(0,getTotal(o)-getPaid(o));
+if(remaining<=0)return "Paid in full";
+if(o.nextPaymentAt){
+const d=safeDate(o.nextPaymentAt);if(d)return dateText(d);
+}
+const created=safeDate(o.createdAt);if(!created)return "Pending";
+const d=new Date(created),f=getFrequency(o);
+if(f==="daily")d.setDate(d.getDate()+1);else if(f==="weekly")d.setDate(d.getDate()+7);else d.setMonth(d.getMonth()+1);
+return dateText(d);
+}
+
+function deliveryDate(o){
+const created=safeDate(o.createdAt);if(!created)return "Pending";
+const d=new Date(created);d.setDate(d.getDate()+Number(o.deliveryDays||6));return dateText(d);
+}
+
+function statusFor(o){
+const ds=String(o.deliveryStatus||"").toLowerCase(),ps=String(o.paymentStatus||"").toLowerCase(),s=String(o.status||"").toLowerCase();
+if(ds==="delivered"||s==="delivered")return "delivered";
+if(ds==="cancelled"||s==="cancelled")return "cancelled";
+if(ps==="partial"||Number(o.remainingBalance||0)>0)return "partial";
+if(ps==="paid"||s==="paid")return "paid";
+return "processing";
+}
+function statusLabel(s){return {processing:"Processing",partial:"Partially Paid",paid:"Paid",delivered:"Delivered",cancelled:"Cancelled"}[s]||"Processing"}
+
+function render(){
+const term=document.getElementById("search").value.trim().toLowerCase(),selected=document.getElementById("filter").value;
+const list=allOrders.filter(o=>{
+const s=statusFor(o),text=[o.product,o.variant,o.productType,o.id].filter(Boolean).join(" ").toLowerCase();
+return (selected==="all"||s===selected)&&(!term||text.includes(term));
+});
+ordersEl.innerHTML=list.map(o=>{
+const s=statusFor(o),total=getTotal(o),paid=getPaid(o),remaining=Math.max(0,total-paid);
+const pct=total?Math.min(100,Math.max(0,paid/total*100)):(s==="delivered"?100:0);
+const image=o.image||"";
+return `<article class="order">
+<div class="order-top">
+<div class="product-img">${image?`<img src="${escapeHtml(image)}" alt="" onerror="this.style.display='none'">`:""}</div>
+<div class="order-main"><h3>${escapeHtml(o.product||"Tesla Product")}</h3><p>${escapeHtml(o.variant||o.productType||"Marketplace purchase")} · ${dateText(o.createdAt)}</p></div>
+<span class="status ${s}">${statusLabel(s)}</span>
+</div>
+<div class="progress-area"><div class="progress-row"><span>Payment progress</span><strong>${Math.round(pct)}%</strong></div><div class="bar"><span style="width:${pct}%"></span></div></div>
+<div class="details">
+<div class="detail"><small>Order total</small><strong>${money(total)}</strong></div>
+<div class="detail"><small>Paid</small><strong>${money(paid)}</strong></div>
+<div class="detail"><small>Remaining</small><strong>${money(remaining)}</strong></div>
+<div class="detail"><small>Next payment</small><strong>${nextPayment(o)}</strong></div>
+</div>
+<div class="order-actions"><button class="action primary" data-view="${escapeHtml(o.id)}">View order</button>${s==="partial"?`<button class="action" data-pay="${escapeHtml(o.id)}">Payment plan</button>`:""}</div>
+</article>`;
+}).join("");
+empty.style.display=list.length?"none":"block";
+ordersEl.querySelectorAll("[data-view],[data-pay]").forEach(b=>b.onclick=()=>{const o=allOrders.find(x=>x.id===b.dataset.view||x.id===b.dataset.pay);if(o)openDetails(o)});
+}
+
+function openDetails(o){
+const s=statusFor(o),total=getTotal(o),paid=getPaid(o),remaining=Math.max(0,total-paid);
+document.getElementById("detailTitle").textContent=o.product||"Order details";
+document.getElementById("detailId").textContent="Order ID: "+o.id;
+document.getElementById("dProduct").textContent=o.product||"—";
+document.getElementById("dVariant").textContent=o.variant||o.productType||"—";
+document.getElementById("dTotal").textContent=money(total);
+document.getElementById("dPaid").textContent=money(paid);
+document.getElementById("dRemaining").textContent=money(remaining);
+document.getElementById("dPlan").textContent=o.paymentPlan==="installment"||o.paymentPlan==="gradual"
+?`${getFrequency(o)} · ${getDuration(o)}`
+:"Full payment";
+document.getElementById("dNext").textContent=nextPayment(o);
+document.getElementById("dDelivery").textContent=o.deliveryStatus||statusLabel(s);
+document.getElementById("dDeliveryDate").textContent=deliveryDate(o);
+document.getElementById("dAddress").textContent=[o.address,o.city].filter(Boolean).join(", ")||"—";
+["sPlaced","sProcessing","sTransit","sDelivered"].forEach(id=>document.getElementById(id).classList.remove("done","current"));
+if(s!=="cancelled"){
+document.getElementById("sPlaced").classList.add("done");
+if(s==="processing"||s==="partial"||s==="paid")document.getElementById("sProcessing").classList.add("current");
+if(s==="delivered"){document.getElementById("sProcessing").classList.add("done");document.getElementById("sTransit").classList.add("done");document.getElementById("sDelivered").classList.add("done")}
+}
+document.getElementById("detailOverlay").classList.add("show");
+}
+
+document.getElementById("backBtn").onclick=()=>{window.location.href="buy.html"};
+document.getElementById("closeDetail").onclick=()=>document.getElementById("detailOverlay").classList.remove("show");
+document.getElementById("detailOverlay").onclick=e=>{if(e.target.id==="detailOverlay")e.currentTarget.classList.remove("show")};
+document.getElementById("search").oninput=render;
+document.getElementById("filter").onchange=render;
+
+async function loadOrders(user){
+loading.style.display="flex";errorBox.style.display="none";
+try{
+/* IMPORTANT: no orderBy here. This avoids the composite-index requirement. */
+const snap=await getDocs(query(collection(db,"orders"),where("uid","==",user.uid)));
+allOrders=snap.docs.map(d=>({id:d.id,...d.data()}));
+allOrders.sort((a,b)=>(safeDate(b.createdAt)?.getTime()||0)-(safeDate(a.createdAt)?.getTime()||0));
+
+/* Also recognize older order records that may have been stored without uid,
+   but only if they belong to the current user's order ID history is unavailable. */
+if(!allOrders.length){
+const legacySnap=await getDocs(collection(db,"orders"));
+const possible=legacySnap.docs.map(d=>({id:d.id,...d.data()})).filter(o=>o.uid===user.uid);
+allOrders=possible.sort((a,b)=>(safeDate(b.createdAt)?.getTime()||0)-(safeDate(a.createdAt)?.getTime()||0));
+}
+
+document.getElementById("totalOrders").textContent=allOrders.length;
+document.getElementById("activeOrders").textContent=allOrders.filter(o=>["processing","partial","paid"].includes(statusFor(o))).length;
+document.getElementById("totalPaid").textContent=money(allOrders.reduce((sum,o)=>sum+getPaid(o),0));
+render();
+}catch(err){
+console.error("Orders load error:",err);
+allOrders=[];
+document.getElementById("totalOrders").textContent="0";
+document.getElementById("activeOrders").textContent="0";
+document.getElementById("totalPaid").textContent="$0.00";
+errorBox.textContent="Your orders could not be loaded. Check that the Firestore rules allow the signed-in user to read the orders collection. Technical message: "+(err.message||"Unknown error");
+errorBox.style.display="block";
+render();
+}finally{loading.style.display="none"}
+}
+
+onAuthStateChanged(auth,user=>{
+if(!user){window.location.href="login.html";return}
+currentUser=user;loadOrders(user);
+});
+</script>
+</body>
+</html>

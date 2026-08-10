@@ -1,0 +1,1076 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+<meta name="theme-color" content="#050505">
+
+<title>T.Wealth | PayPal Withdrawal</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link rel="preconnect"
+href="https://fonts.gstatic.com"
+crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+rel="stylesheet">
+
+<link rel="stylesheet"
+href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+-webkit-tap-highlight-color:transparent;
+}
+
+html{
+scroll-behavior:smooth;
+overflow-x:hidden;
+}
+
+body{
+font-family:"Poppins",sans-serif;
+background:#050505;
+color:#fff;
+padding:18px;
+overflow-x:hidden;
+}
+
+.container{
+max-width:650px;
+margin:auto;
+}
+
+/* HEADER */
+
+.header{
+display:flex;
+align-items:center;
+gap:15px;
+margin-bottom:25px;
+}
+
+.back-btn{
+width:45px;
+height:45px;
+border:none;
+border-radius:50%;
+background:#111;
+color:#FFD54A;
+font-size:20px;
+cursor:pointer;
+border:1px solid rgba(212,175,55,.15);
+}
+
+.header h2{
+font-size:24px;
+font-weight:700;
+color:#FFD54A;
+}
+
+/* NOTICE */
+
+.notice{
+display:flex;
+gap:12px;
+background:#171717;
+border-left:4px solid #FFD54A;
+padding:15px;
+border-radius:12px;
+margin-bottom:20px;
+}
+
+.notice i{
+color:#FFD54A;
+font-size:22px;
+}
+
+.notice p{
+font-size:14px;
+line-height:1.6;
+color:#ccc;
+}
+
+/* CARD */
+
+.card{
+background:#111;
+border:1px solid rgba(212,175,55,.25);
+border-radius:20px;
+padding:20px;
+margin-bottom:20px;
+box-shadow:0 10px 25px rgba(0,0,0,.35);
+}
+
+/* PAYPAL */
+
+.paypal-box{
+width:100%;
+padding:25px 15px;
+background:#080808;
+border:1px solid rgba(212,175,55,.20);
+border-radius:18px;
+text-align:center;
+margin-bottom:25px;
+}
+
+.paypal-icon{
+width:75px;
+height:75px;
+margin:auto;
+border-radius:50%;
+background:linear-gradient(135deg,#FFD54A,#C89B09);
+display:flex;
+align-items:center;
+justify-content:center;
+margin-bottom:15px;
+}
+
+.paypal-icon i{
+font-size:40px;
+color:#111;
+}
+
+.paypal-title{
+font-size:21px;
+font-weight:700;
+color:#FFD54A;
+}
+
+.paypal-subtitle{
+font-size:13px;
+color:#999;
+margin-top:5px;
+}
+
+/* FORM */
+
+.form-group{
+margin-top:20px;
+}
+
+.label{
+font-size:15px;
+font-weight:600;
+margin-bottom:10px;
+color:#FFD54A;
+display:block;
+}
+
+.input{
+width:100%;
+height:52px;
+background:#050505;
+border:1px solid rgba(212,175,55,.25);
+border-radius:14px;
+padding:0 15px;
+color:#fff;
+font-family:"Poppins",sans-serif;
+font-size:15px;
+outline:none;
+}
+
+.input:focus{
+border-color:#FFD54A;
+box-shadow:0 0 0 2px rgba(255,213,74,.08);
+}
+
+.input::placeholder{
+color:#666;
+}
+
+/* BALANCE */
+
+.balance-box{
+background:#080808;
+border:1px solid rgba(212,175,55,.20);
+border-radius:15px;
+padding:16px;
+margin-bottom:20px;
+}
+
+.balance-row{
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.balance-row span:first-child{
+font-size:13px;
+color:#999;
+}
+
+#availableBalance{
+font-size:18px;
+font-weight:700;
+color:#FFD54A;
+}
+
+/* PREVIEW */
+
+.preview{
+margin-top:15px;
+background:#171717;
+border-radius:14px;
+padding:15px;
+}
+
+.preview-row{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:8px;
+}
+
+.preview-row:last-child{
+margin-bottom:0;
+}
+
+.preview-row span:first-child{
+font-size:13px;
+color:#999;
+}
+
+.preview-row span:last-child{
+font-size:14px;
+font-weight:600;
+color:#fff;
+}
+
+#remainingBalance{
+color:#FFD54A;
+}
+
+/* BUTTON */
+
+.btn{
+width:100%;
+height:52px;
+border:none;
+border-radius:14px;
+background:linear-gradient(135deg,#FFD54A,#C89B09);
+color:#111;
+font-size:16px;
+font-weight:700;
+font-family:"Poppins",sans-serif;
+cursor:pointer;
+transition:.3s;
+margin-top:20px;
+}
+
+.btn:hover{
+transform:translateY(-2px);
+}
+
+.btn:disabled{
+opacity:.5;
+cursor:not-allowed;
+transform:none;
+}
+
+/* MINIMUM INFO */
+
+.minimum{
+text-align:center;
+font-size:12px;
+color:#777;
+margin-top:12px;
+}
+
+/* OVERLAY */
+
+.overlay{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,.82);
+display:none;
+justify-content:center;
+align-items:center;
+z-index:9999;
+padding:20px;
+}
+
+.loading-card,
+.success-card{
+width:100%;
+max-width:360px;
+background:#111;
+border:1px solid rgba(212,175,55,.25);
+border-radius:20px;
+padding:30px 25px;
+text-align:center;
+}
+
+.loader{
+width:55px;
+height:55px;
+margin:auto;
+border:5px solid #222;
+border-top:5px solid #FFD54A;
+border-radius:50%;
+animation:spin .8s linear infinite;
+margin-bottom:20px;
+}
+
+@keyframes spin{
+
+100%{
+transform:rotate(360deg);
+}
+
+}
+
+.loading-card h3,
+.success-card h2{
+color:#FFD54A;
+margin-bottom:12px;
+}
+
+.loading-card p,
+.success-card p{
+color:#bbb;
+line-height:1.7;
+font-size:14px;
+}
+
+.success-icon{
+font-size:70px;
+color:#00d26a;
+margin-bottom:15px;
+}
+
+#doneBtn{
+width:100%;
+height:50px;
+margin-top:25px;
+border:none;
+border-radius:14px;
+background:linear-gradient(135deg,#FFD54A,#C89B09);
+color:#111;
+font-weight:700;
+font-size:16px;
+font-family:"Poppins",sans-serif;
+cursor:pointer;
+}
+
+/* MOBILE */
+
+@media(max-width:600px){
+
+.header h2{
+font-size:21px;
+}
+
+body{
+padding:15px;
+}
+
+.card{
+padding:18px;
+}
+
+}
+
+html,
+body{
+touch-action:manipulation;
+overscroll-behavior:none;
+-webkit-text-size-adjust:100%;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<!-- HEADER -->
+
+<div class="header">
+
+<button class="back-btn" id="backBtn">
+
+<i class="bi bi-arrow-left"></i>
+
+</button>
+
+<h2>PayPal Withdrawal</h2>
+
+</div>
+
+<!-- NOTICE -->
+
+<div class="notice">
+
+<i class="bi bi-info-circle-fill"></i>
+
+<p>
+
+Enter the <b>PayPal email address</b> where you want to receive your withdrawal. Make sure the email is correct before submitting.
+
+</p>
+
+</div>
+
+<!-- MAIN CARD -->
+
+<div class="card">
+
+<!-- PAYPAL -->
+
+<div class="paypal-box">
+
+<div class="paypal-icon">
+
+<i class="bi bi-paypal"></i>
+
+</div>
+
+<div class="paypal-title">
+
+PayPal
+
+</div>
+
+<div class="paypal-subtitle">
+
+Withdraw securely to your PayPal account
+
+</div>
+
+</div>
+
+<!-- BALANCE -->
+
+<div class="balance-box">
+
+<div class="balance-row">
+
+<span>Available Balance</span>
+
+<strong id="availableBalance">
+
+$0.00
+
+</strong>
+
+</div>
+
+</div>
+
+<!-- EMAIL -->
+
+<div class="form-group">
+
+<label class="label">
+
+PayPal Email
+
+</label>
+
+<input
+type="email"
+id="paypalEmail"
+class="input"
+placeholder="Enter your PayPal email"
+autocomplete="email">
+
+</div>
+
+<!-- AMOUNT -->
+
+<div class="form-group">
+
+<label class="label">
+
+Withdrawal Amount (USD)
+
+</label>
+
+<input
+type="number"
+id="amount"
+class="input"
+placeholder="Enter amount"
+min="1"
+step="0.01">
+
+</div>
+
+<!-- PREVIEW -->
+
+<div class="preview">
+
+<div class="preview-row">
+
+<span>Withdrawal Amount</span>
+
+<span id="amountPreview">
+
+$0.00
+
+</span>
+
+</div>
+
+<div class="preview-row">
+
+<span>Remaining Balance</span>
+
+<span id="remainingBalance">
+
+$0.00
+
+</span>
+
+</div>
+
+</div>
+
+<button class="btn" id="submitBtn">
+
+<i class="bi bi-send-fill"></i>
+
+Request Withdrawal
+
+</button>
+
+<div class="minimum">
+
+Minimum withdrawal: $1.00
+
+</div>
+
+</div>
+
+</div>
+
+<!-- LOADING -->
+
+<div id="loadingOverlay" class="overlay">
+
+<div class="loading-card">
+
+<div class="loader"></div>
+
+<h3>
+
+Submitting Withdrawal
+
+</h3>
+
+<p>
+
+Please wait while your withdrawal request is being submitted...
+
+</p>
+
+</div>
+
+</div>
+
+<!-- SUCCESS -->
+
+<div id="successAlert" class="overlay">
+
+<div class="success-card">
+
+<div class="success-icon">
+
+<i class="bi bi-check-circle-fill"></i>
+
+</div>
+
+<h2>
+
+Withdrawal Submitted
+
+</h2>
+
+<p>
+
+Your PayPal withdrawal request has been received successfully and is now awaiting admin approval.
+
+</p>
+
+<button id="doneBtn">
+
+Continue
+
+</button>
+
+</div>
+
+</div>
+
+
+<script type="module">
+
+/*=========================================
+FIREBASE
+=========================================*/
+
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
+
+import {
+getAuth,
+onAuthStateChanged
+}
+from "https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js";
+
+import {
+getFirestore,
+doc,
+getDoc,
+addDoc,
+collection,
+serverTimestamp
+}
+from "https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
+
+
+/*=========================================
+CONFIG
+=========================================*/
+
+const firebaseConfig = {
+
+apiKey:"AIzaSyCfmUdXAvdktAZ7RRFYGq5R2ZMgFQjBIHg",
+
+authDomain:"t-wealth-6c492.firebaseapp.com",
+
+projectId:"t-wealth-6c492",
+
+storageBucket:"t-wealth-6c492.firebasestorage.app",
+
+messagingSenderId:"920631507931",
+
+appId:"1:920631507931:web:ec6769afe5feebfed0c5fe"
+
+};
+
+
+const app = initializeApp(firebaseConfig);
+
+const auth = getAuth(app);
+
+const db = getFirestore(app);
+
+
+/*=========================================
+ELEMENTS
+=========================================*/
+
+const backBtn =
+document.getElementById("backBtn");
+
+const paypalEmail =
+document.getElementById("paypalEmail");
+
+const amount =
+document.getElementById("amount");
+
+const availableBalance =
+document.getElementById("availableBalance");
+
+const amountPreview =
+document.getElementById("amountPreview");
+
+const remainingBalance =
+document.getElementById("remainingBalance");
+
+const submitBtn =
+document.getElementById("submitBtn");
+
+const loadingOverlay =
+document.getElementById("loadingOverlay");
+
+const successAlert =
+document.getElementById("successAlert");
+
+const doneBtn =
+document.getElementById("doneBtn");
+
+
+/*=========================================
+GLOBAL
+=========================================*/
+
+let currentUser = null;
+
+let userBalance = 0;
+
+
+/*=========================================
+AUTH
+=========================================*/
+
+onAuthStateChanged(auth, async(user)=>{
+
+    console.log("Checking authentication...");
+
+    if(!user){
+
+        console.log("NO USER AUTHENTICATED");
+
+        window.location.href = "login.html";
+
+        return;
+    }
+
+    console.log("USER AUTHENTICATED");
+    console.log("UID:", user.uid);
+    console.log("Email:", user.email);
+
+    currentUser = user;
+
+    await loadUserData();
+
+});
+
+
+/*=========================================
+LOAD USER
+=========================================*/
+
+async function loadUserData(){
+
+    try{
+
+        console.log("=================================");
+        console.log("AUTHENTICATED USER");
+        console.log("UID:", currentUser.uid);
+        console.log("Email:", currentUser.email);
+        console.log("=================================");
+
+        const userRef = doc(db, "users", currentUser.uid);
+
+        console.log("Reading Firestore document:");
+        console.log("users/" + currentUser.uid);
+
+        const userSnap = await getDoc(userRef);
+
+        if(!userSnap.exists()){
+
+            console.error("USER DOCUMENT NOT FOUND");
+
+            console.error(
+                "There is no document at users/" + currentUser.uid
+            );
+
+            alert(
+                "Your account information could not be found. Please contact support."
+            );
+
+            return;
+        }
+
+        const data = userSnap.data();
+
+        console.log("USER DATA FROM FIRESTORE:");
+        console.log(data);
+
+        /*
+        ==============================
+        BALANCE
+        ==============================
+        */
+
+        userBalance = Number(data.balance || 0);
+
+        console.log("Balance:", userBalance);
+
+        availableBalance.textContent =
+            "$" +
+            userBalance.toLocaleString(undefined,{
+                minimumFractionDigits:2,
+                maximumFractionDigits:2
+            });
+
+        /*
+        ==============================
+        OTHER USER INFORMATION
+        ==============================
+        */
+
+        console.log("Full Name:", data.fullname);
+        console.log("Username:", data.username);
+        console.log("Email:", data.email);
+        console.log("Currency:", data.currency);
+
+        updatePreview();
+
+    }
+    catch(error){
+
+        console.error("FIRESTORE USER ERROR");
+        console.error(error);
+
+        if(error.code === "permission-denied"){
+
+            alert(
+                "Firebase denied access to your account information. Check your Firestore security rules."
+            );
+
+        }else{
+
+            alert(
+                "Unable to load your account information."
+            );
+
+        }
+
+    }
+
+}
+
+
+/*=========================================
+BACK
+=========================================*/
+
+backBtn.onclick=()=>{
+
+window.location.href="withdraw.html";
+
+};
+
+
+/*=========================================
+AMOUNT PREVIEW
+=========================================*/
+
+amount.oninput=()=>{
+
+updatePreview();
+
+};
+
+
+function updatePreview(){
+
+const value =
+Number(amount.value) || 0;
+
+const remaining =
+userBalance - value;
+
+amountPreview.textContent =
+"$" + value.toLocaleString(undefined,{
+
+minimumFractionDigits:2,
+
+maximumFractionDigits:2
+
+});
+
+remainingBalance.textContent =
+"$" + Math.max(remaining,0).toLocaleString(undefined,{
+
+minimumFractionDigits:2,
+
+maximumFractionDigits:2
+
+});
+
+}
+
+
+/*=========================================
+SUBMIT
+=========================================*/
+
+submitBtn.onclick = async()=>{
+
+const user = auth.currentUser;
+
+if(!user){
+
+alert("Please login again.");
+
+return;
+
+}
+
+
+const email =
+paypalEmail.value.trim();
+
+const value =
+Number(amount.value);
+
+
+if(!email){
+
+alert("Please enter your PayPal email.");
+
+return;
+
+}
+
+
+if(!paypalEmail.validity.valid){
+
+alert("Please enter a valid PayPal email.");
+
+return;
+
+}
+
+
+if(!value || value <= 0){
+
+alert("Enter a valid withdrawal amount.");
+
+return;
+
+}
+
+
+if(value < 1){
+
+alert("Minimum withdrawal amount is $1.00.");
+
+return;
+
+}
+
+
+if(value > userBalance){
+
+alert("Insufficient available balance.");
+
+return;
+
+}
+
+
+/* SHOW LOADING */
+
+loadingOverlay.style.display="flex";
+
+
+try{
+
+const userSnap =
+await getDoc(
+doc(db,"users",user.uid)
+);
+
+const userData =
+userSnap.data();
+
+
+/*=========================================
+WITHDRAWAL REQUEST
+=========================================*/
+
+await addDoc(
+collection(db,"withdrawal_requests"),
+{
+
+uid:user.uid,
+
+fullname:userData.fullname || "",
+
+username:userData.username || "",
+
+email:userData.email || "",
+
+currency:userData.currency || "USD",
+
+method:"PayPal",
+
+paypalEmail:email,
+
+amount:value,
+
+status:"Pending",
+
+createdAt:serverTimestamp()
+
+}
+);
+
+
+/*=========================================
+HISTORY
+=========================================*/
+
+await addDoc(
+collection(db,"history"),
+{
+
+uid:user.uid,
+
+title:"PayPal Withdrawal",
+
+type:"Withdrawal",
+
+method:"PayPal",
+
+amount:value,
+
+status:"Pending",
+
+createdAt:serverTimestamp()
+
+}
+);
+
+
+/* HIDE LOADING */
+
+loadingOverlay.style.display="none";
+
+
+/* SHOW SUCCESS */
+
+successAlert.style.display="flex";
+
+
+}
+catch(error){
+
+console.error(error);
+
+loadingOverlay.style.display="none";
+
+alert(error.message);
+
+}
+
+};
+
+
+/*=========================================
+DONE
+=========================================*/
+
+doneBtn.onclick=()=>{
+
+window.location.href="history.html";
+
+};
+
+</script>
+
+</body>
+
+</html>

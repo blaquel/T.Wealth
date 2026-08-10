@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+<title>T.Wealth | Deposit Requests</title>
+
+<link rel="preconnect"
+href="https://fonts.googleapis.com">
+
+<link rel="preconnect"
+href="https://fonts.gstatic.com"
+crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+rel="stylesheet">
+
+<link rel="stylesheet"
+href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+-webkit-tap-highlight-color:transparent;
+}
+
+body{
+
+font-family:"Poppins",sans-serif;
+
+background:#050505;
+
+color:#fff;
+
+padding:18px;
+
+overflow-x:hidden;
+
+}
+
+.container{
+
+max-width:900px;
+
+margin:auto;
+
+}
+
+.header{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+margin-bottom:25px;
+
+}
+
+.header h2{
+
+color:#FFD54A;
+
+font-size:28px;
+
+font-weight:700;
+
+}
+
+.pending-badge{
+
+background:#181818;
+
+border:1px solid rgba(212,175,55,.25);
+
+padding:10px 18px;
+
+border-radius:14px;
+
+font-size:14px;
+
+color:#FFD54A;
+
+}
+
+.search-box{
+
+margin-bottom:20px;
+
+}
+
+.search-box input{
+
+width:100%;
+
+height:52px;
+
+background:#111;
+
+border:1px solid rgba(212,175,55,.20);
+
+border-radius:14px;
+
+padding:0 18px;
+
+color:#fff;
+
+font-size:15px;
+
+outline:none;
+
+}
+
+.filters{
+
+display:flex;
+
+gap:10px;
+
+overflow:auto;
+
+margin-bottom:22px;
+
+}
+
+.filters button{
+
+padding:10px 18px;
+
+border:none;
+
+border-radius:12px;
+
+background:#111;
+
+color:#FFD54A;
+
+cursor:pointer;
+
+white-space:nowrap;
+
+font-weight:600;
+
+}
+
+.filters button.active{
+
+background:#FFD54A;
+
+color:#111;
+
+}
+
+.deposit-card{
+
+background:#111;
+
+border:1px solid rgba(212,175,55,.20);
+
+border-radius:22px;
+
+padding:18px;
+
+margin-bottom:22px;
+
+box-shadow:0 12px 30px rgba(0,0,0,.35);
+
+}
+
+.deposit-top{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+margin-bottom:18px;
+
+}
+
+.deposit-name{
+
+font-size:19px;
+
+font-weight:700;
+
+color:#FFD54A;
+
+}
+
+.status{
+
+padding:7px 14px;
+
+border-radius:30px;
+
+font-size:12px;
+
+font-weight:700;
+
+}
+
+.pending{
+
+background:#3b2c00;
+
+color:#FFD54A;
+
+}
+
+.approved{
+
+background:#003d1d;
+
+color:#00ff88;
+
+}
+
+.rejected{
+
+background:#3d0000;
+
+color:#ff5b5b;
+
+}
+
+.info-row{
+
+display:flex;
+
+justify-content:space-between;
+
+margin:10px 0;
+
+gap:20px;
+
+}
+
+.info-row span{
+
+color:#999;
+
+}
+
+.info-row strong{
+
+text-align:right;
+
+}
+
+.proof-title{
+
+margin-top:18px;
+
+margin-bottom:10px;
+
+font-weight:700;
+
+color:#FFD54A;
+
+}
+
+.proof-image{
+
+width:100%;
+
+height:220px;
+
+border-radius:18px;
+
+object-fit:cover;
+
+background:#181818;
+
+border:1px solid rgba(212,175,55,.20);
+
+cursor:pointer;
+
+}
+
+.action-buttons{
+
+display:flex;
+
+gap:12px;
+
+margin-top:20px;
+
+}
+
+.action-buttons button{
+
+flex:1;
+
+height:58px;
+
+border:none;
+
+border-radius:16px;
+
+font-size:16px;
+
+font-weight:700;
+
+cursor:pointer;
+
+transition:.3s;
+
+}
+
+.action-buttons button:hover{
+
+transform:translateY(-2px);
+
+}
+
+.approve{
+
+background:#00b45a;
+
+color:#fff;
+
+}
+
+.reject{
+
+background:#c62828;
+
+color:#fff;
+
+}
+
+@media(max-width:700px){
+
+.info-row{
+
+flex-direction:column;
+
+gap:5px;
+
+}
+
+.action-buttons{
+
+flex-direction:column;
+
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="header">
+
+<h2>Deposit Requests</h2>
+
+<div class="pending-badge">
+
+Pending:
+<span id="pendingCount">
+
+0
+
+</span>
+
+</div>
+
+</div>
+
+<div class="search-box">
+
+<input
+type="text"
+id="searchInput"
+placeholder="Search by name or username...">
+
+</div>
+
+<div class="filters">
+
+<button class="active">All</button>
+
+<button>Pending</button>
+
+<button>Approved</button>
+
+<button>Rejected</button>
+
+</div>
+
+<!-- Deposits load here -->
+
+<div id="depositContainer"></div>
+
+</div>
+
+<script type="module">
+
+/*=========================================
+FIREBASE
+=========================================*/
+
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
+
+import {
+getAuth,
+onAuthStateChanged
+}
+from "https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js";
+
+import {
+getFirestore,
+collection,
+getDocs,
+doc,
+updateDoc,
+getDoc,
+query,
+where,
+addDoc
+}
+from "https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
+
+/*=========================================
+CONFIG
+=========================================*/
+
+const firebaseConfig={
+
+apiKey:"AIzaSyCfmUdXAvdktAZ7RRFYGq5R2ZMgFQjBIHg",
+
+authDomain:"t-wealth-6c492.firebaseapp.com",
+
+projectId:"t-wealth-6c492",
+
+storageBucket:"t-wealth-6c492.firebasestorage.app",
+
+messagingSenderId:"920631507931",
+
+appId:"1:920631507931:web:ec6769afe5feebfed0c5fe"
+
+};
+
+const app=initializeApp(firebaseConfig);
+
+const auth=getAuth(app);
+
+const db=getFirestore(app);
+
+/*=========================================
+ELEMENTS
+=========================================*/
+
+const container=document.getElementById("depositContainer");
+
+const pendingCount=document.getElementById("pendingCount");
+
+const searchInput=document.getElementById("searchInput");
+
+let deposits=[];
+
+/*=========================================
+AUTH
+=========================================*/
+
+onAuthStateChanged(auth,(user)=>{
+
+if(!user){
+
+window.location.href="login.html";
+
+return;
+
+}
+
+loadDeposits();
+
+});
+
+/*=========================================
+LOAD DEPOSITS
+=========================================*/
+
+async function loadDeposits(){
+
+container.innerHTML="<p style='text-align:center;color:#999;'>Loading...</p>";
+
+const snap=await getDocs(collection(db,"deposit_requests"));
+
+deposits=[];
+
+snap.forEach(docSnap=>{
+
+deposits.push({
+
+id:docSnap.id,
+
+...docSnap.data()
+
+});
+
+});
+
+renderDeposits(deposits);
+
+}
+
+/*=========================================
+RENDER
+=========================================*/
+
+function renderDeposits(data){
+
+container.innerHTML="";
+
+let pending=0;
+
+data.forEach(item=>{
+
+if(item.status==="Pending") pending++;
+
+const statusClass=
+
+item.status==="Approved"
+
+?"approved"
+
+:item.status==="Rejected"
+
+?"rejected"
+
+:"pending";
+
+container.innerHTML+=`
+
+<div class="deposit-card">
+
+<div class="deposit-top">
+
+<div class="deposit-name">
+
+${item.fullname}
+
+</div>
+
+<div class="status ${statusClass}">
+
+${item.status}
+
+</div>
+
+</div>
+
+<div class="info-row">
+
+<span>Username</span>
+
+<strong>${item.username}</strong>
+
+</div>
+
+<div class="info-row">
+
+<span>Email</span>
+
+<strong>${item.email}</strong>
+
+</div>
+
+<div class="info-row">
+
+<span>Amount</span>
+
+<strong>
+
+${item.currency||"USD"}
+
+${Number(item.amount).toLocaleString()}
+
+</strong>
+
+</div>
+
+<div class="info-row">
+
+<span>Wallet</span>
+
+<strong>
+
+${item.wallet}
+
+(${item.network})
+
+</strong>
+
+</div>
+
+<div class="info-row">
+
+<span>Address</span>
+
+<strong>
+
+${item.walletAddress}
+
+</strong>
+
+</div>
+
+<div class="proof-title">
+
+Payment Proof
+
+</div>
+
+<img
+
+class="proof-image"
+
+src="${item.proof}"
+
+onclick="window.open('${item.proof}')"
+
+>
+
+${item.status==="Pending"?`
+
+<div class="action-buttons">
+
+<button
+
+class="approve"
+
+onclick="approveDeposit('${item.id}')">
+
+✅ Approve
+
+</button>
+
+<button
+
+class="reject"
+
+onclick="rejectDeposit('${item.id}')">
+
+❌ Reject
+
+</button>
+
+</div>
+
+`:``}
+
+</div>
+
+`;
+
+});
+
+pendingCount.textContent=pending;
+
+}
+
+/*=========================================
+SEARCH
+=========================================*/
+
+searchInput.oninput=()=>{
+
+const keyword=
+
+searchInput.value.toLowerCase();
+
+const filtered=
+
+deposits.filter(item=>
+
+(item.fullname||"")
+
+.toLowerCase()
+
+.includes(keyword)
+
+||
+
+(item.username||"")
+
+.toLowerCase()
+
+.includes(keyword)
+
+);
+
+renderDeposits(filtered);
+
+};
+
+/*=========================================
+APPROVE DEPOSIT
+=========================================*/
+
+async function approveDeposit(id){
+
+if(!confirm("Approve this deposit?")) return;
+
+try{
+
+const depositRef=doc(db,"deposit_requests",id);
+
+const depositSnap=await getDoc(depositRef);
+
+if(!depositSnap.exists()) return;
+
+const deposit=depositSnap.data();
+
+if(deposit.status==="Approved"){
+
+alert("This deposit has already been approved.");
+
+return;
+
+}
+
+const userRef=doc(db,"users",deposit.uid);
+
+const userSnap=await getDoc(userRef);
+
+if(!userSnap.exists()){
+
+alert("User not found.");
+
+return;
+
+}
+
+const userData=userSnap.data();
+
+const currentBalance=Number(userData.balance||0);
+
+const depositAmount=Number(deposit.amount||0);
+
+await updateDoc(userRef,{
+
+balance:currentBalance+depositAmount
+
+});
+
+await updateDoc(depositRef,{
+
+status:"Approved"
+
+});
+
+const historyQuery = query(
+    collection(db,"history"),
+    where("uid","==",deposit.uid),
+    where("title","==","USDT Deposit"),
+    where("amount","==",deposit.amount)
+);
+
+const historySnap = await getDocs(historyQuery);
+
+if(historySnap.empty){
+
+    await addDoc(collection(db,"history"),{
+
+        uid:deposit.uid,
+
+        title:"USDT Deposit",
+
+        type:"Deposit",
+
+        amount:deposit.amount,
+
+        status:"Approved",
+
+        createdAt:deposit.createdAt
+
+    });
+
+}else{
+
+    historySnap.forEach(async(historyDoc)=>{
+
+        await updateDoc(doc(db,"history",historyDoc.id),{
+
+            status:"Approved"
+
+        });
+
+    });
+
+}
+
+alert("Deposit approved successfully.");
+
+loadDeposits();
+
+}catch(error){
+
+alert(error.message);
+
+}
+
+}
+
+/*=========================================
+REJECT DEPOSIT
+=========================================*/
+
+async function rejectDeposit(id){
+
+    if(!confirm("Reject this deposit?")) return;
+
+    try{
+
+        const depositRef = doc(db,"deposit_requests",id);
+
+        const depositSnap = await getDoc(depositRef);
+
+        const deposit = depositSnap.data();
+
+        await updateDoc(depositRef,{
+            status:"Rejected"
+        });
+
+        const historyQuery = query(
+            collection(db,"history"),
+            where("uid","==",deposit.uid),
+            where("title","==","USDT Deposit"),
+            where("amount","==",deposit.amount)
+        );
+
+        const historySnap = await getDocs(historyQuery);
+
+        if(historySnap.empty){
+
+            await addDoc(collection(db,"history"),{
+                uid:deposit.uid,
+                title:"USDT Deposit",
+                type:"Deposit",
+                amount:deposit.amount,
+                status:"Rejected",
+                createdAt:deposit.createdAt
+            });
+
+        }else{
+
+            historySnap.forEach(async(historyDoc)=>{
+
+                await updateDoc(doc(db,"history",historyDoc.id),{
+                    status:"Rejected"
+                });
+
+            });
+
+        }
+
+        alert("Deposit rejected.");
+
+        loadDeposits();
+
+    }catch(error){
+
+        alert(error.message);
+
+    }
+
+}
+
+/*=========================================
+FILTER BUTTONS
+=========================================*/
+
+const filterButtons=document.querySelectorAll(".filters button");
+
+filterButtons.forEach(button=>{
+
+button.onclick=()=>{
+
+filterButtons.forEach(btn=>btn.classList.remove("active"));
+
+button.classList.add("active");
+
+const filter=button.textContent.trim();
+
+if(filter==="All"){
+
+renderDeposits(deposits);
+
+return;
+
+}
+
+const filtered=deposits.filter(item=>item.status===filter);
+
+renderDeposits(filtered);
+
+};
+
+});
+
+window.approveDeposit=approveDeposit;
+
+window.rejectDeposit=rejectDeposit;
+
+</script>
+
+</body>
+
+</html>

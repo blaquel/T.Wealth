@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#080808">
+<title>T.Wealth | Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+<link rel="icon" href="images/logo.png">
+<style>
+:root{--bg:#080808;--gold:#D4AF37;--gold2:#FFD95A;--line:rgba(212,175,55,.17);--red:#ff303b}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{min-height:100%;background:var(--bg);color:#fff}
+body{font-family:Poppins,sans-serif;overflow-x:hidden;touch-action:manipulation;-webkit-text-size-adjust:100%;overscroll-behavior:none}
+button,input,select{font:inherit}button{cursor:pointer}a{text-decoration:none;color:inherit}
+.bg{position:fixed;width:360px;height:360px;border-radius:50%;filter:blur(125px);z-index:-1;pointer-events:none}
+.g1{top:-190px;left:-190px;background:#D4AF37;opacity:.11}.g2{right:-190px;bottom:-190px;background:#FFD54A;opacity:.07}
+.dashboard{width:min(100%,500px);margin:auto;padding:20px 16px 122px}
+.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:23px}
+.greeting{font-size:27px;font-weight:700;letter-spacing:-.5px}.welcome{font-size:13px;color:#888;margin-top:4px}
+.header-btn{position:relative;width:50px;height:50px;border-radius:17px;border:1px solid var(--line);background:#121212;color:var(--gold);display:flex;align-items:center;justify-content:center}
+.header-btn i{font-size:21px}.badge{position:absolute;top:-4px;right:-3px;min-width:18px;height:18px;padding:0 5px;border-radius:20px;background:var(--red);color:#fff;border:2px solid var(--bg);font-size:8px;font-weight:800;display:none;align-items:center;justify-content:center}.badge.show{display:flex}
+.balance-card{position:relative;overflow:hidden;border:1px solid rgba(212,175,55,.2);border-radius:28px;padding:23px;background:radial-gradient(circle at 100% 0,rgba(212,175,55,.12),transparent 35%),linear-gradient(145deg,#191919,#0d0d0d);box-shadow:0 22px 60px #0005;margin-bottom:22px}
+.balance-row{display:flex;align-items:flex-end;justify-content:space-between;gap:10px}.label{font-size:11px;color:#858585;margin-bottom:5px}.balance{font-size:18px;line-height:1.1;font-weight:700;letter-spacing:-.2px}
+.tools{display:flex;gap:7px}.currency{height:40px;min-width:92px;border:1px solid #292929;border-radius:12px;background:#101010;color:var(--gold);outline:0;padding:0 8px;font-size:10px;font-weight:700}.eye{width:40px;height:40px;border:1px solid #292929;border-radius:12px;background:#101010;color:var(--gold);font-size:17px}
+.balance-footer{display:flex;justify-content:space-between;margin-top:17px;padding-top:14px;border-top:1px solid #ffffff0a;font-size:9px;color:#666}.secure{color:#aaa}.secure i{color:#37d982}
+.slider-section{margin-bottom:23px}.slider{position:relative;height:215px;overflow:hidden;border-radius:25px;border:1px solid var(--line);background:#111;box-shadow:0 20px 50px #0005}.slider img{width:100%;height:100%;object-fit:cover;transition:opacity .35s}.slider:after{content:"";position:absolute;inset:0;background:linear-gradient(to top,#000e,transparent 58%)}.slider-info{position:absolute;z-index:2;left:0;right:0;bottom:0;padding:19px}.tag{display:inline-flex;padding:5px 8px;border-radius:8px;background:#d4af3726;border:1px solid #d4af3738;color:#e7ca68;font-size:8px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;margin-bottom:7px}.slider-title{font-size:21px;font-weight:700}.slider-text{font-size:10px;color:#ccc;margin-top:3px}.dots{display:flex;justify-content:center;gap:6px;margin-top:11px}.dots span{width:6px;height:6px;border-radius:50%;background:#444}.dots span.active{width:18px;border-radius:10px;background:var(--gold)}
+.head{display:flex;justify-content:space-between;align-items:center;margin:2px 2px 11px}.head h3{font-size:14px}.head span{font-size:9px;color:#666}
+.actions{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-bottom:22px}.action{background:linear-gradient(145deg,#171717,#111);border:1px solid var(--line);border-radius:19px;padding:13px 5px;text-align:center}.action:active{transform:scale(.96)}.action-icon{width:47px;height:47px;margin:0 auto 8px;border-radius:15px;display:flex;align-items:center;justify-content:center;background:linear-gradient(145deg,#f0cd62,#ad8114)}.action-icon i{font-size:20px;color:#111}.action p{font-size:9px;font-weight:700}
+.summary{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.summary-box{padding:17px;border-radius:19px;background:#121212;border:1px solid #ffffff0d}.summary-icon{width:30px;height:30px;border-radius:10px;background:#d4af3718;display:flex;align-items:center;justify-content:center;color:var(--gold);margin-bottom:10px}.summary-icon i{font-size:14px}.value{font-size:18px;font-weight:700}.small{font-size:9px;color:#777;margin-top:3px}
+.support{position:fixed;right:max(18px,calc((100vw - 500px)/2 + 8px));bottom:101px;width:58px;height:58px;border-radius:20px;background:linear-gradient(145deg,#f0cd62,#ad8114);color:#111;display:flex;align-items:center;justify-content:center;box-shadow:0 16px 38px #d4af3748;z-index:900}.support i{font-size:25px}.support-dot{position:absolute;top:-2px;right:-2px;width:15px;height:15px;border-radius:50%;background:#ff2734;border:2px solid var(--bg);display:none;box-shadow:0 0 12px #ff2734aa}.support-dot.show{display:block}
+.nav{position:fixed;left:50%;bottom:0;transform:translateX(-50%);width:min(100%,500px);height:78px;background:#0f0f0ff2;border-top:1px solid #d4af3724;backdrop-filter:blur(22px);display:flex;justify-content:space-around;align-items:center;z-index:1000}.nav a{min-width:55px;display:flex;flex-direction:column;align-items:center;gap:5px;color:#666;font-size:8px;font-weight:600}.nav i{font-size:19px}.nav a.active{color:var(--gold)}
+.toast{position:fixed;left:50%;bottom:95px;transform:translate(-50%,20px);width:calc(100% - 32px);max-width:430px;padding:12px 14px;background:#151515;border:1px solid #292929;border-radius:14px;opacity:0;pointer-events:none;transition:.25s;z-index:2000}.toast.show{opacity:1;transform:translate(-50%,0)}.toast strong{display:block;font-size:10px;color:#e7ca68}.toast span{font-size:9px;color:#888}
+@media(max-width:370px){.dashboard{padding-left:12px;padding-right:12px}.greeting{font-size:23px}.balance{font-size:17px}.action-icon{width:42px;height:42px}.action p{font-size:8px}}
+</style>
+</head>
+<body>
+<div class="bg g1"></div><div class="bg g2"></div>
+<main class="dashboard">
+<header class="top">
+<div><h1 class="greeting" id="greeting">Good Evening</h1><p class="welcome" id="welcomeName">Loading...</p></div>
+<button class="header-btn" id="notificationBtn"><i class="bi bi-bell-fill"></i><span class="badge" id="notificationBadge">0</span></button>
+</header>
+
+<section class="balance-card">
+<div class="balance-row">
+<div><p class="label">Available Balance</p><h2 class="balance" id="balance">$0.00</h2></div>
+<div class="tools">
+<select class="currency" id="currency">
+<option value="USD">🇺🇸 USD</option><option value="EUR">🇪🇺 EUR</option><option value="GBP">🇬🇧 GBP</option><option value="NGN">🇳🇬 NGN</option><option value="CAD">🇨🇦 CAD</option><option value="AUD">🇦🇺 AUD</option><option value="JPY">🇯🇵 JPY</option><option value="BTC">₿ BTC</option><option value="ETH">Ξ ETH</option>
+</select>
+<button class="eye" id="hideBalance"><i class="bi bi-eye-fill"></i></button>
+</div>
+</div>
+<div class="balance-footer"><span>Portfolio balance</span><span class="secure"><i class="bi bi-shield-check"></i> Secured account</span></div>
+</section>
+
+<section class="slider-section">
+<div class="slider" id="slider">
+<img id="sliderImage" src="images/tesla/model-s.jpg" alt="Tesla">
+<div class="slider-info"><span class="tag">T.Wealth Market</span><h3 class="slider-title" id="sliderTitle">Tesla Model S</h3><p class="slider-text" id="sliderText">Luxury Electric Sedan</p></div>
+</div>
+<div class="dots" id="sliderDots"></div>
+</section>
+
+<div class="head"><h3>Quick Actions</h3><span>Manage your account</span></div>
+<section class="actions">
+<a href="deposit.html" class="action"><div class="action-icon"><i class="bi bi-wallet2"></i></div><p>Deposit</p></a>
+<a href="invest.html" class="action"><div class="action-icon"><i class="bi bi-graph-up-arrow"></i></div><p>Invest</p></a>
+<a href="buy.html" class="action"><div class="action-icon"><i class="bi bi-cart3"></i></div><p>Buy</p></a>
+<a href="withdraw.html" class="action"><div class="action-icon"><i class="bi bi-cash-stack"></i></div><p>Withdraw</p></a>
+</section>
+
+<div class="head"><h3>Portfolio Overview</h3><span>Live account data</span></div>
+<section class="summary">
+<div class="summary-box"><div class="summary-icon"><i class="bi bi-pie-chart-fill"></i></div><h3 class="value" id="invested">$0.00</h3><p class="small">Total Invested</p></div>
+<div class="summary-box"><div class="summary-icon"><i class="bi bi-stars"></i></div><h3 class="value" id="profit">$0.00</h3><p class="small">Total Profit</p></div>
+<div class="summary-box"><div class="summary-icon"><i class="bi bi-layers-fill"></i></div><h3 class="value" id="plans">0</h3><p class="small">Active Plans</p></div>
+<div class="summary-box"><div class="summary-icon"><i class="bi bi-arrow-up-right"></i></div><h3 class="value" id="roi">0%</h3><p class="small">ROI</p></div>
+</section>
+</main>
+
+<a href="support.html" class="support" id="supportButton"><i class="bi bi-headset"></i><span class="support-dot" id="supportUnread"></span></a>
+
+<nav class="nav">
+<a href="dashboard.html" class="active"><i class="bi bi-house-door-fill"></i><span>Home</span></a>
+<a href="history.html"><i class="bi bi-clock-history"></i><span>History</span></a>
+<a href="wallet.html"><i class="bi bi-wallet-fill"></i><span>Wallet</span></a>
+<a href="invest.html"><i class="bi bi-bar-chart-fill"></i><span>Invest</span></a>
+<a href="profile.html"><i class="bi bi-person-circle"></i><span>Profile</span></a>
+</nav>
+
+<div class="toast" id="toast"><strong id="toastTitle">Success</strong><span id="toastMessage">Done.</span></div>
+
+<script type="module">
+import{initializeApp}from"https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
+import{getAuth,onAuthStateChanged}from"https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js";
+import{getFirestore,doc,getDoc,setDoc,collection,query,where,onSnapshot}from"https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
+
+const firebaseConfig={
+apiKey:"AIzaSyCfmUdXAvdktAZ7RRFYGq5R2ZMgFQjBIHg",
+authDomain:"t-wealth-6c492.firebaseapp.com",
+projectId:"t-wealth-6c492",
+storageBucket:"t-wealth-6c492.firebasestorage.app",
+messagingSenderId:"920631507931",
+appId:"1:920631507931:web:ec6769afe5feebfed0c5fe"
+};
+const app=initializeApp(firebaseConfig),auth=getAuth(app),db=getFirestore(app);
+
+const $=id=>document.getElementById(id);
+const greeting=$("greeting"),welcomeName=$("welcomeName"),balance=$("balance"),currency=$("currency"),hideBalance=$("hideBalance");
+const notificationBadge=$("notificationBadge"),invested=$("invested"),profit=$("profit"),plans=$("plans"),roi=$("roi");
+const supportButton=$("supportButton"),supportUnread=$("supportUnread"),toast=$("toast");
+
+let currentUser=null,originalBalance=0,balanceVisible=true,notificationUnsub=null,supportUnsub=null,toastTimer=null;
+
+function updateGreeting(){const h=new Date().getHours();greeting.textContent=h<12?"Good Morning":h<18?"Good Afternoon":"Good Evening"}updateGreeting();
+function money(v){return Number(v||0).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2})}
+function showToast(t,m){$("toastTitle").textContent=t;$("toastMessage").textContent=m;toast.classList.add("show");clearTimeout(toastTimer);toastTimer=setTimeout(()=>toast.classList.remove("show"),3500)}
+
+const rates={USD:1,EUR:.92,GBP:.79,NGN:1550,CAD:1.37,AUD:1.53,JPY:161,BTC:.0000085,ETH:.00026};
+const symbols={USD:"$",EUR:"€",GBP:"£",NGN:"₦",CAD:"C$",AUD:"A$",JPY:"¥",BTC:"₿",ETH:"Ξ"};
+
+function updateBalance(){
+ if(!balanceVisible){balance.textContent="••••••••";return}
+ const c=currency.value;balance.textContent=(symbols[c]||"$")+money(originalBalance*(rates[c]||1));
+}
+$("hideBalance").onclick=()=>{balanceVisible=!balanceVisible;hideBalance.innerHTML=balanceVisible?'<i class="bi bi-eye-fill"></i>':'<i class="bi bi-eye-slash-fill"></i>';updateBalance()};
+
+currency.onchange=async()=>{
+ updateBalance();
+ if(!currentUser)return;
+ try{await setDoc(doc(db,"users",currentUser.uid),{currency:currency.value},{merge:true})}catch(e){console.error(e)}
+};
+
+async function loadUserData(){
+ try{
+  const snap=await getDoc(doc(db,"users",currentUser.uid));
+  if(!snap.exists()){welcomeName.textContent="Investor";return}
+  const d=snap.data();
+  welcomeName.textContent=(d.fullname||"Investor").split(" ")[0];
+  originalBalance=Number(d.balance||0);
+  if(d.currency&&rates[d.currency])currency.value=d.currency;
+  updateBalance();
+  invested.textContent="$"+money(d.totalInvested||0);
+  profit.textContent="$"+money(d.totalProfit||0);
+  plans.textContent=Number(d.activePlans||0);
+  roi.textContent=Number(d.roi||0)+"%";
+ }catch(e){console.error(e);showToast("Unable to load","Some account information could not be loaded.")}
+}
+
+function loadNotifications(){
+ if(notificationUnsub)notificationUnsub();
+ const q=query(collection(db,"notifications"),where("uid","==",currentUser.uid),where("read","==",false));
+ notificationUnsub=onSnapshot(q,s=>{
+  if(s.size){notificationBadge.textContent=s.size>99?"99+":s.size;notificationBadge.classList.add("show")}
+  else{notificationBadge.classList.remove("show")}
+ },e=>console.error("Notification listener:",e));
+}
+$("notificationBtn").onclick=()=>location.href="notification.html";
+
+/* SUPPORT UNREAD:
+   support_chats/{USER_UID}
+   unreadForUser > 0 = red dot + open support chat
+   unreadForUser 0 = no dot + normal support page
+*/
+function loadSupportUnread(){
+ if(supportUnsub)supportUnsub();
+ supportUnsub=onSnapshot(doc(db,"support_chats",currentUser.uid),snap=>{
+  const d=snap.exists()?snap.data():{};
+  const unread=Number(d.unreadForUser||0);
+  supportButton.dataset.unread=unread>0?"true":"false";
+  supportUnread.classList.toggle("show",unread>0);
+ },e=>{console.error("Support listener:",e);supportButton.dataset.unread="false";supportUnread.classList.remove("show")});
+}
+supportButton.onclick=e=>{
+  e.preventDefault();
+
+  const hasUnread = supportButton.dataset.unread === "true";
+
+  if(hasUnread){
+    // User has an unread admin message: open the support chat directly.
+    location.href = "support.html?open=chat";
+  }else{
+    // No unread admin message: open the normal support page.
+    location.href = "support.html";
+  }
+};
+
+const slides=[
+["images/tesla/model-s.jpg","Tesla Model S","Luxury Electric Sedan"],
+["images/tesla/model-3.jpg","Tesla Model 3","The World's Best Selling EV"],
+["images/tesla/model-x.jpg","Tesla Model X","Falcon Wing SUV"],
+["images/tesla/model-y.jpg","Tesla Model Y","Premium Electric SUV"],
+["images/tesla/cybertruck.jpg","Cybertruck","Built For Any Planet"],
+["images/tesla/roadster.jpg","Tesla Roadster","Ultimate Performance"],
+["images/tesla/semi.jpg","Tesla Semi","Heavy Duty Electric Truck"],
+["images/tesla/optimus.jpg","Tesla Optimus","AI Powered Humanoid Robot"]
+];
+let slide=0,timer=null;
+slides.forEach((s,i)=>{
+ const dot=document.createElement("span");if(!i)dot.classList.add("active");
+ dot.onclick=e=>{e.stopPropagation();slide=i;loadSlide();restartSlider()};$("sliderDots").appendChild(dot);
+ const img=new Image();img.src=s[0];
+});
+function loadSlide(){
+ const s=slides[slide],img=$("sliderImage");img.style.opacity=0;
+ setTimeout(()=>{img.src=s[0];$("sliderTitle").textContent=s[1];$("sliderText").textContent=s[2];img.style.opacity=1},180);
+ [...$("sliderDots").children].forEach((d,i)=>d.classList.toggle("active",i===slide));
+}
+function nextSlide(){slide=(slide+1)%slides.length;loadSlide()}
+function restartSlider(){clearInterval(timer);timer=setInterval(nextSlide,5000)}
+loadSlide();restartSlider();
+$("slider").onclick=()=>location.href="buy.html";
+let sx=0;
+$("slider").ontouchstart=e=>{sx=e.changedTouches[0].clientX;clearInterval(timer)};
+$("slider").ontouchend=e=>{const d=sx-e.changedTouches[0].clientX;if(d>50)slide=(slide+1)%slides.length;else if(d<-50)slide=(slide-1+slides.length)%slides.length;loadSlide();restartSlider()};
+
+const page=location.pathname.split("/").pop()||"dashboard.html";
+document.querySelectorAll(".nav a").forEach(a=>a.classList.toggle("active",a.getAttribute("href")===page));
+
+onAuthStateChanged(auth,async user=>{
+ if(!user){location.href="login.html";return}
+ currentUser=user;
+ await loadUserData();
+ loadNotifications();
+ loadSupportUnread();
+});
+window.addEventListener("beforeunload",()=>{if(notificationUnsub)notificationUnsub();if(supportUnsub)supportUnsub()});
+</script>
+</body>
+</html>

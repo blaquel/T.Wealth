@@ -1,0 +1,2074 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+<meta name="theme-color" content="#050505">
+
+<title>T.Wealth | Admin Withdrawals</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link rel="preconnect"
+href="https://fonts.gstatic.com"
+crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+rel="stylesheet">
+
+<link rel="stylesheet"
+href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
+<style>
+
+/*=========================================
+RESET
+=========================================*/
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+-webkit-tap-highlight-color:transparent;
+}
+
+html{
+scroll-behavior:smooth;
+overflow-x:hidden;
+}
+
+body{
+font-family:"Poppins",sans-serif;
+background:#050505;
+color:#fff;
+overflow-x:hidden;
+min-height:100vh;
+}
+
+/*=========================================
+CONTAINER
+=========================================*/
+
+.container{
+width:100%;
+max-width:1000px;
+margin:auto;
+padding:20px 16px 50px;
+}
+
+/*=========================================
+HEADER
+=========================================*/
+
+.header{
+display:flex;
+align-items:center;
+gap:15px;
+margin-bottom:25px;
+}
+
+.back-btn{
+width:46px;
+height:46px;
+border:none;
+border-radius:50%;
+background:#111;
+color:#FFD54A;
+font-size:20px;
+cursor:pointer;
+border:1px solid rgba(212,175,55,.20);
+}
+
+.header-text h1{
+font-size:25px;
+font-weight:700;
+color:#FFD54A;
+}
+
+.header-text p{
+font-size:12px;
+color:#777;
+margin-top:3px;
+}
+
+/*=========================================
+STATS
+=========================================*/
+
+.stats{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:14px;
+margin-bottom:25px;
+}
+
+.stat{
+background:#111;
+border:1px solid rgba(212,175,55,.18);
+border-radius:18px;
+padding:18px;
+}
+
+.stat-icon{
+width:42px;
+height:42px;
+border-radius:13px;
+background:#1b1b1b;
+display:flex;
+align-items:center;
+justify-content:center;
+margin-bottom:12px;
+}
+
+.stat-icon i{
+font-size:20px;
+color:#FFD54A;
+}
+
+.stat h3{
+font-size:25px;
+font-weight:700;
+}
+
+.stat p{
+font-size:12px;
+color:#888;
+margin-top:3px;
+}
+
+/*=========================================
+FILTERS
+=========================================*/
+
+.filter-card{
+background:#111;
+border:1px solid rgba(212,175,55,.18);
+border-radius:18px;
+padding:15px;
+margin-bottom:20px;
+}
+
+.filters{
+display:flex;
+gap:10px;
+overflow-x:auto;
+padding-bottom:2px;
+}
+
+.filters::-webkit-scrollbar{
+display:none;
+}
+
+.filter-btn{
+white-space:nowrap;
+height:42px;
+padding:0 18px;
+border:none;
+border-radius:12px;
+background:#191919;
+color:#aaa;
+font-family:"Poppins",sans-serif;
+font-weight:600;
+cursor:pointer;
+}
+
+.filter-btn.active{
+background:linear-gradient(135deg,#FFD54A,#C89B09);
+color:#111;
+}
+
+/*=========================================
+SEARCH
+=========================================*/
+
+.search{
+width:100%;
+height:48px;
+margin-top:13px;
+background:#080808;
+border:1px solid rgba(212,175,55,.20);
+border-radius:13px;
+padding:0 15px;
+color:#fff;
+font-family:"Poppins",sans-serif;
+outline:none;
+}
+
+.search:focus{
+border-color:#FFD54A;
+}
+
+.search::placeholder{
+color:#666;
+}
+
+/*=========================================
+REQUEST LIST
+=========================================*/
+
+#withdrawalList{
+display:flex;
+flex-direction:column;
+gap:15px;
+}
+
+.empty{
+background:#111;
+border:1px solid rgba(212,175,55,.15);
+border-radius:18px;
+padding:40px 20px;
+text-align:center;
+}
+
+.empty i{
+font-size:45px;
+color:#555;
+display:block;
+margin-bottom:12px;
+}
+
+.empty h3{
+font-size:17px;
+color:#aaa;
+}
+
+.empty p{
+font-size:13px;
+color:#666;
+margin-top:5px;
+}
+
+/*=========================================
+WITHDRAWAL CARD
+=========================================*/
+
+.withdrawal-card{
+background:#111;
+border:1px solid rgba(212,175,55,.18);
+border-radius:20px;
+padding:20px;
+box-shadow:0 10px 25px rgba(0,0,0,.25);
+}
+
+.request-top{
+display:flex;
+justify-content:space-between;
+align-items:flex-start;
+gap:12px;
+margin-bottom:18px;
+}
+
+.method{
+display:flex;
+align-items:center;
+gap:12px;
+}
+
+.method-icon{
+width:48px;
+height:48px;
+border-radius:15px;
+background:linear-gradient(135deg,#FFD54A,#C89B09);
+display:flex;
+align-items:center;
+justify-content:center;
+}
+
+.method-icon i{
+font-size:23px;
+color:#111;
+}
+
+.method h3{
+font-size:17px;
+font-weight:700;
+}
+
+.method p{
+font-size:11px;
+color:#777;
+margin-top:2px;
+}
+
+.status{
+padding:6px 10px;
+border-radius:20px;
+font-size:10px;
+font-weight:700;
+text-transform:uppercase;
+}
+
+.status.pending{
+background:rgba(255,213,74,.12);
+color:#FFD54A;
+}
+
+.status.approved{
+background:rgba(0,210,106,.12);
+color:#00d26a;
+}
+
+.status.declined{
+background:rgba(255,70,70,.12);
+color:#ff7070;
+}
+
+/*=========================================
+USER
+=========================================*/
+
+.user-info{
+background:#080808;
+border:1px solid rgba(212,175,55,.12);
+border-radius:15px;
+padding:15px;
+margin-bottom:15px;
+}
+
+.info-row{
+display:flex;
+justify-content:space-between;
+gap:15px;
+padding:7px 0;
+}
+
+.info-row:not(:last-child){
+border-bottom:1px solid #1b1b1b;
+}
+
+.info-label{
+font-size:12px;
+color:#777;
+}
+
+.info-value{
+font-size:13px;
+font-weight:600;
+color:#eee;
+text-align:right;
+word-break:break-word;
+}
+
+.amount{
+font-size:23px;
+font-weight:800;
+color:#FFD54A;
+}
+
+/*=========================================
+PAYMENT DETAILS
+=========================================*/
+
+.payment-details{
+background:#161616;
+border-radius:15px;
+padding:15px;
+margin-bottom:15px;
+}
+
+.payment-title{
+font-size:13px;
+font-weight:700;
+color:#FFD54A;
+margin-bottom:10px;
+}
+
+.detail{
+font-size:12px;
+color:#bbb;
+line-height:1.7;
+word-break:break-word;
+}
+
+.detail b{
+color:#fff;
+}
+
+/*=========================================
+ACTIONS
+=========================================*/
+
+.actions{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:10px;
+}
+
+.action-btn{
+height:48px;
+border:none;
+border-radius:13px;
+font-family:"Poppins",sans-serif;
+font-size:14px;
+font-weight:700;
+cursor:pointer;
+}
+
+.approve-btn{
+background:linear-gradient(135deg,#FFD54A,#C89B09);
+color:#111;
+}
+
+.decline-btn{
+background:#211414;
+border:1px solid rgba(255,80,80,.25);
+color:#ff7070;
+}
+
+.action-btn:disabled{
+opacity:.45;
+cursor:not-allowed;
+}
+
+/*=========================================
+DATE
+=========================================*/
+
+.date{
+text-align:right;
+font-size:10px;
+color:#666;
+margin-top:12px;
+}
+
+/*=========================================
+MODAL
+=========================================*/
+
+.overlay{
+position:fixed;
+inset:0;
+background:rgba(0,0,0,.82);
+display:none;
+align-items:center;
+justify-content:center;
+padding:20px;
+z-index:9999;
+}
+
+.modal{
+width:100%;
+max-width:390px;
+background:#111;
+border:1px solid rgba(212,175,55,.25);
+border-radius:20px;
+padding:25px;
+}
+
+.modal h2{
+font-size:20px;
+color:#FFD54A;
+margin-bottom:10px;
+}
+
+.modal p{
+font-size:13px;
+color:#aaa;
+line-height:1.7;
+}
+
+.modal textarea{
+width:100%;
+height:100px;
+margin-top:15px;
+background:#050505;
+border:1px solid rgba(212,175,55,.20);
+border-radius:13px;
+padding:12px;
+color:#fff;
+font-family:"Poppins",sans-serif;
+resize:none;
+outline:none;
+}
+
+.modal-actions{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:10px;
+margin-top:15px;
+}
+
+.modal-btn{
+height:48px;
+border:none;
+border-radius:13px;
+font-family:"Poppins",sans-serif;
+font-weight:700;
+cursor:pointer;
+}
+
+.cancel-btn{
+background:#222;
+color:#aaa;
+}
+
+.confirm-btn{
+background:linear-gradient(135deg,#FFD54A,#C89B09);
+color:#111;
+}
+
+/*=========================================
+LOADING
+=========================================*/
+
+.loader{
+width:48px;
+height:48px;
+border:5px solid #252525;
+border-top:5px solid #FFD54A;
+border-radius:50%;
+animation:spin .8s linear infinite;
+margin:0 auto 18px;
+}
+
+@keyframes spin{
+
+to{
+transform:rotate(360deg);
+}
+
+}
+
+.loading-card{
+width:100%;
+max-width:320px;
+background:#111;
+border:1px solid rgba(212,175,55,.20);
+border-radius:20px;
+padding:30px;
+text-align:center;
+}
+
+.loading-card h3{
+color:#FFD54A;
+margin-bottom:8px;
+}
+
+.loading-card p{
+font-size:13px;
+color:#888;
+}
+
+/*=========================================
+RESPONSIVE
+=========================================*/
+
+@media(max-width:600px){
+
+.stats{
+grid-template-columns:repeat(3,1fr);
+gap:8px;
+}
+
+.stat{
+padding:12px;
+}
+
+.stat-icon{
+width:35px;
+height:35px;
+border-radius:10px;
+}
+
+.stat-icon i{
+font-size:16px;
+}
+
+.stat h3{
+font-size:19px;
+}
+
+.stat p{
+font-size:9px;
+}
+
+.header-text h1{
+font-size:22px;
+}
+
+.withdrawal-card{
+padding:16px;
+}
+
+}
+
+html,
+body{
+touch-action:manipulation;
+overscroll-behavior:none;
+-webkit-text-size-adjust:100%;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<!-- HEADER -->
+
+<div class="header">
+
+<button class="back-btn" id="backBtn">
+
+<i class="bi bi-arrow-left"></i>
+
+</button>
+
+<div class="header-text">
+
+<h1>Withdrawals</h1>
+
+<p>T.Wealth Administration</p>
+
+</div>
+
+</div>
+
+
+<!-- STATS -->
+
+<section class="stats">
+
+<div class="stat">
+
+<div class="stat-icon">
+
+<i class="bi bi-hourglass-split"></i>
+
+</div>
+
+<h3 id="pendingCount">0</h3>
+
+<p>Pending</p>
+
+</div>
+
+
+<div class="stat">
+
+<div class="stat-icon">
+
+<i class="bi bi-check-circle"></i>
+
+</div>
+
+<h3 id="approvedCount">0</h3>
+
+<p>Approved</p>
+
+</div>
+
+
+<div class="stat">
+
+<div class="stat-icon">
+
+<i class="bi bi-x-circle"></i>
+
+</div>
+
+<h3 id="declinedCount">0</h3>
+
+<p>Declined</p>
+
+</div>
+
+</section>
+
+
+<!-- FILTER -->
+
+<div class="filter-card">
+
+<div class="filters">
+
+<button class="filter-btn active"
+data-filter="Pending">
+
+Pending
+
+</button>
+
+<button class="filter-btn"
+data-filter="Approved">
+
+Approved
+
+</button>
+
+<button class="filter-btn"
+data-filter="Declined">
+
+Declined
+
+</button>
+
+<button class="filter-btn"
+data-filter="All">
+
+All
+
+</button>
+
+</div>
+
+<input
+type="search"
+id="search"
+class="search"
+placeholder="Search name, username, email or method">
+
+</div>
+
+
+<!-- LIST -->
+
+<div id="withdrawalList">
+
+<div class="empty">
+
+<i class="bi bi-arrow-down-circle"></i>
+
+<h3>Loading withdrawals...</h3>
+
+<p>Please wait.</p>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!--=========================================
+DECLINE MODAL
+=========================================-->
+
+<div class="overlay" id="declineOverlay">
+
+<div class="modal">
+
+<h2>Decline Withdrawal</h2>
+
+<p>
+
+Are you sure you want to decline this withdrawal?
+
+You can optionally provide a reason for the user.
+
+</p>
+
+<textarea
+id="declineReason"
+placeholder="Reason for declining..."></textarea>
+
+<div class="modal-actions">
+
+<button class="modal-btn cancel-btn"
+id="cancelDecline">
+
+Cancel
+
+</button>
+
+<button class="modal-btn confirm-btn"
+id="confirmDecline">
+
+Decline
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!--=========================================
+LOADING MODAL
+=========================================-->
+
+<div class="overlay" id="loadingOverlay">
+
+<div class="loading-card">
+
+<div class="loader"></div>
+
+<h3>Processing</h3>
+
+<p>Please wait...</p>
+
+</div>
+
+</div>
+
+
+<script type="module">
+
+/*=========================================
+FIREBASE
+=========================================*/
+
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
+
+import {
+getFirestore,
+collection,
+query,
+onSnapshot,
+doc,
+getDoc,
+updateDoc,
+runTransaction,
+serverTimestamp,
+where,
+getDocs
+}
+from "https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
+
+import {
+getAuth,
+onAuthStateChanged
+}
+from "https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js";
+
+
+/*=========================================
+CONFIG
+=========================================*/
+
+const firebaseConfig = {
+
+apiKey:"AIzaSyCfmUdXAvdktAZ7RRFYGq5R2ZMgFQjBIHg",
+
+authDomain:"t-wealth-6c492.firebaseapp.com",
+
+projectId:"t-wealth-6c492",
+
+storageBucket:"t-wealth-6c492.firebasestorage.app",
+
+messagingSenderId:"920631507931",
+
+appId:"1:920631507931:web:ec6769afe5feebfed0c5fe"
+
+};
+
+const app = initializeApp(firebaseConfig);
+
+const db = getFirestore(app);
+
+const auth = getAuth(app);
+
+
+/*=========================================
+ELEMENTS
+=========================================*/
+
+const withdrawalList =
+document.getElementById("withdrawalList");
+
+const pendingCount =
+document.getElementById("pendingCount");
+
+const approvedCount =
+document.getElementById("approvedCount");
+
+const declinedCount =
+document.getElementById("declinedCount");
+
+const search =
+document.getElementById("search");
+
+const backBtn =
+document.getElementById("backBtn");
+
+const declineOverlay =
+document.getElementById("declineOverlay");
+
+const declineReason =
+document.getElementById("declineReason");
+
+const cancelDecline =
+document.getElementById("cancelDecline");
+
+const confirmDecline =
+document.getElementById("confirmDecline");
+
+const loadingOverlay =
+document.getElementById("loadingOverlay");
+
+
+/*=========================================
+GLOBAL
+=========================================*/
+
+let currentAdmin = null;
+
+let withdrawals = [];
+
+let activeFilter = "Pending";
+
+let selectedWithdrawal = null;
+
+
+
+/*=========================================
+ADMIN AUTHENTICATION
+=========================================*/
+
+onAuthStateChanged(auth, (user) => {
+
+    if (!user) {
+
+        console.log("No authenticated admin.");
+
+        window.location.href = "admin-login.html";
+
+        return;
+
+    }
+
+    console.log(
+        "Authenticated Firebase user:",
+        user.email,
+        user.uid
+    );
+
+    currentAdmin = user;
+
+    loadWithdrawals();
+
+});
+
+
+
+/*=========================================
+LOAD WITHDRAWALS
+=========================================*/
+
+function loadWithdrawals(){
+
+    console.log(
+        "Loading withdrawal_requests..."
+    );
+
+    const withdrawalsRef =
+        collection(db, "withdrawal_requests");
+
+
+    onSnapshot(
+
+        withdrawalsRef,
+
+        (snapshot) => {
+
+            console.log(
+                "Firestore snapshot received."
+            );
+
+            console.log(
+                "Number of withdrawal documents:",
+                snapshot.size
+            );
+
+
+            withdrawals = [];
+
+
+            snapshot.forEach((item) => {
+
+                const data =
+                    item.data();
+
+
+                console.log(
+                    "Withdrawal document:",
+                    item.id,
+                    data
+                );
+
+
+                withdrawals.push({
+
+                    id: item.id,
+
+                    ...data
+
+                });
+
+            });
+
+
+            console.log(
+                "All withdrawals:",
+                withdrawals
+            );
+
+
+            updateStats();
+
+            renderWithdrawals();
+
+        },
+
+
+        (error) => {
+
+            console.error(
+                "WITHDRAWAL FIRESTORE ERROR:",
+                error
+            );
+
+
+            withdrawalList.innerHTML = `
+
+                <div class="empty">
+
+                    <i class="bi bi-exclamation-triangle"></i>
+
+                    <h3>Unable to load withdrawals</h3>
+
+                    <p>
+                        ${escapeHTML(
+                            error.message ||
+                            "Unknown Firestore error."
+                        )}
+                    </p>
+
+                </div>
+
+            `;
+
+        }
+
+    );
+
+}
+
+
+/*=========================================
+STATS
+=========================================*/
+
+function updateStats(){
+
+let pending = 0;
+
+let approved = 0;
+
+let declined = 0;
+
+withdrawals.forEach(item=>{
+
+const status =
+String(item.status || "")
+.toLowerCase();
+
+if(status==="pending"){
+pending++;
+}
+
+if(status==="approved"){
+approved++;
+}
+
+if(status==="declined"){
+declined++;
+}
+
+});
+
+pendingCount.textContent = pending;
+
+approvedCount.textContent = approved;
+
+declinedCount.textContent = declined;
+
+}
+
+
+/*=========================================
+FILTER BUTTONS
+=========================================*/
+
+document.querySelectorAll(".filter-btn")
+.forEach(button=>{
+
+button.onclick=()=>{
+
+document
+.querySelectorAll(".filter-btn")
+.forEach(btn=>{
+btn.classList.remove("active");
+});
+
+button.classList.add("active");
+
+activeFilter =
+button.dataset.filter;
+
+renderWithdrawals();
+
+};
+
+});
+
+
+/*=========================================
+SEARCH
+=========================================*/
+
+search.oninput=()=>{
+
+renderWithdrawals();
+
+};
+
+
+/*=========================================
+RENDER
+=========================================*/
+
+function renderWithdrawals(){
+
+const searchValue =
+search.value.trim().toLowerCase();
+
+let filtered =
+withdrawals.filter(item=>{
+
+const status =
+item.status || "Pending";
+
+if(activeFilter !== "All" &&
+status !== activeFilter){
+
+return false;
+
+}
+
+if(!searchValue){
+
+return true;
+
+}
+
+const text = [
+
+item.fullname,
+
+item.username,
+
+item.email,
+
+item.method,
+
+item.paypalEmail,
+
+item.bankName,
+
+item.accountName,
+
+item.accountNumber,
+
+item.cryptoAddress,
+
+item.network
+
+]
+.filter(Boolean)
+.join(" ")
+.toLowerCase();
+
+return text.includes(searchValue);
+
+});
+
+
+if(filtered.length===0){
+
+withdrawalList.innerHTML = `
+
+<div class="empty">
+
+<i class="bi bi-inbox"></i>
+
+<h3>No withdrawals found</h3>
+
+<p>No ${activeFilter.toLowerCase()} withdrawal requests.</p>
+
+</div>
+
+`;
+
+return;
+
+}
+
+
+withdrawalList.innerHTML =
+filtered.map(createWithdrawalCard).join("");
+
+
+attachActions();
+
+}
+
+
+/*=========================================
+CREATE CARD
+=========================================*/
+
+function createWithdrawalCard(item){
+
+const status =
+item.status || "Pending";
+
+const method =
+item.method || "Unknown";
+
+let icon =
+"bi-wallet2";
+
+if(method==="PayPal"){
+icon="bi-paypal";
+}
+
+else if(method==="Bank Transfer"){
+icon="bi-bank";
+}
+
+else if(method==="Crypto"){
+icon="bi-currency-bitcoin";
+}
+
+
+let paymentDetails = "";
+
+
+/* PAYPAL */
+
+if(method==="PayPal"){
+
+paymentDetails = `
+
+<div class="detail">
+
+<b>PayPal Email:</b>
+${escapeHTML(item.paypalEmail || "Not provided")}
+
+</div>
+
+`;
+
+}
+
+
+/* BANK */
+
+else if(method==="Bank Transfer"){
+
+paymentDetails = `
+
+<div class="detail">
+
+<b>Bank:</b>
+${escapeHTML(item.bankName || "Not provided")}
+
+<br>
+
+<b>Account Name:</b>
+${escapeHTML(item.accountName || "Not provided")}
+
+<br>
+
+<b>Account Number:</b>
+${escapeHTML(item.accountNumber || "Not provided")}
+
+<br>
+
+<b>Routing / Sort Code:</b>
+${escapeHTML(item.routingNumber || item.sortCode || "Not provided")}
+
+</div>
+
+`;
+
+}
+
+
+/* CRYPTO */
+
+else if(method==="Crypto"){
+
+paymentDetails = `
+
+<div class="detail">
+
+<b>Network:</b>
+${escapeHTML(item.network || "Not provided")}
+
+<br>
+
+<b>Wallet:</b>
+${escapeHTML(item.cryptoAddress || item.walletAddress || "Not provided")}
+
+</div>
+
+`;
+
+}
+
+
+else{
+
+paymentDetails = `
+
+<div class="detail">
+
+No payment details provided.
+
+</div>
+
+`;
+
+}
+
+
+const createdAt =
+formatDate(item.createdAt);
+
+
+const isPending =
+status === "Pending";
+
+
+return `
+
+<div class="withdrawal-card">
+
+<div class="request-top">
+
+<div class="method">
+
+<div class="method-icon">
+
+<i class="bi ${icon}"></i>
+
+</div>
+
+<div>
+
+<h3>${escapeHTML(method)}</h3>
+
+<p>${escapeHTML(item.username || item.email || "User")}</p>
+
+</div>
+
+</div>
+
+<span class="status ${status.toLowerCase()}">
+
+${escapeHTML(status)}
+
+</span>
+
+</div>
+
+
+<div class="user-info">
+
+<div class="info-row">
+
+<span class="info-label">
+Name
+</span>
+
+<span class="info-value">
+${escapeHTML(item.fullname || "Not provided")}
+</span>
+
+</div>
+
+
+<div class="info-row">
+
+<span class="info-label">
+Username
+</span>
+
+<span class="info-value">
+${escapeHTML(item.username || "Not provided")}
+</span>
+
+</div>
+
+
+<div class="info-row">
+
+<span class="info-label">
+Email
+</span>
+
+<span class="info-value">
+${escapeHTML(item.email || "Not provided")}
+</span>
+
+</div>
+
+
+<div class="info-row">
+
+<span class="info-label">
+Amount
+</span>
+
+<span class="info-value amount">
+${getCurrencySymbol(item.currency)}${formatMoney(item.amount)}
+</span>
+
+</div>
+
+</div>
+
+
+<div class="payment-details">
+
+<div class="payment-title">
+
+Payment Details
+
+</div>
+
+${paymentDetails}
+
+</div>
+
+
+${isPending ? `
+
+<div class="actions">
+
+<button
+class="action-btn approve-btn"
+data-action="approve"
+data-id="${item.id}">
+
+<i class="bi bi-check-circle"></i>
+
+Approve
+
+</button>
+
+
+<button
+class="action-btn decline-btn"
+data-action="decline"
+data-id="${item.id}">
+
+<i class="bi bi-x-circle"></i>
+
+Decline
+
+</button>
+
+</div>
+
+` : ""}
+
+
+<div class="date">
+
+${createdAt}
+
+</div>
+
+</div>
+
+`;
+
+}
+
+
+/*=========================================
+ACTIONS
+=========================================*/
+
+function attachActions(){
+
+document
+.querySelectorAll("[data-action]")
+.forEach(button=>{
+
+button.onclick=()=>{
+
+const id =
+button.dataset.id;
+
+const item =
+withdrawals.find(
+withdrawal=>withdrawal.id===id
+);
+
+if(!item) return;
+
+if(button.dataset.action==="approve"){
+
+approveWithdrawal(item);
+
+}
+
+if(button.dataset.action==="decline"){
+
+openDecline(item);
+
+}
+
+};
+
+});
+
+}
+
+
+/*=========================================
+APPROVE
+=========================================*/
+
+async function approveWithdrawal(item){
+
+    if(item.status !== "Pending"){
+
+        alert(
+            "This withdrawal has already been processed."
+        );
+
+        return;
+
+    }
+
+    const amount =
+        Number(item.amount || 0);
+
+    if(amount <= 0){
+
+        alert(
+            "Invalid withdrawal amount."
+        );
+
+        return;
+
+    }
+
+    if(!item.uid){
+
+        alert(
+            "This withdrawal has no user ID."
+        );
+
+        return;
+
+    }
+
+    const currency =
+        item.currency || "USD";
+
+    const symbol =
+        getCurrencySymbol(currency);
+
+    const confirmed =
+confirm(
+`Approve ${getCurrencySymbol(item.currency)}${formatMoney(amount)} withdrawal for ${item.fullname || item.username || "this user"}?`
+);
+
+    if(!confirmed){
+
+        return;
+
+    }
+
+    loadingOverlay.style.display="flex";
+
+    try{
+
+        await runTransaction(
+            db,
+            async(transaction)=>{
+
+                /* =========================
+                   WITHDRAWAL REQUEST
+                ========================= */
+
+                const requestRef =
+                    doc(
+                        db,
+                        "withdrawal_requests",
+                        item.id
+                    );
+
+                const requestSnap =
+                    await transaction.get(requestRef);
+
+                if(!requestSnap.exists()){
+
+                    throw new Error(
+                        "Withdrawal request no longer exists."
+                    );
+
+                }
+
+                const requestData =
+                    requestSnap.data();
+
+                if(requestData.status !== "Pending"){
+
+                    throw new Error(
+                        "This withdrawal has already been processed."
+                    );
+
+                }
+
+
+                /* =========================
+                   USER
+                ========================= */
+
+                const userRef =
+                    doc(
+                        db,
+                        "users",
+                        item.uid
+                    );
+
+                const userSnap =
+                    await transaction.get(userRef);
+
+                if(!userSnap.exists()){
+
+                    throw new Error(
+                        "User account could not be found."
+                    );
+
+                }
+
+                const userData =
+                    userSnap.data();
+
+                const balance =
+                    Number(userData.balance || 0);
+
+
+                if(balance < amount){
+
+                    throw new Error(
+`Insufficient user balance. Current balance: ${getCurrencySymbol(item.currency)}${formatMoney(balance)}`
+);
+
+                }
+
+
+                /* =========================
+                   UPDATE USER BALANCE
+                ========================= */
+
+                transaction.update(
+                    userRef,
+                    {
+                        balance: balance - amount,
+                        lastWithdrawalAt: serverTimestamp()
+                    }
+                );
+
+
+                /* =========================
+                   APPROVE REQUEST
+                ========================= */
+
+                transaction.update(
+                    requestRef,
+                    {
+                        status: "Approved",
+                        approvedAt: serverTimestamp(),
+                        approvedBy: "Admin",
+                        processedAt: serverTimestamp()
+                    }
+                );
+
+            }
+        );
+
+
+        /* =========================
+           UPDATE HISTORY
+        ========================= */
+
+        await updateHistory(
+            item,
+            "Approved"
+        );
+
+
+        loadingOverlay.style.display="none";
+
+
+        alert(
+            "Withdrawal approved successfully."
+        );
+
+    }
+    catch(error){
+
+        console.error(
+            "Approval Error:",
+            error
+        );
+
+        loadingOverlay.style.display="none";
+
+        alert(
+            error.message ||
+            "Unable to approve withdrawal."
+        );
+
+    }
+
+}
+
+
+/*=========================================
+OPEN DECLINE
+=========================================*/
+
+function openDecline(item){
+
+selectedWithdrawal = item;
+
+declineReason.value =
+item.declineReason || "";
+
+declineOverlay.style.display="flex";
+
+}
+
+
+/*=========================================
+CANCEL DECLINE
+=========================================*/
+
+cancelDecline.onclick=()=>{
+
+declineOverlay.style.display="none";
+
+selectedWithdrawal=null;
+
+};
+
+
+/*=========================================
+CONFIRM DECLINE
+=========================================*/
+
+confirmDecline.onclick=async()=>{
+
+if(!selectedWithdrawal){
+
+return;
+
+}
+
+
+const item =
+selectedWithdrawal;
+
+if(item.status !== "Pending"){
+
+alert(
+"This withdrawal has already been processed."
+);
+
+declineOverlay.style.display="none";
+
+return;
+
+}
+
+
+const reason =
+declineReason.value.trim();
+
+
+declineOverlay.style.display="none";
+
+loadingOverlay.style.display="flex";
+
+
+try{
+
+const requestRef =
+doc(
+db,
+"withdrawal_requests",
+item.id
+);
+
+
+const requestSnap =
+await getDoc(requestRef);
+
+
+if(!requestSnap.exists()){
+
+throw new Error(
+"Withdrawal request not found."
+);
+
+}
+
+
+if(
+requestSnap.data().status !== "Pending"
+){
+
+throw new Error(
+"This withdrawal has already been processed."
+);
+
+}
+
+
+await updateDoc(
+requestRef,
+{
+
+status:"Declined",
+
+declineReason:reason,
+
+declinedAt:serverTimestamp(),
+
+processedAt:serverTimestamp(),
+
+processedBy:"Admin"
+
+}
+);
+
+
+await updateHistory(
+item,
+"Declined"
+);
+
+
+loadingOverlay.style.display="none";
+
+alert(
+"Withdrawal declined successfully."
+);
+
+
+}
+catch(error){
+
+console.error(error);
+
+loadingOverlay.style.display="none";
+
+alert(error.message);
+
+}
+
+selectedWithdrawal=null;
+
+};
+
+
+/*=========================================
+UPDATE HISTORY
+=========================================*/
+
+async function updateHistory(item,status){
+
+try{
+
+const historyQuery =
+query(
+
+collection(db,"history"),
+
+where("uid","==",item.uid),
+
+where("type","==","Withdrawal"),
+
+where("status","==","Pending")
+
+);
+
+const snapshot =
+await getDocs(historyQuery);
+
+
+for(const historyDoc of snapshot.docs){
+
+const data =
+historyDoc.data();
+
+const sameMethod =
+!item.method ||
+data.method === item.method;
+
+const sameAmount =
+Number(data.amount || 0) ===
+Number(item.amount || 0);
+
+
+if(sameMethod && sameAmount){
+
+await updateDoc(
+
+doc(
+db,
+"history",
+historyDoc.id
+),
+
+{
+
+status:status,
+
+processedAt:serverTimestamp()
+
+}
+
+);
+
+break;
+
+}
+
+}
+
+}
+catch(error){
+
+console.error(
+"History update error:",
+error
+);
+
+}
+
+}
+
+
+/*=========================================
+CURRENCY
+=========================================*/
+
+function getCurrencySymbol(currency){
+
+    const symbols = {
+
+        USD:"$",
+        EUR:"€",
+        GBP:"£",
+        NGN:"₦",
+        CAD:"C$",
+        AUD:"A$",
+        JPY:"¥"
+
+    };
+
+    return symbols[currency] || "$";
+
+}
+
+
+/*=========================================
+FORMAT MONEY
+=========================================*/
+
+function formatMoney(value){
+
+    return Number(value || 0)
+    .toLocaleString(undefined,{
+
+        minimumFractionDigits:2,
+
+        maximumFractionDigits:2
+
+    });
+
+}
+
+
+/*=========================================
+FORMAT DATE
+=========================================*/
+
+function formatDate(timestamp){
+
+if(!timestamp){
+
+return "Date unavailable";
+
+}
+
+try{
+
+const date =
+timestamp.toDate();
+
+return date.toLocaleString();
+
+}
+catch(error){
+
+return "Date unavailable";
+
+}
+
+}
+
+
+/*=========================================
+ESCAPE HTML
+=========================================*/
+
+function escapeHTML(value){
+
+return String(value || "")
+.replace(/&/g,"&amp;")
+.replace(/</g,"&lt;")
+.replace(/>/g,"&gt;")
+.replace(/"/g,"&quot;")
+.replace(/'/g,"&#039;");
+
+}
+
+
+/*=========================================
+BACK
+=========================================*/
+
+backBtn.onclick=()=>{
+
+window.location.href="admin.html";
+
+};
+
+</script>
+
+</body>
+
+</html>

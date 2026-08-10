@@ -1,0 +1,2377 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+<meta name="theme-color" content="#060606">
+
+<title>T.Wealth | Admin Support</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link rel="preconnect"
+href="https://fonts.gstatic.com"
+crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+rel="stylesheet">
+
+<link rel="stylesheet"
+href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
+<style>
+
+/* =========================================================
+   T.WEALTH ADMIN SUPPORT
+   PREMIUM BLACK + GOLD
+========================================================= */
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+-webkit-tap-highlight-color:transparent;
+}
+
+html,
+body{
+width:100%;
+min-height:100%;
+}
+
+body{
+font-family:"Poppins",sans-serif;
+background:#060606;
+color:#f5f5f5;
+overflow-x:hidden;
+}
+
+button,
+input,
+textarea{
+font-family:inherit;
+}
+
+button{
+-webkit-tap-highlight-color:transparent;
+}
+
+button:active{
+transform:scale(.98);
+}
+
+/* =========================================================
+   BACKGROUND
+========================================================= */
+
+.bg-glow{
+position:fixed;
+width:330px;
+height:330px;
+border-radius:50%;
+filter:blur(120px);
+opacity:.12;
+pointer-events:none;
+z-index:-1;
+}
+
+.glow-one{
+top:-180px;
+left:-150px;
+background:#d4af37;
+}
+
+.glow-two{
+bottom:-180px;
+right:-150px;
+background:#ffd54a;
+}
+
+/* =========================================================
+   APP
+========================================================= */
+
+.app{
+width:100%;
+max-width:1250px;
+margin:auto;
+padding:18px;
+}
+
+/* =========================================================
+   TOP BAR
+========================================================= */
+
+.topbar{
+height:70px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:15px;
+margin-bottom:18px;
+}
+
+.brand{
+display:flex;
+align-items:center;
+gap:12px;
+}
+
+.back-btn{
+width:46px;
+height:46px;
+border:1px solid #292929;
+border-radius:50%;
+background:#101010;
+color:#d4af37;
+font-size:19px;
+cursor:pointer;
+}
+
+.brand-text h1{
+font-size:22px;
+font-weight:700;
+line-height:1.1;
+}
+
+.brand-text p{
+font-size:10px;
+color:#696969;
+margin-top:4px;
+letter-spacing:.5px;
+}
+
+.admin-badge{
+display:flex;
+align-items:center;
+gap:8px;
+padding:9px 13px;
+border-radius:999px;
+background:rgba(212,175,55,.08);
+border:1px solid rgba(212,175,55,.2);
+color:#d8b84f;
+font-size:10px;
+font-weight:700;
+letter-spacing:.5px;
+}
+
+.admin-dot{
+width:7px;
+height:7px;
+border-radius:50%;
+background:#28dc7e;
+box-shadow:0 0 10px rgba(40,220,126,.5);
+}
+
+/* =========================================================
+   LAYOUT
+========================================================= */
+
+.chat-layout{
+display:grid;
+grid-template-columns:350px minmax(0,1fr);
+gap:16px;
+height:calc(100vh - 108px);
+min-height:620px;
+}
+
+/* =========================================================
+   PANEL
+========================================================= */
+
+.panel{
+background:#0e0e0e;
+border:1px solid #252525;
+border-radius:25px;
+overflow:hidden;
+box-shadow:0 20px 60px rgba(0,0,0,.28);
+}
+
+/* =========================================================
+   SIDEBAR
+========================================================= */
+
+.sidebar{
+display:flex;
+flex-direction:column;
+min-width:0;
+}
+
+.sidebar-head{
+padding:20px;
+border-bottom:1px solid #202020;
+}
+
+.sidebar-title{
+display:flex;
+align-items:center;
+justify-content:space-between;
+margin-bottom:15px;
+}
+
+.sidebar-title h2{
+font-size:17px;
+font-weight:700;
+}
+
+.conversation-count{
+font-size:9px;
+color:#d4af37;
+background:rgba(212,175,55,.08);
+border:1px solid rgba(212,175,55,.18);
+padding:6px 9px;
+border-radius:999px;
+}
+
+.search-box{
+height:45px;
+display:flex;
+align-items:center;
+gap:10px;
+background:#090909;
+border:1px solid #252525;
+border-radius:13px;
+padding:0 13px;
+}
+
+.search-box i{
+color:#666;
+font-size:15px;
+}
+
+.search-box input{
+width:100%;
+height:100%;
+border:0;
+outline:none;
+background:transparent;
+color:#fff;
+font-size:12px;
+}
+
+.search-box input::placeholder{
+color:#555;
+}
+
+/* =========================================================
+   CONVERSATIONS
+========================================================= */
+
+.conversations{
+flex:1;
+overflow-y:auto;
+padding:8px;
+}
+
+.conversations::-webkit-scrollbar{
+width:5px;
+}
+
+.conversations::-webkit-scrollbar-thumb{
+background:#30270e;
+border-radius:20px;
+}
+
+.conversation{
+display:flex;
+align-items:center;
+gap:12px;
+padding:13px;
+border-radius:17px;
+cursor:pointer;
+transition:.2s;
+border:1px solid transparent;
+}
+
+.conversation:hover{
+background:#151515;
+}
+
+.conversation.selected{
+background:#17150f;
+border-color:rgba(212,175,55,.2);
+}
+
+.avatar{
+width:43px;
+height:43px;
+flex:0 0 43px;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+background:linear-gradient(135deg,#d4af37,#806310);
+color:#111;
+font-size:15px;
+font-weight:800;
+}
+
+.conversation-info{
+min-width:0;
+flex:1;
+}
+
+.conversation-top{
+display:flex;
+justify-content:space-between;
+gap:8px;
+}
+
+.conversation-name{
+font-size:12px;
+font-weight:600;
+white-space:nowrap;
+overflow:hidden;
+text-overflow:ellipsis;
+}
+
+.conversation-time{
+font-size:8px;
+color:#555;
+white-space:nowrap;
+}
+
+.conversation-bottom{
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:8px;
+margin-top:4px;
+}
+
+.conversation-preview{
+font-size:9px;
+color:#666;
+white-space:nowrap;
+overflow:hidden;
+text-overflow:ellipsis;
+}
+
+.unread{
+min-width:17px;
+height:17px;
+padding:0 5px;
+border-radius:999px;
+background:#d4af37;
+color:#111;
+font-size:8px;
+font-weight:800;
+display:flex;
+align-items:center;
+justify-content:center;
+}
+
+/* =========================================================
+   EMPTY SIDEBAR
+========================================================= */
+
+.sidebar-empty{
+text-align:center;
+padding:55px 20px;
+color:#555;
+}
+
+.sidebar-empty i{
+font-size:32px;
+}
+
+.sidebar-empty p{
+font-size:11px;
+margin-top:10px;
+line-height:1.6;
+}
+
+/* =========================================================
+   CHAT PANEL
+========================================================= */
+
+.chat{
+display:flex;
+flex-direction:column;
+min-width:0;
+}
+
+.chat-head{
+min-height:78px;
+padding:15px 18px;
+border-bottom:1px solid #202020;
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:12px;
+}
+
+.chat-user{
+display:flex;
+align-items:center;
+gap:11px;
+min-width:0;
+}
+
+.chat-user .avatar{
+width:42px;
+height:42px;
+flex-basis:42px;
+}
+
+.chat-user-info{
+min-width:0;
+}
+
+.chat-user-name{
+font-size:14px;
+font-weight:700;
+white-space:nowrap;
+overflow:hidden;
+text-overflow:ellipsis;
+}
+
+.chat-user-email{
+font-size:9px;
+color:#626262;
+margin-top:3px;
+white-space:nowrap;
+overflow:hidden;
+text-overflow:ellipsis;
+}
+
+.chat-actions{
+display:flex;
+gap:8px;
+}
+
+.icon-btn{
+width:40px;
+height:40px;
+border-radius:12px;
+border:1px solid #282828;
+background:#101010;
+color:#aaa;
+cursor:pointer;
+font-size:16px;
+}
+
+.icon-btn:hover{
+color:#d4af37;
+border-color:rgba(212,175,55,.3);
+}
+
+/* =========================================================
+   CHAT BODY
+========================================================= */
+
+.messages{
+flex:1;
+overflow-y:auto;
+padding:22px;
+display:flex;
+flex-direction:column;
+gap:12px;
+}
+
+.messages::-webkit-scrollbar{
+width:5px;
+}
+
+.messages::-webkit-scrollbar-thumb{
+background:#30270e;
+border-radius:20px;
+}
+
+.message-row{
+display:flex;
+width:100%;
+}
+
+.message-row.user{
+justify-content:flex-start;
+}
+
+.message-row.admin{
+justify-content:flex-end;
+}
+
+.message{
+max-width:min(75%,550px);
+padding:12px 14px;
+border-radius:17px;
+font-size:11px;
+line-height:1.65;
+word-wrap:break-word;
+}
+
+.message.user{
+background:#151515;
+border:1px solid #282828;
+border-bottom-left-radius:5px;
+}
+
+.message.admin{
+background:linear-gradient(135deg,#d4af37,#a77d13);
+color:#111;
+border-bottom-right-radius:5px;
+}
+
+.message-meta{
+font-size:8px;
+margin-top:5px;
+opacity:.5;
+text-align:right;
+}
+
+.message-label{
+font-size:8px;
+font-weight:700;
+letter-spacing:.7px;
+text-transform:uppercase;
+margin-bottom:4px;
+opacity:.55;
+}
+
+/* =========================================================
+   CHAT EMPTY
+========================================================= */
+
+.chat-empty{
+height:100%;
+display:flex;
+align-items:center;
+justify-content:center;
+text-align:center;
+padding:40px;
+}
+
+.chat-empty-inner{
+max-width:300px;
+}
+
+.chat-empty i{
+font-size:48px;
+color:#383838;
+}
+
+.chat-empty h3{
+font-size:17px;
+margin-top:15px;
+}
+
+.chat-empty p{
+font-size:11px;
+color:#626262;
+line-height:1.7;
+margin-top:7px;
+}
+
+/* =========================================================
+   COMPOSER
+========================================================= */
+
+.composer{
+padding:13px;
+border-top:1px solid #202020;
+background:#0b0b0b;
+}
+
+.reply-box{
+display:flex;
+align-items:flex-end;
+gap:9px;
+}
+
+.reply-box textarea{
+flex:1;
+min-height:48px;
+max-height:130px;
+resize:none;
+border:1px solid #282828;
+border-radius:15px;
+background:#101010;
+color:#fff;
+padding:13px;
+outline:none;
+font-size:11px;
+line-height:1.5;
+}
+
+.reply-box textarea:focus{
+border-color:rgba(212,175,55,.45);
+}
+
+.reply-box textarea::placeholder{
+color:#555;
+}
+
+.send-btn{
+width:50px;
+height:48px;
+border:none;
+border-radius:14px;
+background:linear-gradient(135deg,#e6c45b,#b58a16);
+color:#111;
+font-size:18px;
+font-weight:700;
+cursor:pointer;
+}
+
+.send-btn:disabled{
+opacity:.45;
+cursor:not-allowed;
+}
+
+/* =========================================================
+   NOTIFICATION
+========================================================= */
+
+.notification-panel{
+display:none;
+position:fixed;
+inset:0;
+background:rgba(0,0,0,.78);
+backdrop-filter:blur(8px);
+z-index:100;
+align-items:center;
+justify-content:center;
+padding:18px;
+}
+
+.notification-panel.show{
+display:flex;
+}
+
+.notification-box{
+width:100%;
+max-width:450px;
+background:#111;
+border:1px solid rgba(212,175,55,.25);
+border-radius:25px;
+padding:25px;
+box-shadow:0 30px 80px rgba(0,0,0,.55);
+}
+
+.notification-head{
+display:flex;
+align-items:center;
+justify-content:space-between;
+margin-bottom:22px;
+}
+
+.notification-head h2{
+font-size:19px;
+}
+
+.close-btn{
+width:38px;
+height:38px;
+border:1px solid #292929;
+background:#0b0b0b;
+color:#aaa;
+border-radius:12px;
+cursor:pointer;
+}
+
+.form-group{
+margin-bottom:15px;
+}
+
+.form-group label{
+display:block;
+font-size:10px;
+color:#888;
+margin-bottom:7px;
+}
+
+.form-group input,
+.form-group textarea{
+width:100%;
+border:1px solid #292929;
+background:#0a0a0a;
+color:#fff;
+border-radius:13px;
+padding:12px;
+outline:none;
+font-size:11px;
+}
+
+.form-group textarea{
+min-height:110px;
+resize:vertical;
+line-height:1.6;
+}
+
+.form-group input:focus,
+.form-group textarea:focus{
+border-color:#d4af37;
+}
+
+.notification-send{
+width:100%;
+height:50px;
+border:0;
+border-radius:14px;
+background:linear-gradient(135deg,#e6c45b,#b58a16);
+color:#111;
+font-size:13px;
+font-weight:700;
+cursor:pointer;
+}
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+.toast{
+position:fixed;
+left:50%;
+bottom:22px;
+transform:translate(-50%,25px);
+width:calc(100% - 32px);
+max-width:420px;
+padding:13px 15px;
+background:#151515;
+border:1px solid #2b2b2b;
+border-radius:15px;
+opacity:0;
+pointer-events:none;
+transition:.25s;
+z-index:200;
+box-shadow:0 20px 50px rgba(0,0,0,.5);
+}
+
+.toast.show{
+opacity:1;
+transform:translate(-50%,0);
+}
+
+.toast strong{
+display:block;
+font-size:11px;
+color:#e8cf70;
+margin-bottom:2px;
+}
+
+.toast span{
+font-size:10px;
+color:#999;
+}
+
+/* =========================================================
+   LOADING
+========================================================= */
+
+.loading{
+position:fixed;
+inset:0;
+background:rgba(5,5,5,.88);
+backdrop-filter:blur(5px);
+display:none;
+align-items:center;
+justify-content:center;
+flex-direction:column;
+z-index:300;
+}
+
+.loading.show{
+display:flex;
+}
+
+.spinner{
+width:48px;
+height:48px;
+border:4px solid rgba(212,175,55,.15);
+border-top-color:#d4af37;
+border-radius:50%;
+animation:spin .8s linear infinite;
+}
+
+.loading p{
+font-size:11px;
+color:#aaa;
+margin-top:13px;
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media(max-width:800px){
+
+.app{
+padding:12px;
+}
+
+.topbar{
+margin-bottom:12px;
+}
+
+.admin-badge{
+display:none;
+}
+
+.chat-layout{
+display:block;
+height:calc(100vh - 94px);
+min-height:0;
+}
+
+.sidebar{
+height:100%;
+}
+
+.chat{
+position:fixed;
+inset:0;
+z-index:20;
+display:none;
+border-radius:0;
+}
+
+.chat.mobile-open{
+display:flex;
+}
+
+.chat-head{
+padding:12px;
+}
+
+.mobile-back{
+display:block!important;
+}
+
+.messages{
+padding:16px 12px;
+}
+
+.message{
+max-width:84%;
+}
+
+}
+
+@media(min-width:801px){
+
+.mobile-back{
+display:none!important;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="bg-glow glow-one"></div>
+<div class="bg-glow glow-two"></div>
+
+<div class="app">
+
+<header class="topbar">
+
+<div class="brand">
+
+<button
+class="back-btn"
+id="backBtn">
+
+<i class="bi bi-arrow-left"></i>
+
+</button>
+
+<div class="brand-text">
+
+<h1>Support Center</h1>
+
+<p>ADMINISTRATOR · T.WEALTH</p>
+
+</div>
+
+</div>
+
+<div class="admin-badge">
+
+<span class="admin-dot"></span>
+
+ADMIN ONLINE
+
+</div>
+
+</header>
+
+
+<div class="chat-layout">
+
+
+<!-- =====================================================
+     CONVERSATION SIDEBAR
+===================================================== -->
+
+<aside class="panel sidebar">
+
+<div class="sidebar-head">
+
+<div class="sidebar-title">
+
+<h2>Conversations</h2>
+
+<span
+class="conversation-count"
+id="conversationCount">
+0
+</span>
+
+</div>
+
+<div class="search-box">
+
+<i class="bi bi-search"></i>
+
+<input
+type="text"
+id="searchInput"
+placeholder="Search users...">
+
+</div>
+
+</div>
+
+
+<div
+class="conversations"
+id="conversations">
+
+<div class="sidebar-empty">
+
+<i class="bi bi-chat-left-text"></i>
+
+<p>
+Loading support conversations...
+</p>
+
+</div>
+
+</div>
+
+</aside>
+
+
+<!-- =====================================================
+     CHAT
+===================================================== -->
+
+<section
+class="panel chat"
+id="chatPanel">
+
+
+<div
+class="chat-empty"
+id="chatEmpty">
+
+<div class="chat-empty-inner">
+
+<i class="bi bi-chat-square-dots"></i>
+
+<h3>Select a conversation</h3>
+
+<p>
+Choose a user from the conversation list to view messages and respond to their support request.
+</p>
+
+</div>
+
+</div>
+
+
+<div
+id="chatContent"
+style="display:none;height:100%;flex-direction:column;">
+
+
+<div class="chat-head">
+
+<div class="chat-user">
+
+<button
+class="icon-btn mobile-back"
+id="mobileBack">
+
+<i class="bi bi-arrow-left"></i>
+
+</button>
+
+<div
+class="avatar"
+id="chatAvatar">
+U
+</div>
+
+<div class="chat-user-info">
+
+<div
+class="chat-user-name"
+id="chatUserName">
+User
+</div>
+
+<div
+class="chat-user-email"
+id="chatUserEmail">
+user@email.com
+</div>
+
+</div>
+
+</div>
+
+
+<div class="chat-actions">
+
+<button
+class="icon-btn"
+id="notificationBtn"
+title="Send notification">
+
+<i class="bi bi-bell"></i>
+
+</button>
+
+</div>
+
+</div>
+
+
+<div
+class="messages"
+id="messages">
+
+</div>
+
+
+<div class="composer">
+
+<div class="reply-box">
+
+<textarea
+id="replyInput"
+placeholder="Write a reply..."
+rows="1"></textarea>
+
+<button
+class="send-btn"
+id="sendBtn"
+disabled>
+
+<i class="bi bi-send-fill"></i>
+
+</button>
+
+</div>
+
+</div>
+
+
+</div>
+
+</section>
+
+</div>
+
+</div>
+
+
+<!-- =====================================================
+     NOTIFICATION MODAL
+===================================================== -->
+
+<div
+class="notification-panel"
+id="notificationPanel">
+
+<div class="notification-box">
+
+<div class="notification-head">
+
+<h2>Send Notification</h2>
+
+<button
+class="close-btn"
+id="closeNotification">
+
+<i class="bi bi-x-lg"></i>
+
+</button>
+
+</div>
+
+
+<div class="form-group">
+
+<label>Recipient</label>
+
+<input
+id="notificationRecipient"
+readonly>
+
+</div>
+
+
+<div class="form-group">
+
+<label>Notification title</label>
+
+<input
+id="notificationTitle"
+placeholder="Enter notification title">
+
+</div>
+
+
+<div class="form-group">
+
+<label>Message</label>
+
+<textarea
+id="notificationMessage"
+placeholder="Write your notification..."></textarea>
+
+</div>
+
+
+<button
+class="notification-send"
+id="sendNotification">
+
+SEND NOTIFICATION
+
+</button>
+
+</div>
+
+</div>
+
+
+<!-- =====================================================
+     TOAST
+===================================================== -->
+
+<div
+class="toast"
+id="toast">
+
+<strong id="toastTitle">
+Success
+</strong>
+
+<span id="toastMessage">
+Done.
+</span>
+
+</div>
+
+
+<!-- =====================================================
+     LOADING
+===================================================== -->
+
+<div
+class="loading"
+id="loading">
+
+<div class="spinner"></div>
+
+<p id="loadingText">
+Processing...
+</p>
+
+</div>
+
+
+<script type="module">
+
+/* =========================================================
+   FIREBASE
+========================================================= */
+
+import {
+initializeApp
+}
+from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
+
+import {
+getAuth,
+onAuthStateChanged
+}
+from "https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js";
+
+import {
+
+getFirestore,
+doc,
+getDoc,
+collection,
+query,
+where,
+getDocs,
+addDoc,
+updateDoc,
+serverTimestamp,
+orderBy,
+onSnapshot
+
+}
+from "https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
+
+
+const firebaseConfig = {
+
+apiKey:"AIzaSyCfmUdXAvdktAZ7RRFYGq5R2ZMgFQjBIHg",
+
+authDomain:"t-wealth-6c492.firebaseapp.com",
+
+projectId:"t-wealth-6c492",
+
+storageBucket:"t-wealth-6c492.firebasestorage.app",
+
+messagingSenderId:"920631507931",
+
+appId:"1:920631507931:web:ec6769afe5feebfed0c5fe"
+
+};
+
+
+const app = initializeApp(firebaseConfig);
+
+const auth = getAuth(app);
+
+const db = getFirestore(app);
+
+
+/* =========================================================
+   ELEMENTS
+========================================================= */
+
+const conversationsEl =
+document.getElementById("conversations");
+
+const conversationCount =
+document.getElementById("conversationCount");
+
+const searchInput =
+document.getElementById("searchInput");
+
+const chatPanel =
+document.getElementById("chatPanel");
+
+const chatEmpty =
+document.getElementById("chatEmpty");
+
+const chatContent =
+document.getElementById("chatContent");
+
+const messagesEl =
+document.getElementById("messages");
+
+const replyInput =
+document.getElementById("replyInput");
+
+const sendBtn =
+document.getElementById("sendBtn");
+
+const notificationPanel =
+document.getElementById("notificationPanel");
+
+const loading =
+document.getElementById("loading");
+
+
+/* =========================================================
+   STATE
+========================================================= */
+
+let adminUser = null;
+
+let selectedUser = null;
+
+let conversations = [];
+
+let unsubscribeMessages = null;
+
+let unsubscribeConversations = null;
+
+let toastTimer = null;
+
+
+/* =========================================================
+   HELPERS
+========================================================= */
+
+function escapeHTML(value){
+
+return String(value ?? "")
+
+.replace(/&/g,"&amp;")
+
+.replace(/</g,"&lt;")
+
+.replace(/>/g,"&gt;")
+
+.replace(/"/g,"&quot;")
+
+.replace(/'/g,"&#039;");
+
+}
+
+
+function timestampMs(value){
+
+if(!value) return null;
+
+if(typeof value.toMillis === "function")
+return value.toMillis();
+
+if(value.seconds != null)
+return Number(value.seconds) * 1000;
+
+if(value instanceof Date)
+return value.getTime();
+
+if(typeof value === "number")
+return value;
+
+return null;
+
+}
+
+
+function formatTime(value){
+
+const ms = timestampMs(value);
+
+if(!ms) return "";
+
+const date = new Date(ms);
+
+return date.toLocaleString([],{
+
+month:"short",
+
+day:"numeric",
+
+hour:"2-digit",
+
+minute:"2-digit"
+
+});
+
+}
+
+
+function initials(name){
+
+const parts =
+String(name || "User")
+.trim()
+.split(/\s+/)
+.filter(Boolean);
+
+if(!parts.length)
+return "U";
+
+return parts
+.slice(0,2)
+.map(x => x[0])
+.join("")
+.toUpperCase();
+
+}
+
+
+function showLoading(text="Processing..."){
+
+document.getElementById("loadingText").textContent = text;
+
+loading.classList.add("show");
+
+}
+
+
+function hideLoading(){
+
+loading.classList.remove("show");
+
+}
+
+
+function showToast(title,message){
+
+document.getElementById("toastTitle").textContent = title;
+
+document.getElementById("toastMessage").textContent = message;
+
+const toast = document.getElementById("toast");
+
+toast.classList.add("show");
+
+clearTimeout(toastTimer);
+
+toastTimer = setTimeout(()=>{
+
+toast.classList.remove("show");
+
+},3500);
+
+}
+
+
+/* =========================================================
+   ADMIN ACCESS
+========================================================= */
+
+/*
+   SECURITY NOTE:
+
+   Create a Firestore document:
+
+   admins/{ADMIN_UID}
+
+   for each administrator.
+
+   Example:
+
+   admins
+      └── YOUR_ADMIN_FIREBASE_UID
+
+   This page checks that document before allowing access.
+*/
+
+async function verifyAdmin(user){
+
+const adminSnap =
+await getDoc(
+doc(db,"admins",user.uid)
+);
+
+return adminSnap.exists();
+
+}
+
+
+/* =========================================================
+   LOAD CONVERSATIONS
+========================================================= */
+
+async function loadConversations(){
+
+try{
+
+/*
+   Each support_chats document should use the
+   user's UID as its document ID.
+
+   Example:
+
+   support_chats
+      └── USER_UID
+           uid: USER_UID
+           lastMessage: "Hello"
+           lastMessageAt: timestamp
+           unreadForAdmin: 1
+*/
+
+const snap =
+await getDocs(
+collection(db,"support_chats")
+);
+
+conversations = [];
+
+for(const chatDoc of snap.docs){
+
+const chatData = chatDoc.data();
+
+const uid =
+chatData.uid || chatDoc.id;
+
+let userData = {};
+
+try{
+
+const userSnap =
+await getDoc(
+doc(db,"users",uid)
+);
+
+if(userSnap.exists()){
+
+userData = userSnap.data();
+
+}
+
+}catch(_){}
+
+
+conversations.push({
+
+id:chatDoc.id,
+
+uid,
+
+...chatData,
+
+fullname:
+chatData.fullname ||
+userData.fullname ||
+"User",
+
+email:
+chatData.email ||
+userData.email ||
+"",
+
+lastMessage:
+chatData.lastMessage ||
+"Start a conversation",
+
+lastMessageAt:
+chatData.lastMessageAt ||
+chatData.updatedAt ||
+chatData.createdAt ||
+null,
+
+unread:
+Number(chatData.unreadForAdmin || 0)
+
+});
+
+}
+
+sortConversations();
+
+renderConversations();
+
+}catch(error){
+
+console.error(error);
+
+conversationsEl.innerHTML = `
+
+<div class="sidebar-empty">
+
+<i class="bi bi-exclamation-triangle"></i>
+
+<p>
+Unable to load conversations.
+</p>
+
+</div>
+
+`;
+
+}
+
+}
+
+
+/* =========================================================
+   SORT
+========================================================= */
+
+function sortConversations(){
+
+conversations.sort((a,b)=>{
+
+const aa =
+timestampMs(a.lastMessageAt) || 0;
+
+const bb =
+timestampMs(b.lastMessageAt) || 0;
+
+return bb-aa;
+
+});
+
+}
+
+
+/* =========================================================
+   RENDER CONVERSATIONS
+========================================================= */
+
+function renderConversations(){
+
+const search =
+searchInput.value
+.trim()
+.toLowerCase();
+
+
+const filtered =
+conversations.filter(item => {
+
+const name =
+String(item.fullname || "").toLowerCase();
+
+const email =
+String(item.email || "").toLowerCase();
+
+const preview =
+String(item.lastMessage || "").toLowerCase();
+
+return (
+name.includes(search) ||
+email.includes(search) ||
+preview.includes(search)
+);
+
+});
+
+
+conversationCount.textContent =
+conversations.length;
+
+
+if(!filtered.length){
+
+conversationsEl.innerHTML = `
+
+<div class="sidebar-empty">
+
+<i class="bi bi-chat-left"></i>
+
+<p>
+No support conversations found.
+</p>
+
+</div>
+
+`;
+
+return;
+
+}
+
+
+conversationsEl.innerHTML =
+filtered.map(item=>{
+
+const selected =
+selectedUser &&
+selectedUser.uid === item.uid
+? "selected"
+: "";
+
+const unread =
+item.unread > 0
+? `<span class="unread">${item.unread}</span>`
+: "";
+
+
+return `
+
+<div
+class="conversation ${selected}"
+data-uid="${escapeHTML(item.uid)}">
+
+<div class="avatar">
+
+${escapeHTML(initials(item.fullname))}
+
+</div>
+
+<div class="conversation-info">
+
+<div class="conversation-top">
+
+<div class="conversation-name">
+
+${escapeHTML(item.fullname)}
+
+</div>
+
+<div class="conversation-time">
+
+${escapeHTML(formatTime(item.lastMessageAt))}
+
+</div>
+
+</div>
+
+<div class="conversation-bottom">
+
+<div class="conversation-preview">
+
+${escapeHTML(item.lastMessage || "No messages yet")}
+
+</div>
+
+${unread}
+
+</div>
+
+</div>
+
+</div>
+
+`;
+
+}).join("");
+
+
+document
+.querySelectorAll(".conversation")
+.forEach(el=>{
+
+el.onclick = () => {
+
+openConversation(el.dataset.uid);
+
+};
+
+});
+
+}
+
+
+/* =========================================================
+   OPEN CONVERSATION
+========================================================= */
+
+async function openConversation(uid){
+
+const conversation =
+conversations.find(x => x.uid === uid);
+
+if(!conversation)
+return;
+
+
+selectedUser = conversation;
+
+
+/* Mobile */
+
+chatPanel.classList.add("mobile-open");
+
+
+/* Show chat */
+
+chatEmpty.style.display = "none";
+
+chatContent.style.display = "flex";
+
+
+document.getElementById("chatAvatar").textContent =
+initials(conversation.fullname);
+
+document.getElementById("chatUserName").textContent =
+conversation.fullname;
+
+document.getElementById("chatUserEmail").textContent =
+conversation.email || "No email";
+
+
+replyInput.value = "";
+
+sendBtn.disabled = true;
+
+
+/* Mark admin unread count as zero */
+
+try{
+
+await updateDoc(
+doc(db,"support_chats",uid),
+{
+unreadForAdmin:0
+}
+);
+
+conversation.unread = 0;
+
+}catch(error){
+
+console.log(
+"Could not update unread count:",
+error
+);
+
+}
+
+
+renderConversations();
+
+listenToMessages(uid);
+
+}
+
+
+/* =========================================================
+   REAL-TIME MESSAGES
+========================================================= */
+
+function listenToMessages(uid){
+
+if(unsubscribeMessages){
+
+unsubscribeMessages();
+
+unsubscribeMessages = null;
+
+}
+
+
+messagesEl.innerHTML = `
+
+<div class="chat-empty">
+
+<div class="chat-empty-inner">
+
+<i class="bi bi-hourglass-split"></i>
+
+<p>Loading messages...</p>
+
+</div>
+
+</div>
+
+`;
+
+
+const messagesRef =
+collection(
+db,
+"support_chats",
+uid,
+"messages"
+);
+
+
+const messagesQuery =
+query(
+messagesRef,
+orderBy("createdAt","asc")
+);
+
+
+unsubscribeMessages =
+onSnapshot(
+messagesQuery,
+snapshot=>{
+
+if(snapshot.empty){
+
+messagesEl.innerHTML = `
+
+<div class="chat-empty">
+
+<div class="chat-empty-inner">
+
+<i class="bi bi-chat"></i>
+
+<h3>No messages yet</h3>
+
+<p>
+Send the first reply to begin the conversation.
+</p>
+
+</div>
+
+</div>
+
+`;
+
+return;
+
+}
+
+
+messagesEl.innerHTML =
+snapshot.docs.map(docSnap=>{
+
+const msg =
+docSnap.data();
+
+const isAdmin =
+msg.senderType === "admin" ||
+msg.role === "admin";
+
+
+const messageClass =
+isAdmin
+? "admin"
+: "user";
+
+
+const senderName =
+isAdmin
+? "You"
+: selectedUser.fullname;
+
+
+return `
+
+<div class="message-row ${messageClass}">
+
+<div class="message ${messageClass}">
+
+<div class="message-label">
+
+${escapeHTML(senderName)}
+
+</div>
+
+${escapeHTML(msg.text || msg.message || "")}
+
+<div class="message-meta">
+
+${escapeHTML(formatTime(msg.createdAt))}
+
+</div>
+
+</div>
+
+</div>
+
+`;
+
+}).join("");
+
+
+messagesEl.scrollTop =
+messagesEl.scrollHeight;
+
+},
+error=>{
+
+console.error(
+"Message listener error:",
+error
+);
+
+messagesEl.innerHTML = `
+
+<div class="chat-empty">
+
+<div class="chat-empty-inner">
+
+<i class="bi bi-exclamation-triangle"></i>
+
+<p>
+Unable to load this conversation.
+</p>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+}
+
+
+/* =========================================================
+   SEND ADMIN MESSAGE
+========================================================= */
+
+async function sendMessage(){
+
+if(!adminUser)
+return;
+
+if(!selectedUser)
+return;
+
+
+const text =
+replyInput.value.trim();
+
+if(!text)
+return;
+
+
+sendBtn.disabled = true;
+
+showLoading("Sending reply...");
+
+
+try{
+
+const uid =
+selectedUser.uid;
+
+
+/* Add message */
+
+await addDoc(
+
+collection(
+db,
+"support_chats",
+uid,
+"messages"
+),
+
+{
+
+text,
+
+senderType:"admin",
+
+role:"admin",
+
+senderUid:adminUser.uid,
+
+senderName:
+adminUser.email || "T.Wealth Support",
+
+createdAt:
+serverTimestamp(),
+
+read:false
+
+}
+
+);
+
+
+/* Update conversation */
+
+await updateDoc(
+
+doc(
+db,
+"support_chats",
+uid
+),
+
+{
+
+lastMessage:text,
+
+lastMessageAt:
+serverTimestamp(),
+
+unreadForUser:
+1
+
+}
+
+);
+
+
+/*
+   Also create a notification for the user.
+*/
+
+await addDoc(
+
+collection(db,"notifications"),
+
+{
+
+uid,
+
+title:"New Support Message",
+
+message:text,
+
+type:"support",
+
+read:false,
+
+createdAt:
+serverTimestamp(),
+
+sender:"T.Wealth Support"
+
+}
+
+);
+
+
+replyInput.value = "";
+
+showToast(
+"Message sent",
+"Your reply has been delivered to the user."
+);
+
+
+}catch(error){
+
+console.error(error);
+
+showToast(
+"Message failed",
+error.message || "Unable to send the message."
+);
+
+}finally{
+
+hideLoading();
+
+sendBtn.disabled =
+!replyInput.value.trim();
+
+}
+
+}
+
+
+/* =========================================================
+   SEND NOTIFICATION
+========================================================= */
+
+async function sendNotification(){
+
+if(!selectedUser)
+return;
+
+
+const title =
+document.getElementById("notificationTitle")
+.value.trim();
+
+const message =
+document.getElementById("notificationMessage")
+.value.trim();
+
+
+if(!title){
+
+showToast(
+"Missing title",
+"Please enter a notification title."
+);
+
+return;
+
+}
+
+
+if(!message){
+
+showToast(
+"Missing message",
+"Please enter a notification message."
+);
+
+return;
+
+}
+
+
+showLoading("Sending notification...");
+
+
+try{
+
+await addDoc(
+
+collection(db,"notifications"),
+
+{
+
+uid:selectedUser.uid,
+
+title,
+
+message,
+
+type:"admin",
+
+read:false,
+
+createdAt:
+serverTimestamp(),
+
+sender:"T.Wealth Admin"
+
+}
+
+);
+
+
+document.getElementById("notificationTitle").value = "";
+
+document.getElementById("notificationMessage").value = "";
+
+notificationPanel.classList.remove("show");
+
+
+showToast(
+"Notification sent",
+"The user has been notified successfully."
+);
+
+
+}catch(error){
+
+console.error(error);
+
+showToast(
+"Notification failed",
+error.message || "Unable to send notification."
+);
+
+}finally{
+
+hideLoading();
+
+}
+
+}
+
+
+/* =========================================================
+   EVENTS
+========================================================= */
+
+searchInput.addEventListener(
+"input",
+renderConversations
+);
+
+
+replyInput.addEventListener(
+"input",
+()=>{
+
+sendBtn.disabled =
+!replyInput.value.trim();
+
+}
+);
+
+
+replyInput.addEventListener(
+"keydown",
+event=>{
+
+if(
+event.key === "Enter" &&
+!event.shiftKey
+){
+
+event.preventDefault();
+
+sendMessage();
+
+}
+
+}
+);
+
+
+sendBtn.onclick =
+sendMessage;
+
+
+document.getElementById(
+"notificationBtn"
+).onclick = ()=>{
+
+if(!selectedUser)
+return;
+
+document.getElementById(
+"notificationRecipient"
+).value =
+selectedUser.fullname;
+
+notificationPanel.classList.add("show");
+
+};
+
+
+document.getElementById(
+"closeNotification"
+).onclick = ()=>{
+
+notificationPanel.classList.remove("show");
+
+};
+
+
+notificationPanel.addEventListener(
+"click",
+event=>{
+
+if(event.target === notificationPanel){
+
+notificationPanel.classList.remove("show");
+
+}
+
+}
+);
+
+
+document.getElementById(
+"mobileBack"
+).onclick = ()=>{
+
+chatPanel.classList.remove("mobile-open");
+
+};
+
+
+document.getElementById(
+"backBtn"
+).onclick = ()=>{
+
+location.href =
+"admin.html";
+
+};
+
+
+document.getElementById(
+"sendNotification"
+).onclick =
+sendNotification;
+
+
+onAuthStateChanged(auth, async user => {
+
+    if (!user) {
+        location.href = "login.html";
+        return;
+    }
+
+    adminUser = user;
+
+    await loadConversations();
+
+});
+
+
+/* =========================================================
+   CLEANUP
+========================================================= */
+
+window.addEventListener(
+"beforeunload",
+()=>{
+
+if(unsubscribeMessages)
+unsubscribeMessages();
+
+if(unsubscribeConversations)
+unsubscribeConversations();
+
+}
+);
+
+</script>
+
+</body>
+</html>

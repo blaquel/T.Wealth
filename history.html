@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+<title>T.Wealth | History</title>
+
+<link rel="preconnect"
+href="https://fonts.googleapis.com">
+
+<link rel="preconnect"
+href="https://fonts.gstatic.com"
+crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+rel="stylesheet">
+
+<link rel="stylesheet"
+href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
+<style>
+
+/*=========================================
+T.WEALTH HISTORY
+PART 2
+PREMIUM STYLE
+=========================================*/
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+-webkit-tap-highlight-color:transparent;
+}
+
+html{
+scroll-behavior:smooth;
+}
+
+body{
+font-family:"Poppins",sans-serif;
+background:#050505;
+color:#fff;
+padding:20px;
+overflow-x:hidden;
+position:relative;
+}
+
+.bg-glow{
+position:fixed;
+border-radius:50%;
+filter:blur(120px);
+opacity:.18;
+z-index:-1;
+}
+
+.glow1{
+width:320px;
+height:320px;
+background:#D4AF37;
+top:-120px;
+left:-120px;
+}
+
+.glow2{
+width:320px;
+height:320px;
+background:#FFD54A;
+bottom:-120px;
+right:-120px;
+}
+
+.container{
+max-width:800px;
+margin:auto;
+}
+
+/*=========================
+HEADER
+=========================*/
+
+header{
+display:flex;
+align-items:center;
+gap:18px;
+margin-bottom:30px;
+}
+
+#backBtn{
+width:50px;
+height:50px;
+border:none;
+border-radius:50%;
+background:#111;
+color:#FFD54A;
+font-size:20px;
+cursor:pointer;
+transition:.3s;
+flex-shrink:0;
+}
+
+#backBtn:hover{
+background:#FFD54A;
+color:#111;
+}
+
+header h2{
+font-size:28px;
+font-weight:700;
+color:#FFD54A;
+}
+
+/*=========================
+SEARCH
+=========================*/
+
+.search-box{
+position:relative;
+margin-bottom:22px;
+}
+
+.search-box i{
+position:absolute;
+left:18px;
+top:50%;
+transform:translateY(-50%);
+font-size:20px;
+color:#FFD54A;
+}
+
+.search-box input{
+width:100%;
+height:58px;
+padding-left:52px;
+padding-right:18px;
+background:#111;
+border:1px solid rgba(212,175,55,.25);
+border-radius:18px;
+color:#fff;
+font-size:15px;
+outline:none;
+transition:.3s;
+}
+
+.search-box input:focus{
+border-color:#FFD54A;
+box-shadow:0 0 18px rgba(212,175,55,.18);
+}
+
+.search-box input::placeholder{
+color:#888;
+}
+
+/*=========================
+FILTERS
+=========================*/
+
+.filter-bar{
+display:flex;
+gap:12px;
+overflow-x:auto;
+padding-bottom:10px;
+margin-bottom:28px;
+}
+
+.filter-bar::-webkit-scrollbar{
+display:none;
+}
+
+.filter-btn{
+padding:12px 22px;
+border:none;
+border-radius:30px;
+background:#111;
+border:1px solid rgba(212,175,55,.25);
+color:#bbb;
+font-size:14px;
+font-weight:600;
+cursor:pointer;
+white-space:nowrap;
+transition:.3s;
+}
+
+.filter-btn.active{
+background:linear-gradient(135deg,#FFD54A,#C89B09);
+color:#111;
+border:none;
+}
+
+.filter-btn:hover{
+border-color:#FFD54A;
+}
+
+/*=========================
+TRANSACTIONS
+=========================*/
+
+#historyContainer{
+display:flex;
+flex-direction:column;
+gap:20px;
+}
+
+.history-card{
+background:#111;
+border:1px solid rgba(212,175,55,.22);
+border-radius:22px;
+padding:22px;
+box-shadow:0 15px 35px rgba(0,0,0,.35);
+transition:.3s;
+}
+
+.history-card:hover{
+transform:translateY(-4px);
+border-color:#FFD54A;
+box-shadow:0 15px 35px rgba(212,175,55,.15);
+}
+
+.history-top{
+display:flex;
+align-items:center;
+gap:18px;
+margin-bottom:18px;
+}
+
+.history-icon{
+width:65px;
+height:65px;
+border-radius:18px;
+display:flex;
+justify-content:center;
+align-items:center;
+font-size:28px;
+flex-shrink:0;
+}
+
+.deposit{
+background:rgba(0,255,136,.12);
+color:#00ff88;
+}
+
+.withdrawal{
+background:rgba(255,90,90,.12);
+color:#ff5555;
+}
+
+.investment{
+background:rgba(212,175,55,.15);
+color:#FFD54A;
+}
+
+.purchase{
+background:rgba(0,180,255,.12);
+color:#4ecbff;
+}
+
+.history-info{
+flex:1;
+}
+
+.history-title{
+font-size:19px;
+font-weight:700;
+color:#FFD54A;
+margin-bottom:6px;
+}
+
+.history-date{
+font-size:13px;
+color:#999;
+}
+
+.history-amount{
+font-size:26px;
+font-weight:700;
+color:#fff;
+margin-top:18px;
+margin-bottom:18px;
+}
+
+/*=========================
+DETAILS
+=========================*/
+
+.history-details{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:15px;
+}
+
+.detail-box{
+background:#181818;
+padding:16px;
+border-radius:16px;
+}
+
+.detail-title{
+font-size:12px;
+color:#888;
+margin-bottom:6px;
+}
+
+.detail-value{
+font-size:15px;
+font-weight:600;
+color:#fff;
+word-break:break-word;
+}
+
+/*=========================
+STATUS
+=========================*/
+
+.status{
+display:inline-block;
+padding:7px 15px;
+border-radius:30px;
+font-size:13px;
+font-weight:700;
+}
+
+.status-approved,
+.status-completed{
+background:rgba(0,255,136,.12);
+color:#00ff88;
+}
+
+.status-pending{
+background:rgba(255,165,0,.12);
+color:#ffb000;
+}
+
+.status-rejected{
+background:rgba(255,70,70,.12);
+color:#ff5555;
+}
+
+.status-active{
+background:rgba(0,174,255,.12);
+color:#33c5ff;
+}
+
+/*=========================
+LOADING
+=========================*/
+
+#loadingBox{
+display:none;
+padding:60px 20px;
+text-align:center;
+}
+
+.loader{
+width:55px;
+height:55px;
+margin:auto;
+border:4px solid rgba(212,175,55,.15);
+border-top-color:#FFD54A;
+border-radius:50%;
+animation:spin .8s linear infinite;
+}
+
+@keyframes spin{
+100%{
+transform:rotate(360deg);
+}
+}
+
+#loadingBox p{
+margin-top:18px;
+color:#bbb;
+}
+
+/*=========================
+EMPTY
+=========================*/
+
+#emptyState{
+display:none;
+text-align:center;
+padding:60px 20px;
+}
+
+#emptyState i{
+font-size:70px;
+color:#FFD54A;
+margin-bottom:18px;
+}
+
+#emptyState h3{
+font-size:28px;
+margin-bottom:10px;
+color:#FFD54A;
+}
+
+#emptyState p{
+color:#999;
+line-height:1.8;
+}
+
+/*=========================
+SCROLLBAR
+=========================*/
+
+::-webkit-scrollbar{
+width:6px;
+}
+
+::-webkit-scrollbar-thumb{
+background:#D4AF37;
+border-radius:20px;
+}
+
+/*=========================
+RESPONSIVE
+=========================*/
+
+@media(max-width:768px){
+
+body{
+padding:16px;
+}
+
+header h2{
+font-size:24px;
+}
+
+.history-details{
+grid-template-columns:1fr;
+}
+
+.history-top{
+align-items:flex-start;
+}
+
+.history-amount{
+font-size:22px;
+}
+
+}
+
+@media(max-width:480px){
+
+.history-card{
+padding:18px;
+}
+
+.history-icon{
+width:55px;
+height:55px;
+font-size:24px;
+}
+
+.filter-btn{
+padding:11px 18px;
+font-size:13px;
+}
+
+.search-box input{
+height:54px;
+}
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- Background Glow -->
+
+<div class="bg-glow glow1"></div>
+
+<div class="bg-glow glow2"></div>
+
+<div class="container">
+
+<!--=========================
+HEADER
+==========================-->
+
+<header>
+
+<button id="backBtn">
+
+<i class="bi bi-arrow-left"></i>
+
+</button>
+
+<h2>Transaction History</h2>
+
+</header>
+
+<!--=========================
+SEARCH
+==========================-->
+
+<div class="search-box">
+
+<i class="bi bi-search"></i>
+
+<input
+type="text"
+id="searchInput"
+placeholder="Search transaction...">
+
+</div>
+
+<!--=========================
+FILTERS
+==========================-->
+
+<div class="filter-bar">
+
+<button class="filter-btn active"
+data-filter="all">
+
+All
+
+</button>
+
+<button class="filter-btn"
+data-filter="deposit">
+
+Deposits
+
+</button>
+
+<button class="filter-btn"
+data-filter="withdrawal">
+
+Withdrawals
+
+</button>
+
+<button class="filter-btn"
+data-filter="investment">
+
+Investments
+
+</button>
+
+<button class="filter-btn"
+data-filter="purchase">
+
+Purchases
+
+</button>
+
+</div>
+
+<!--=========================
+TRANSACTIONS
+==========================-->
+
+<div id="historyContainer">
+
+<!-- Transactions load here -->
+
+</div>
+
+<!--=========================
+LOADING
+==========================-->
+
+<div id="loadingBox">
+
+<div class="loader"></div>
+
+<p>
+
+Loading transaction history...
+
+</p>
+
+</div>
+
+<!--=========================
+EMPTY
+==========================-->
+
+<div id="emptyState">
+
+<i class="bi bi-clock-history"></i>
+
+<h3>
+
+No Transactions
+
+</h3>
+
+<p>
+
+Your transaction history will appear here.
+
+</p>
+
+</div>
+
+</div>
+
+<script type="module">
+
+/*=========================================
+FIREBASE
+=========================================*/
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
+
+import {
+getAuth,
+onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js";
+
+import {
+getFirestore,
+collection,
+query,
+where,
+orderBy,
+getDocs,
+doc,
+getDoc
+} from "https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
+
+/*=========================================
+CONFIG
+=========================================*/
+
+const firebaseConfig={
+apiKey:"AIzaSyCfmUdXAvdktAZ7RRFYGq5R2ZMgFQjBIHg",
+authDomain:"t-wealth-6c492.firebaseapp.com",
+projectId:"t-wealth-6c492",
+storageBucket:"t-wealth-6c492.firebasestorage.app",
+messagingSenderId:"920631507931",
+appId:"1:920631507931:web:ec6769afe5feebfed0c5fe"
+};
+
+const app=initializeApp(firebaseConfig);
+const auth=getAuth(app);
+const db=getFirestore(app);
+
+/*=========================================
+ELEMENTS
+=========================================*/
+
+const backBtn=document.getElementById("backBtn");
+const historyContainer=document.getElementById("historyContainer");
+const loadingBox=document.getElementById("loadingBox");
+const emptyState=document.getElementById("emptyState");
+const searchInput=document.getElementById("searchInput");
+const filterBtns=document.querySelectorAll(".filter-btn");
+
+/*=========================================
+GLOBAL
+=========================================*/
+
+let allHistory=[];
+let selectedCurrency="USD";
+
+const currencyRates={
+USD:1,
+EUR:0.92,
+GBP:0.79,
+NGN:1550,
+CAD:1.37,
+AUD:1.53,
+JPY:161,
+CNY:7.25,
+BTC:0.0000085,
+ETH:0.00026
+};
+
+const currencySymbols={
+USD:"$",
+EUR:"€",
+GBP:"£",
+NGN:"₦",
+CAD:"C$",
+AUD:"A$",
+JPY:"¥",
+CNY:"¥",
+BTC:"₿",
+ETH:"Ξ"
+};
+
+/*=========================================
+BACK
+=========================================*/
+
+backBtn.onclick=()=>{
+
+window.location.href="dashboard.html";
+
+};
+
+/*=========================================
+AUTH
+=========================================*/
+
+onAuthStateChanged(auth,async(user)=>{
+
+if(!user){
+
+window.location.href="login.html";
+return;
+
+}
+
+const userSnap=await getDoc(doc(db,"users",user.uid));
+
+if(userSnap.exists()){
+
+selectedCurrency=userSnap.data().currency||"USD";
+
+}
+
+loadHistory(user.uid);
+
+});
+
+/*=========================================
+LOAD HISTORY
+=========================================*/
+
+async function loadHistory(uid){
+
+loadingBox.style.display="block";
+
+historyContainer.innerHTML="";
+
+emptyState.style.display="none";
+
+try{
+
+const q=query(
+collection(db,"history"),
+where("uid","==",uid),
+orderBy("createdAt","desc")
+);
+
+const snap=await getDocs(q);
+
+allHistory=[];
+
+snap.forEach(doc=>{
+
+allHistory.push(doc.data());
+
+});
+
+loadingBox.style.display="none";
+
+if(allHistory.length===0){
+
+emptyState.style.display="block";
+return;
+
+}
+
+renderHistory(allHistory);
+
+}catch(error){
+
+loadingBox.style.display="none";
+
+console.log(error);
+
+}
+
+}
+
+/*=========================================
+RENDER
+=========================================*/
+
+function renderHistory(data){
+
+historyContainer.innerHTML="";
+
+const symbol=currencySymbols[selectedCurrency]||"$";
+const rate=currencyRates[selectedCurrency]||1;
+
+data.forEach(item=>{
+
+let icon="bi-clock-history";
+let typeClass="investment";
+
+const type=(item.type||"").toLowerCase();
+
+if(type.includes("deposit")){
+
+icon="bi-wallet2";
+typeClass="deposit";
+
+}
+
+if(type.includes("withdraw")){
+
+icon="bi-cash-stack";
+typeClass="withdrawal";
+
+}
+
+if(type.includes("investment")){
+
+icon="bi-graph-up-arrow";
+typeClass="investment";
+
+}
+
+if(type.includes("purchase")){
+
+icon="bi-bag-fill";
+typeClass="purchase";
+
+}
+
+const amount=(Number(item.amount||0)*rate).toLocaleString(undefined,{
+minimumFractionDigits:2,
+maximumFractionDigits:2
+});
+
+const status=(item.status||"Completed");
+
+const statusClass="status-"+status.toLowerCase();
+
+let date="";
+
+if(item.createdAt){
+
+date=item.createdAt.toDate().toLocaleString();
+
+}
+
+historyContainer.innerHTML+=`
+
+<div class="history-card">
+
+<div class="history-top">
+
+<div class="history-icon ${typeClass}">
+
+<i class="bi ${icon}"></i>
+
+</div>
+
+<div class="history-info">
+
+<div class="history-title">
+
+${item.title||item.type}
+
+</div>
+
+<div class="history-date">
+
+${date}
+
+</div>
+
+</div>
+
+</div>
+
+<div class="history-amount">
+
+${symbol}${amount}
+
+</div>
+
+<div class="history-details">
+
+<div class="detail-box">
+
+<div class="detail-title">
+
+Type
+
+</div>
+
+<div class="detail-value">
+
+${item.type}
+
+</div>
+
+</div>
+
+<div class="detail-box">
+
+<div class="detail-title">
+
+Status
+
+</div>
+
+<div class="detail-value">
+
+<span class="status ${statusClass}">
+
+${status}
+
+</span>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+}
+
+/*=========================================
+SEARCH
+=========================================*/
+
+searchInput.addEventListener("input",()=>{
+
+const value=searchInput.value.toLowerCase();
+
+const filtered=allHistory.filter(item=>{
+
+return(
+
+(item.title||"").toLowerCase().includes(value)||
+
+(item.type||"").toLowerCase().includes(value)||
+
+(item.status||"").toLowerCase().includes(value)
+
+);
+
+});
+
+renderHistory(filtered);
+
+});
+
+/*=========================================
+FILTER
+=========================================*/
+
+filterBtns.forEach(btn=>{
+
+btn.onclick=()=>{
+
+filterBtns.forEach(b=>b.classList.remove("active"));
+
+btn.classList.add("active");
+
+const filter=btn.dataset.filter;
+
+if(filter==="all"){
+
+renderHistory(allHistory);
+
+return;
+
+}
+
+const filtered=allHistory.filter(item=>
+
+(item.type||"").toLowerCase().includes(filter)
+
+);
+
+renderHistory(filtered);
+
+};
+
+});
+
+console.log("History Page Loaded");
+
+</script>
+
+</body>
+</html>

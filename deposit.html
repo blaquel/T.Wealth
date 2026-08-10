@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+<title>T.Wealth | Deposit</title>
+
+<link
+rel="stylesheet"
+href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+<link
+href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+rel="stylesheet">
+
+<link
+rel="stylesheet"
+href="deposit.css">
+
+<style>
+
+/*=========================================
+T.WEALTH DEPOSIT
+PART 2
+CSS
+=========================================*/
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:"Poppins",sans-serif;
+}
+
+body{
+
+background:#060606;
+color:#fff;
+overflow-x:hidden;
+min-height:100vh;
+position:relative;
+
+}
+
+a{
+
+text-decoration:none;
+
+}
+
+.container{
+
+width:100%;
+max-width:520px;
+margin:auto;
+padding:24px 18px 40px;
+
+}
+
+/*=========================================
+BACKGROUND GLOW
+=========================================*/
+
+.bg-glow{
+
+position:fixed;
+border-radius:50%;
+filter:blur(120px);
+z-index:-1;
+opacity:.22;
+
+}
+
+.glow1{
+
+width:260px;
+height:260px;
+background:#D4AF37;
+top:-80px;
+left:-80px;
+
+}
+
+.glow2{
+
+width:220px;
+height:220px;
+background:#FFD54A;
+bottom:-100px;
+right:-90px;
+
+}
+
+/*=========================================
+HEADER
+=========================================*/
+
+header{
+
+display:flex;
+align-items:center;
+justify-content:space-between;
+margin-bottom:28px;
+
+}
+
+header h2{
+
+font-size:24px;
+font-weight:700;
+color:#fff;
+
+}
+
+#backBtn{
+
+width:46px;
+height:46px;
+border:none;
+border-radius:14px;
+background:#121212;
+color:#D4AF37;
+font-size:22px;
+cursor:pointer;
+transition:.3s;
+
+}
+
+#backBtn:hover{
+
+background:#D4AF37;
+color:#000;
+
+}
+
+/*=========================================
+INTRO CARD
+=========================================*/
+
+.intro-card{
+
+background:linear-gradient(145deg,#141414,#0c0c0c);
+border:1px solid rgba(212,175,55,.25);
+border-radius:22px;
+padding:22px;
+margin-bottom:24px;
+box-shadow:0 0 25px rgba(212,175,55,.08);
+
+}
+
+.intro-card h3{
+
+font-size:22px;
+margin-bottom:10px;
+color:#FFD54A;
+
+}
+
+.intro-card p{
+
+font-size:14px;
+line-height:1.7;
+color:#bdbdbd;
+
+}
+
+/*=========================================
+DEPOSIT LIST
+=========================================*/
+
+.deposit-list{
+
+display:flex;
+flex-direction:column;
+gap:18px;
+
+}
+
+.deposit-card{
+
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:18px;
+border-radius:18px;
+background:#111;
+border:1px solid rgba(255,255,255,.05);
+transition:.35s;
+cursor:pointer;
+
+}
+
+.deposit-card.active:hover{
+
+transform:translateY(-3px);
+border-color:#D4AF37;
+box-shadow:0 0 22px rgba(212,175,55,.18);
+
+}
+
+.deposit-card.disabled{
+
+opacity:.65;
+cursor:not-allowed;
+
+}
+
+.left{
+
+display:flex;
+align-items:center;
+gap:16px;
+
+}
+
+.icon{
+
+width:58px;
+height:58px;
+border-radius:16px;
+display:flex;
+align-items:center;
+justify-content:center;
+background:#1b1b1b;
+color:#D4AF37;
+font-size:26px;
+
+}
+
+.icon.usdt{
+
+background:linear-gradient(135deg,#00B67A,#008B63);
+color:#fff;
+
+}
+
+.deposit-card h3{
+
+font-size:17px;
+font-weight:600;
+margin-bottom:4px;
+
+}
+
+.deposit-card p{
+
+font-size:13px;
+color:#999;
+
+}
+
+.deposit-card i.bi-chevron-right{
+
+font-size:22px;
+color:#D4AF37;
+
+}
+
+/*=========================================
+COMING SOON
+=========================================*/
+
+.coming{
+
+padding:6px 12px;
+border-radius:30px;
+font-size:11px;
+font-weight:600;
+background:rgba(212,175,55,.12);
+color:#FFD54A;
+border:1px solid rgba(212,175,55,.3);
+
+}
+
+/*=========================================
+HELP CARD
+=========================================*/
+
+.help-card{
+
+margin-top:32px;
+text-align:center;
+background:#101010;
+padding:24px;
+border-radius:20px;
+border:1px solid rgba(212,175,55,.18);
+
+}
+
+.help-card i{
+
+font-size:36px;
+color:#FFD54A;
+margin-bottom:12px;
+display:block;
+
+}
+
+.help-card p{
+
+color:#cfcfcf;
+margin-bottom:16px;
+font-size:14px;
+
+}
+
+.help-card a{
+
+display:inline-block;
+padding:12px 24px;
+border-radius:30px;
+background:linear-gradient(135deg,#FFD54A,#C99A06);
+color:#000;
+font-weight:700;
+transition:.3s;
+
+}
+
+.help-card a:hover{
+
+transform:translateY(-2px);
+box-shadow:0 0 18px rgba(212,175,55,.35);
+
+}
+
+/*=========================================
+MOBILE
+=========================================*/
+
+@media(max-width:480px){
+
+.container{
+
+padding:20px 14px 30px;
+
+}
+
+header h2{
+
+font-size:21px;
+
+}
+
+.deposit-card{
+
+padding:16px;
+
+}
+
+.icon{
+
+width:52px;
+height:52px;
+font-size:22px;
+
+}
+
+.intro-card h3{
+
+font-size:20px;
+
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- Background -->
+
+<div class="bg-glow glow1"></div>
+<div class="bg-glow glow2"></div>
+
+<div class="container">
+
+<!-- Header -->
+
+<header>
+
+<button
+id="backBtn">
+
+<i class="bi bi-arrow-left"></i>
+
+</button>
+
+<h2>
+
+Deposit Funds
+
+</h2>
+
+</header>
+
+<!-- Intro Card -->
+
+<div class="intro-card">
+
+<h3>
+
+Fund Your Account
+
+</h3>
+
+<p>
+
+Choose a payment method below. Once your payment is confirmed, your T.Wealth balance will update automatically.
+
+</p>
+
+</div>
+
+<!-- Deposit Options -->
+
+<div class="deposit-list">
+
+<!-- USDT -->
+
+<div
+class="deposit-card active"
+id="usdtCard">
+
+<div class="left">
+
+<div class="icon usdt">
+
+<i class="bi bi-currency-bitcoin"></i>
+
+</div>
+
+<div>
+
+<h3>
+
+USDT Transfer
+
+</h3>
+
+<p>
+
+Available • Instant
+
+</p>
+
+</div>
+
+</div>
+
+<i class="bi bi-chevron-right"></i>
+
+</div>
+
+<!-- Bank -->
+
+<div class="deposit-card disabled">
+
+<div class="left">
+
+<div class="icon">
+
+<i class="bi bi-bank"></i>
+
+</div>
+
+<div>
+
+<h3>
+
+Bank Transfer
+
+</h3>
+
+<p>
+
+Coming Soon
+
+</p>
+
+</div>
+
+</div>
+
+<span class="coming">
+
+Coming Soon
+
+</span>
+
+</div>
+
+<!-- Credit Card -->
+
+<div class="deposit-card disabled">
+
+<div class="left">
+
+<div class="icon">
+
+<i class="bi bi-credit-card-2-front"></i>
+
+</div>
+
+<div>
+
+<h3>
+
+Credit Card
+
+</h3>
+
+<p>
+
+Coming Soon
+
+</p>
+
+</div>
+
+</div>
+
+<span class="coming">
+
+Coming Soon
+
+</span>
+
+</div>
+
+<!-- PayPal -->
+
+<div class="deposit-card disabled">
+
+<div class="left">
+
+<div class="icon">
+
+<i class="bi bi-paypal"></i>
+
+</div>
+
+<div>
+
+<h3>
+
+PayPal
+
+</h3>
+
+<p>
+
+Coming Soon
+
+</p>
+
+</div>
+
+</div>
+
+<span class="coming">
+
+Coming Soon
+
+</span>
+
+</div>
+
+<!-- Cash App -->
+
+<div class="deposit-card disabled">
+
+<div class="left">
+
+<div class="icon">
+
+<i class="bi bi-cash-stack"></i>
+
+</div>
+
+<div>
+
+<h3>
+
+Cash App
+
+</h3>
+
+<p>
+
+Coming Soon
+
+</p>
+
+</div>
+
+</div>
+
+<span class="coming">
+
+Coming Soon
+
+</span>
+
+</div>
+
+</div>
+
+<!-- Help Card -->
+
+<div class="help-card">
+
+<i class="bi bi-headset"></i>
+
+<p>
+
+Need help making a deposit?
+
+</p>
+
+<a
+href="support.html">
+
+Contact Support
+
+</a>
+
+</div>
+
+</div>
+
+<script type="module">
+
+/*=========================================
+T.WEALTH DEPOSIT
+PART 3
+FIREBASE + BUTTONS
+=========================================*/
+
+/*=========================================
+FIREBASE IMPORTS
+=========================================*/
+
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
+
+import {
+getAuth,
+onAuthStateChanged
+}
+from "https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js";
+
+/*=========================================
+FIREBASE CONFIG
+=========================================*/
+
+const firebaseConfig={
+
+apiKey:"AIzaSyCfmUdXAvdktAZ7RRFYGq5R2ZMgFQjBIHg",
+
+authDomain:"t-wealth-6c492.firebaseapp.com",
+
+projectId:"t-wealth-6c492",
+
+storageBucket:"t-wealth-6c492.firebasestorage.app",
+
+messagingSenderId:"920631507931",
+
+appId:"1:920631507931:web:ec6769afe5feebfed0c5fe"
+
+};
+
+/*=========================================
+INITIALIZE FIREBASE
+=========================================*/
+
+const app=initializeApp(firebaseConfig);
+
+const auth=getAuth(app);
+
+/*=========================================
+ELEMENTS
+=========================================*/
+
+const backBtn=document.getElementById("backBtn");
+
+const usdtCard=document.getElementById("usdtCard");
+
+/*=========================================
+AUTHENTICATION
+=========================================*/
+
+onAuthStateChanged(auth,(user)=>{
+
+if(!user){
+
+window.location.href="login.html";
+
+return;
+
+}
+
+console.log("Deposit page loaded.");
+
+});
+
+/*=========================================
+BACK BUTTON
+=========================================*/
+
+backBtn.addEventListener("click",()=>{
+
+window.location.href="dashboard.html";
+
+});
+
+/*=========================================
+USDT TRANSFER
+=========================================*/
+
+usdtCard.addEventListener("click",()=>{
+
+window.location.href="usdt.html";
+
+});
+
+/*=========================================
+COMING SOON
+=========================================*/
+
+document.querySelectorAll(".deposit-card.disabled").forEach(card=>{
+
+card.addEventListener("click",()=>{
+
+alert("This payment method is coming soon.");
+
+});
+
+});
+
+/*=========================================
+READY
+=========================================*/
+
+console.log("Deposit Part 3 Loaded");
+
+</script>
+
+
+</body>
+
+</html>
