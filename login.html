@@ -1,1322 +1,406 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<meta name="theme-color" content="#070707">
+<title>Tesla Wealth | Sign In</title>
 
-<meta
-name="viewport"
-content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-
-<meta
-name="theme-color"
-content="#080808">
-
-<meta
-name="apple-mobile-web-app-capable"
-content="yes">
-
-<meta
-name="apple-mobile-web-app-status-bar-style"
-content="black-translucent">
-
-<title>T.Wealth | Login</title>
-
-<link rel="preconnect"
-href="https://fonts.googleapis.com">
-
-<link rel="preconnect"
-href="https://fonts.gstatic.com"
-crossorigin>
-
-<link
-href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
-rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
 <style>
-
-/* ==========================
-RESET
-========================== */
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Poppins',sans-serif;
--webkit-tap-highlight-color:transparent;
-}
-
-html{
-scroll-behavior:smooth;
-touch-action:manipulation;
-}
-
+*{box-sizing:border-box;margin:0;padding:0;font-family:Poppins,sans-serif;-webkit-tap-highlight-color:transparent}
+html{touch-action:manipulation}
 body{
-background:#080808;
-color:#fff;
-overflow-x:hidden;
-min-height:100vh;
-display:flex;
-justify-content:center;
-align-items:center;
-padding:25px 15px;
-position:relative;
+  min-height:100vh;background:#070707;color:#fff;overflow-x:hidden;
+  display:flex;align-items:center;justify-content:center;padding:20px;
 }
-
-/* ==========================
-ANIMATED BACKGROUND
-========================== */
-
-.bg-gradient{
-position:fixed;
-border-radius:50%;
-filter:blur(130px);
-z-index:-1;
-animation:floatGlow 10s ease-in-out infinite;
+body:before{
+  content:"";position:fixed;inset:0;pointer-events:none;
+  background:
+    radial-gradient(circle at 15% 15%,rgba(212,175,55,.12),transparent 30%),
+    radial-gradient(circle at 85% 85%,rgba(212,175,55,.08),transparent 32%);
 }
-
-.bg1{
-width:380px;
-height:380px;
-background:#D4AF37;
-top:-180px;
-left:-180px;
-opacity:.10;
+.page{
+  width:100%;max-width:1050px;min-height:650px;display:grid;grid-template-columns:1fr 1fr;
+  background:#101010;border:1px solid rgba(212,175,55,.20);border-radius:30px;overflow:hidden;
+  box-shadow:0 30px 90px rgba(0,0,0,.60),0 0 55px rgba(212,175,55,.06);
+  position:relative;z-index:1;
 }
-
-.bg2{
-width:320px;
-height:320px;
-background:#FFD54A;
-bottom:-150px;
-right:-150px;
-opacity:.08;
-animation-delay:4s;
+.brand{
+  position:relative;padding:55px;display:flex;flex-direction:column;justify-content:space-between;
+  background:linear-gradient(145deg,#15130d,#0d0d0d 58%,#111);
+  border-right:1px solid rgba(212,175,55,.13);
 }
-
-@keyframes floatGlow{
-
-0%,100%{
-transform:translateY(0);
+.brand:after{
+  content:"";position:absolute;width:310px;height:310px;border-radius:50%;
+  border:1px solid rgba(212,175,55,.16);right:-135px;top:80px;
+  box-shadow:0 0 0 45px rgba(212,175,55,.025),0 0 0 90px rgba(212,175,55,.018);
 }
-
-50%{
-transform:translateY(30px);
+.mark{
+  width:68px;height:68px;border-radius:20px;display:grid;place-items:center;
+  background:linear-gradient(145deg,#f5d76e,#b58b18);color:#111;
+  font-size:31px;font-weight:800;box-shadow:0 14px 35px rgba(212,175,55,.18);
 }
-
+.brand h1{font-size:42px;line-height:1.05;margin-top:25px;letter-spacing:-1.5px}
+.brand h1 span{color:#d4af37}
+.brand p{margin-top:18px;color:#9c9c9c;line-height:1.8;max-width:410px;font-size:14px}
+.features{display:grid;gap:13px;margin-top:35px}
+.feature{
+  display:flex;align-items:center;gap:12px;color:#d0d0d0;font-size:13px
 }
-
-/* ==========================
-LOGIN CARD
-========================== */
-
-.login-card{
-
-width:100%;
-max-width:470px;
-background:#121212;
-border:1px solid rgba(212,175,55,.18);
-border-radius:28px;
-padding:35px 28px;
-box-shadow:
-0 20px 50px rgba(0,0,0,.55),
-0 0 35px rgba(212,175,55,.08);
-animation:cardIn .6s ease;
-
+.feature i{
+  width:28px;height:28px;border:1px solid rgba(212,175,55,.35);border-radius:9px;
+  display:grid;place-items:center;color:#d4af37;font-style:normal
 }
+.disclaimer{color:#686868;font-size:11px;line-height:1.6;max-width:400px}
 
-@keyframes cardIn{
-
-from{
-
-opacity:0;
-transform:translateY(40px);
-
+.panel{padding:55px 50px;display:flex;align-items:center}
+.form-wrap{width:100%;max-width:430px;margin:auto}
+.eyebrow{color:#d4af37;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase}
+.form-wrap h2{font-size:32px;margin-top:10px;letter-spacing:-.7px}
+.sub{color:#858585;font-size:13px;margin-top:8px;line-height:1.6}
+.field{margin-top:24px}
+.field label{display:block;font-size:12px;color:#bdbdbd;margin-bottom:9px;font-weight:600}
+.input-shell{position:relative}
+.input-shell input{
+  width:100%;height:56px;border-radius:15px;border:1px solid #2c2c2c;background:#181818;
+  color:#fff;outline:none;padding:0 17px;font-size:14px;transition:.25s;
 }
-
-to{
-
-opacity:1;
-transform:translateY(0);
-
+.input-shell input:focus{border-color:#d4af37;box-shadow:0 0 0 4px rgba(212,175,55,.08)}
+.input-shell input::placeholder{color:#5f5f5f}
+.toggle{
+  position:absolute;right:10px;top:50%;transform:translateY(-50%);
+  border:0;background:transparent;color:#d4af37;font-weight:700;font-size:12px;padding:8px;cursor:pointer
 }
-
+.options{display:flex;justify-content:space-between;align-items:center;margin:17px 0 25px;gap:10px}
+.remember{display:flex;align-items:center;gap:8px;color:#929292;font-size:12px}
+.remember input{accent-color:#d4af37;width:15px;height:15px}
+.forgot{color:#d4af37;text-decoration:none;font-size:12px;font-weight:600}
+.primary{
+  width:100%;height:56px;border:0;border-radius:15px;cursor:pointer;
+  background:linear-gradient(135deg,#f3cf59,#c09418);color:#101010;font-size:14px;font-weight:800;
+  box-shadow:0 15px 35px rgba(212,175,55,.12);transition:.25s;
 }
+.primary:hover{transform:translateY(-2px);box-shadow:0 18px 40px rgba(212,175,55,.22)}
+.primary:active{transform:scale(.985)}
+.divider{display:flex;align-items:center;gap:12px;color:#555;font-size:10px;margin:26px 0}
+.divider:before,.divider:after{content:"";height:1px;background:#282828;flex:1}
+.create{text-align:center;color:#777;font-size:12px}
+.create a{color:#d4af37;text-decoration:none;font-weight:700}
 
-/* ==========================
-LOGO
-========================== */
-
-.logo-area{
-
-text-align:center;
-margin-bottom:30px;
-
+.loading-overlay,.alert-overlay{
+  position:fixed;inset:0;display:none;align-items:center;justify-content:center;
+  background:rgba(0,0,0,.88);backdrop-filter:blur(16px);z-index:9999;padding:22px
 }
-
-.logo{
-
-width:90px;
-height:90px;
-object-fit:contain;
-margin-bottom:15px;
-animation:logoFloat 3s ease-in-out infinite;
-
+.loading-card,.alert-card{
+  width:min(390px,100%);background:#111;border:1px solid rgba(212,175,55,.22);
+  border-radius:25px;padding:32px;text-align:center;box-shadow:0 25px 80px rgba(0,0,0,.7)
 }
-
-@keyframes logoFloat{
-
-0%,100%{
-transform:translateY(0);
+.spinner{
+  width:72px;height:72px;margin:0 auto 22px;border-radius:50%;
+  border:3px solid rgba(212,175,55,.14);border-top-color:#f2cf58;
+  animation:spin 1s linear infinite
 }
-
-50%{
-transform:translateY(-6px);
-}
-
-}
-
-.logo-area h1{
-
-font-size:30px;
-font-weight:700;
-color:#D4AF37;
-
-}
-
-.logo-area p{
-
-margin-top:8px;
-font-size:14px;
-color:#999;
-line-height:1.6;
-
-}
-
-/* ==========================
-FORM
-========================== */
-
-.input-group{
-margin-bottom:18px;
-}
-
-.input-group label{
-display:block;
-margin-bottom:8px;
-font-size:14px;
-font-weight:500;
-color:#ddd;
-}
-
-.input-group input{
-width:100%;
-height:58px;
-padding:0 18px;
-border:none;
-outline:none;
-border-radius:16px;
-background:#1b1b1b;
-border:1px solid #2d2d2d;
-color:#fff;
-font-size:15px;
-transition:.3s;
-}
-
-.input-group input::placeholder{
-color:#777;
-}
-
-.input-group input:focus{
-border-color:#D4AF37;
-box-shadow:0 0 18px rgba(212,175,55,.18);
-}
-
-/* ==========================
-PASSWORD
-========================== */
-
-.password-box{
-position:relative;
-}
-
-.password-box input{
-padding-right:85px;
-}
-
-.toggle-password{
-position:absolute;
-right:14px;
-top:50%;
-transform:translateY(-50%);
-border:none;
-background:none;
-color:#D4AF37;
-font-size:14px;
-font-weight:600;
-cursor:pointer;
-transition:.3s;
-}
-
-.toggle-password:hover{
-color:#FFD54A;
-}
-
-/* ==========================
-REMEMBER ME
-========================== */
-
-.remember-row{
-display:flex;
-justify-content:space-between;
-align-items:center;
-margin:20px 0 25px;
-gap:10px;
-flex-wrap:wrap;
-}
-
-.remember-box{
-display:flex;
-align-items:center;
-gap:10px;
-}
-
-.remember-box input{
-width:18px;
-height:18px;
-accent-color:#D4AF37;
-}
-
-.remember-box label{
-font-size:14px;
-color:#bbb;
-cursor:pointer;
-}
-
-/* ==========================
-FORGOT PASSWORD
-========================== */
-
-.forgot-link{
-font-size:14px;
-color:#D4AF37;
-text-decoration:none;
-font-weight:600;
-transition:.3s;
-}
-
-.forgot-link:hover{
-color:#FFD54A;
-text-decoration:underline;
-}
-
-/* ==========================
-LOGIN BUTTON
-========================== */
-
-.login-btn{
-width:100%;
-height:58px;
-border:none;
-border-radius:50px;
-background:linear-gradient(135deg,#FFD54A,#C99A06);
-color:#111;
-font-size:16px;
-font-weight:700;
-cursor:pointer;
-transition:.35s;
-}
-
-.login-btn:hover{
-transform:translateY(-3px);
-box-shadow:0 15px 35px rgba(212,175,55,.35);
-}
-
-.login-btn:active{
-transform:scale(.98);
-}
-
-/* ==========================
-BOTTOM LINK
-========================== */
-
-.bottom-text{
-margin-top:25px;
-text-align:center;
-font-size:15px;
-color:#999;
-}
-
-.bottom-text a{
-color:#D4AF37;
-font-weight:600;
-text-decoration:none;
-transition:.3s;
-}
-
-.bottom-text a:hover{
-color:#FFD54A;
-}
-
-/* ==========================
-PREMIUM LOADING OVERLAY
-========================== */
-
-.loading-overlay{
-    position:fixed;
-    inset:0;
-    display:none;
-    justify-content:center;
-    align-items:center;
-    background:rgba(0,0,0,.96);
-    backdrop-filter:blur(15px);
-    z-index:999999;
-}
-
-.loading-box{
-    position:relative;
-    text-align:center;
-}
-
-.logo-ring{
-
-    position:absolute;
-    width:150px;
-    height:150px;
-
-    border-radius:50%;
-
-    border:4px solid rgba(212,175,55,.15);
-
-    border-top:4px solid #FFD54A;
-
-    left:50%;
-    top:18px;
-
-    transform:translateX(-50%);
-
-    animation:ringSpin 1.2s linear infinite;
-
-}
-
-.loading-logo{
-
-    width:100px;
-    height:100px;
-
-    object-fit:contain;
-
-    position:relative;
-
-    z-index:2;
-
-    animation:logoPulse 1.5s ease-in-out infinite;
-
-    filter:
-    drop-shadow(0 0 10px gold)
-    drop-shadow(0 0 30px rgba(255,215,0,.8));
-
-}
-
-.loading-box h2{
-
-    margin-top:40px;
-
-    color:#FFD54A;
-
-    font-size:26px;
-
-    font-weight:700;
-
-}
-
-.loading-box p{
-
-    margin-top:10px;
-
-    color:#cccccc;
-
-    font-size:15px;
-
-    line-height:1.8;
-
-}
-
-.loading-dots{
-
-    display:flex;
-
-    justify-content:center;
-
-    gap:8px;
-
-    margin-top:28px;
-
-}
-
-.loading-dots span{
-
-    width:10px;
-
-    height:10px;
-
-    border-radius:50%;
-
-    background:#FFD54A;
-
-    animation:dots 1.2s infinite;
-
-}
-
-.loading-dots span:nth-child(2){
-
-    animation-delay:.2s;
-
-}
-
-.loading-dots span:nth-child(3){
-
-    animation-delay:.4s;
-
-}
-
-@keyframes ringSpin{
-
-    from{
-
-        transform:translateX(-50%) rotate(0deg);
-
-    }
-
-    to{
-
-        transform:translateX(-50%) rotate(360deg);
-
-    }
-
-}
-
-@keyframes logoPulse{
-
-    0%,100%{
-
-        transform:scale(1);
-
-    }
-
-    50%{
-
-        transform:scale(1.08);
-
-    }
-
-}
-
-@keyframes dots{
-
-    0%,100%{
-
-        opacity:.3;
-
-        transform:translateY(0);
-
-    }
-
-    50%{
-
-        opacity:1;
-
-        transform:translateY(-10px);
-
-    }
-
-}
-
-/* ==========================
-PREMIUM ALERT
-========================== */
-
-.alert-overlay{
-position:fixed;
-inset:0;
-display:none;
-justify-content:center;
-align-items:center;
-background:rgba(0,0,0,.88);
-backdrop-filter:blur(10px);
-z-index:100000;
-}
-
-.alert-card{
-width:90%;
-max-width:360px;
-background:#151515;
-border:1px solid rgba(212,175,55,.25);
-border-radius:24px;
-padding:35px 28px;
-text-align:center;
-animation:alertIn .35s ease;
-}
-
-@keyframes alertIn{
-
-from{
-opacity:0;
-transform:scale(.85);
-}
-
-to{
-opacity:1;
-transform:scale(1);
-}
-
-}
-
+.loading-card h3{font-size:20px}.loading-card p,.alert-card p{margin-top:8px;color:#888;font-size:12px;line-height:1.7}
 .alert-icon{
-width:78px;
-height:78px;
-margin:0 auto 20px;
-border-radius:50%;
-display:flex;
-justify-content:center;
-align-items:center;
-background:linear-gradient(135deg,#FFD54A,#C99A06);
-color:#111;
-font-size:34px;
-font-weight:700;
+  width:64px;height:64px;border-radius:20px;margin:0 auto 18px;display:grid;place-items:center;
+  background:#d4af37;color:#111;font-size:27px;font-weight:800
 }
-
-.alert-card h2{
-font-size:24px;
-margin-bottom:12px;
-color:#fff;
-}
-
-.alert-card p{
-font-size:15px;
-line-height:1.8;
-color:#bcbcbc;
-}
-
+.alert-card h3{font-size:21px}
 .alert-card button{
-margin-top:25px;
-width:100%;
-height:52px;
-border:none;
-border-radius:50px;
-background:linear-gradient(135deg,#FFD54A,#C99A06);
-color:#111;
-font-size:15px;
-font-weight:700;
-cursor:pointer;
-transition:.3s;
+  width:100%;height:50px;border:0;border-radius:13px;margin-top:22px;
+  background:#d4af37;color:#111;font-weight:800;cursor:pointer
 }
+.alert-card.error .alert-icon{background:#8e2929;color:#fff}
+.alert-card.warning .alert-icon{background:#d4af37;color:#111}
+@keyframes spin{to{transform:rotate(360deg)}}
 
-.alert-card button:hover{
-transform:translateY(-2px);
+@media(max-width:800px){
+  body{padding:0;align-items:stretch}
+  .page{min-height:100vh;border:0;border-radius:0;display:block;background:#0b0b0b}
+  .brand{padding:28px 24px 25px;border-right:0;border-bottom:1px solid rgba(212,175,55,.13);min-height:265px}
+  .brand h1{font-size:31px;margin-top:18px}
+  .brand p{font-size:12px;margin-top:10px}
+  .features{grid-template-columns:1fr 1fr;gap:10px;margin-top:20px}
+  .feature{font-size:10px}
+  .feature i{width:24px;height:24px;border-radius:7px}
+  .disclaimer{display:none}
+  .brand:after{width:220px;height:220px;right:-120px;top:-90px}
+  .panel{padding:30px 22px 40px;align-items:flex-start}
+  .form-wrap{max-width:none}
+  .form-wrap h2{font-size:27px}
 }
-
-/* ==========================
-RESPONSIVE
-========================== */
-
-@media(max-width:600px){
-
-.login-card{
-padding:28px 22px;
+@media(max-width:380px){
+  .features{grid-template-columns:1fr}
+  .brand{min-height:300px}
 }
-
-.logo{
-width:75px;
-height:75px;
-}
-
-.logo-area h1{
-font-size:26px;
-}
-
-.remember-row{
-flex-direction:column;
-align-items:flex-start;
-gap:15px;
-}
-
-.forgot-link{
-align-self:flex-end;
-}
-
-}
-
 </style>
-
 </head>
 
 <body>
-
-<!-- ==========================
-Animated Background
-========================== -->
-
-<div class="bg-gradient bg1"></div>
-
-<div class="bg-gradient bg2"></div>
-
-<!-- ==========================
-Login Card
-========================== -->
-
-<div class="login-card">
-
-<!-- Logo -->
-
-<div class="logo-area">
-
-<img
-src="logo.png"
-alt="T.Wealth Logo"
-class="logo">
-
-<h1>T.Wealth</h1>
-
-<p>
-
-Secure Wealth. Smarter Investing.
-
-</p>
-
-</div>
-
-<!-- ==========================
-Login Form
-========================== -->
-
-<form
-id="loginForm"
-autocomplete="off">
-
-<!-- Email -->
-
-<div class="input-group">
-
-<label>
-
-Email Address
-
-</label>
-
-<input
-type="email"
-id="email"
-placeholder="Enter your email address"
-autocomplete="email"
-required>
-
-</div>
-
-<!-- Password -->
-
-<div class="input-group">
-
-<label>
-
-Password
-
-</label>
-
-<div class="password-box">
-
-<input
-type="password"
-id="password"
-placeholder="Enter your password"
-autocomplete="current-password"
-required>
-
-<button
-type="button"
-class="toggle-password"
-data-target="password">
-
-Show
-
-</button>
-
-</div>
-
-</div>
-
-<!-- Remember Me / Forgot Password -->
-
-<div class="remember-row">
-
-<div class="remember-box">
-
-<input
-type="checkbox"
-id="rememberMe">
-
-<label for="rememberMe">
-
-Remember Me
-
-</label>
-
-</div>
-
-<a
-href="#"
-id="forgotPassword"
-class="forgot-link">
-
-Forgot Password?
-
-</a>
-
-</div>
-
-<!-- Login Button -->
-
-<button
-type="submit"
-class="login-btn">
-
-Login
-
-</button>
-
-</form>
-
-<!-- Bottom Link -->
-
-<div class="bottom-text">
-
-Don't have an account?
-
-<a href="register.html">
-
-Create Account
-
-</a>
-
-</div>
-
-</div>
-
-<!-- ==========================
-LOADING OVERLAY
-========================== -->
-
-<div class="loading-overlay" id="loadingOverlay">
-
-    <div class="loading-box">
-
-        <div class="logo-ring"></div>
-
-        <img
-            src="logo.png"
-            class="loading-logo"
-            alt="Tesla">
-
-        <h2 id="loadingTitle">
-            Please Wait...
-        </h2>
-
-        <p id="loadingText">
-            Securing your request...
-        </p>
-
-        <div class="loading-dots">
-            <span></span>
-            <span></span>
-            <span></span>
+<main class="page">
+
+  <section class="brand">
+    <div>
+      <div class="mark">T</div>
+      <h1>Tesla <span>Wealth</span></h1>
+      <p>Secure access to your account with a clean, private sign-in experience.</p>
+
+      <div class="features">
+        <div class="feature"><i>✓</i><span>Secure authentication</span></div>
+        <div class="feature"><i>✓</i><span>Private account access</span></div>
+        <div class="feature"><i>✓</i><span>Fast account loading</span></div>
+        <div class="feature"><i>✓</i><span>Mobile optimized</span></div>
+      </div>
+    </div>
+    <div class="disclaimer">
+      Tesla Wealth is an independent platform and is not affiliated with Tesla, Inc.
+    </div>
+  </section>
+
+  <section class="panel">
+    <div class="form-wrap">
+      <div class="eyebrow">Member access</div>
+      <h2>Welcome back.</h2>
+      <p class="sub">Sign in to continue to your Tesla Wealth account.</p>
+
+      <form id="loginForm" autocomplete="off">
+        <div class="field">
+          <label for="email">EMAIL ADDRESS</label>
+          <div class="input-shell">
+            <input id="email" type="email" autocomplete="email"
+                   placeholder="you@example.com" required>
+          </div>
         </div>
 
+        <div class="field">
+          <label for="password">PASSWORD</label>
+          <div class="input-shell">
+            <input id="password" type="password" autocomplete="current-password"
+                   placeholder="Enter your password" required>
+            <button class="toggle" type="button" id="togglePassword">Show</button>
+          </div>
+        </div>
+
+        <div class="options">
+          <label class="remember">
+            <input id="rememberMe" type="checkbox" checked>
+            <span>Keep me signed in</span>
+          </label>
+          <a class="forgot" href="#" id="forgotPassword">Forgot password?</a>
+        </div>
+
+        <button class="primary" type="submit" id="loginButton">Sign In</button>
+      </form>
+
+      <div class="divider">OR</div>
+
+      <div class="create">
+        New to Tesla Wealth?
+        <a href="register.html">Create an account</a>
+      </div>
     </div>
+  </section>
+</main>
 
+<div class="loading-overlay" id="loadingOverlay" aria-hidden="true">
+  <div class="loading-card">
+    <div class="spinner"></div>
+    <h3 id="loadingTitle">Signing you in</h3>
+    <p id="loadingText">Verifying your account securely…</p>
+  </div>
 </div>
 
+<div class="alert-overlay" id="alertOverlay" aria-hidden="true">
+  <div class="alert-card" id="alertCard">
+    <div class="alert-icon" id="alertIcon">!</div>
+    <h3 id="alertTitle">Notice</h3>
+    <p id="alertMessage"></p>
+    <button type="button" id="alertButton">Continue</button>
+  </div>
 </div>
-
-<!-- ==========================
-PREMIUM ALERT
-========================== -->
-
-<div
-class="alert-overlay"
-id="alertOverlay">
-
-<div class="alert-card">
-
-<div
-class="alert-icon"
-id="alertIcon">
-
-✓
-
-</div>
-
-<h2
-id="alertTitle">
-
-Success
-
-</h2>
-
-<p
-id="alertMessage">
-
-Operation completed successfully.
-
-</p>
-
-<button
-type="button"
-id="alertButton">
-
-Continue
-
-</button>
-
-</div>
-
-</div>
-
-<!-- ==========================
-FIREBASE JAVASCRIPT
-PART 2
-========================== -->
 
 <script type="module">
-
-/* ==========================
-FIREBASE IMPORTS
-========================== */
-
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
-
 import {
-getAuth,
-signInWithEmailAndPassword,
-setPersistence,
-browserLocalPersistence,
-browserSessionPersistence,
-sendPasswordResetEmail
+  getAuth,
+  signInWithEmailAndPassword,
+  setPersistence,
+  browserLocalPersistence,
+  browserSessionPersistence,
+  sendPasswordResetEmail
 } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js";
 
-import {
-getFirestore
-} from "https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
-
-/* ==========================
-FIREBASE CONFIG
-========================== */
-
-const firebaseConfig={
-
-apiKey:"AIzaSyCfmUdXAvdktAZ7RRFYGq5R2ZMgFQjBIHg",
-
-authDomain:"t-wealth-6c492.firebaseapp.com",
-
-projectId:"t-wealth-6c492",
-
-storageBucket:"t-wealth-6c492.firebasestorage.app",
-
-messagingSenderId:"920631507931",
-
-appId:"1:920631507931:web:ec6769afe5feebfed0c5fe"
-
+const firebaseConfig = {
+  apiKey: "AIzaSyCfmUdXAvdktAZ7RRFYGq5R2ZMgFQjBIHg",
+  authDomain: "t-wealth-6c492.firebaseapp.com",
+  projectId: "t-wealth-6c492",
+  storageBucket: "t-wealth-6c492.firebasestorage.app",
+  messagingSenderId: "920631507931",
+  appId: "1:920631507931:web:ec6769afe5feebfed0c5fe"
 };
 
-/* ==========================
-INITIALIZE FIREBASE
-========================== */
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
 
-const app=initializeApp(firebaseConfig);
+const $ = id => document.getElementById(id);
+const form = $("loginForm");
+const email = $("email");
+const password = $("password");
+const rememberMe = $("rememberMe");
+const loadingOverlay = $("loadingOverlay");
+const alertOverlay = $("alertOverlay");
+const alertCard = $("alertCard");
+const alertIcon = $("alertIcon");
+const alertTitle = $("alertTitle");
+const alertMessage = $("alertMessage");
+const alertButton = $("alertButton");
+const forgotPassword = $("forgotPassword");
+let alertAction = null;
 
-const auth=getAuth(app);
-
-const db=getFirestore(app);
-
-/* ==========================
-ELEMENTS
-========================== */
-
-const loginForm=document.getElementById("loginForm");
-
-const email=document.getElementById("email");
-
-const password=document.getElementById("password");
-
-const rememberMe=document.getElementById("rememberMe");
-
-const forgotPassword=document.getElementById("forgotPassword");
-
-const loadingOverlay=document.getElementById("loadingOverlay");
-
-const alertOverlay=document.getElementById("alertOverlay");
-
-const alertIcon=document.getElementById("alertIcon");
-
-const alertTitle=document.getElementById("alertTitle");
-
-const alertMessage=document.getElementById("alertMessage");
-
-const alertButton=document.getElementById("alertButton");
-
-/* ==========================
-SHOW / HIDE PASSWORD
-========================== */
-
-document.querySelectorAll(".toggle-password").forEach(button=>{
-
-button.addEventListener("click",()=>{
-
-const input=document.getElementById(button.dataset.target);
-
-if(!input) return;
-
-if(input.type==="password"){
-
-input.type="text";
-
-button.textContent="Hide";
-
-}else{
-
-input.type="password";
-
-button.textContent="Show";
-
-}
-
-});
-
-});
-
-/* ==========================
-LOADING OVERLAY
-========================== */
-
-function showLoading(){
-
-loadingOverlay.style.display="flex";
-
+function showLoading(title="Signing you in", text="Verifying your account securely…"){
+  $("loadingTitle").textContent = title;
+  $("loadingText").textContent = text;
+  loadingOverlay.style.display = "flex";
+  loadingOverlay.setAttribute("aria-hidden","false");
 }
 
 function hideLoading(){
-
-loadingOverlay.style.display="none";
-
+  loadingOverlay.style.display = "none";
+  loadingOverlay.setAttribute("aria-hidden","true");
 }
 
-/* ==========================
-PREMIUM ALERT
-========================== */
-
-function showAlert(type,title,message){
-
-hideLoading();
-
-alertOverlay.style.display="flex";
-
-alertTitle.textContent=title;
-
-alertMessage.textContent=message;
-
-switch(type){
-
-case "success":
-
-alertIcon.innerHTML="✓";
-
-alertIcon.style.background="linear-gradient(135deg,#FFD54A,#C99A06)";
-
-break;
-
-case "warning":
-
-alertIcon.innerHTML="!";
-
-alertIcon.style.background="#D4AF37";
-
-break;
-
-case "error":
-
-alertIcon.innerHTML="✕";
-
-alertIcon.style.background="#D32F2F";
-
-break;
-
-default:
-
-alertIcon.innerHTML="i";
-
-alertIcon.style.background="#D4AF37";
-
+function showAlert(type, title, message, action=null){
+  hideLoading();
+  alertCard.className = "alert-card " + type;
+  alertTitle.textContent = title;
+  alertMessage.textContent = message;
+  alertIcon.textContent = type === "success" ? "✓" : type === "error" ? "×" : "!";
+  alertButton.textContent = action ? "Continue" : "Close";
+  alertAction = action;
+  alertOverlay.style.display = "flex";
+  alertOverlay.setAttribute("aria-hidden","false");
 }
 
+function closeAlert(){
+  alertOverlay.style.display = "none";
+  alertOverlay.setAttribute("aria-hidden","true");
+  const action = alertAction;
+  alertAction = null;
+  if(action) action();
 }
 
-alertButton.addEventListener("click",()=>{
-
-alertOverlay.style.display="none";
-
+alertButton.addEventListener("click", closeAlert);
+alertOverlay.addEventListener("click", e => {
+  if(e.target === alertOverlay) closeAlert();
 });
 
-/* ==========================
-REMEMBER ME
-========================== */
+$("togglePassword").addEventListener("click", () => {
+  const visible = password.type === "text";
+  password.type = visible ? "password" : "text";
+  $("togglePassword").textContent = visible ? "Show" : "Hide";
+});
 
-/* ==========================
-REMEMBER ME
-========================== */
+async function setLoginPersistence(){
+  await setPersistence(
+    auth,
+    rememberMe.checked ? browserLocalPersistence : browserSessionPersistence
+  );
+}
 
-async function applyPersistence() {
+forgotPassword.addEventListener("click", async e => {
+  e.preventDefault();
+  const value = email.value.trim();
 
-    if (rememberMe.checked) {
+  if(!value){
+    showAlert("warning","Email required","Enter your email address first so we know where to send the reset instructions.");
+    return;
+  }
 
-        await setPersistence(auth, browserLocalPersistence);
+  showLoading("Preparing reset","Sending password recovery instructions…");
 
-    } else {
+  try{
+    await sendPasswordResetEmail(auth,value);
+    showAlert(
+      "success",
+      "Reset email sent",
+      "If an account exists for this address, password reset instructions have been sent to your inbox."
+    );
+  }catch(error){
+    let message = "We couldn't send the reset email. Please check the address and try again.";
+    if(error.code === "auth/invalid-email") message = "Please enter a valid email address.";
+    if(error.code === "auth/too-many-requests") message = "Too many requests. Please wait a little before trying again.";
+    if(error.code === "auth/network-request-failed") message = "Network connection failed. Check your connection and try again.";
+    showAlert("error","Reset unavailable",message);
+  }
+});
 
-        await setPersistence(auth, browserLocalPersistence);
+form.addEventListener("submit", async e => {
+  e.preventDefault();
 
+  const emailValue = email.value.trim();
+  const passwordValue = password.value;
+
+  if(!emailValue){
+    showAlert("warning","Email required","Please enter your email address.");
+    return;
+  }
+
+  if(!passwordValue){
+    showAlert("warning","Password required","Please enter your password.");
+    return;
+  }
+
+  if(passwordValue.length < 6){
+    showAlert("warning","Check your password","Your password must contain at least 6 characters.");
+    return;
+  }
+
+  $("loginButton").disabled = true;
+  showLoading("Signing you in","Checking your account credentials…");
+
+  try{
+    await setLoginPersistence();
+    await signInWithEmailAndPassword(auth,emailValue,passwordValue);
+
+    showAlert(
+      "success",
+      "Welcome back",
+      "Your account has been verified. Taking you to your dashboard.",
+      () => { window.location.href = "dashboard.html"; }
+    );
+  }catch(error){
+    let message = "We couldn't sign you in. Please check your details and try again.";
+
+    switch(error.code){
+      case "auth/invalid-email":
+        message = "Please enter a valid email address.";
+        break;
+      case "auth/invalid-credential":
+        message = "The email or password is incorrect.";
+        break;
+      case "auth/user-not-found":
+        message = "No account was found with this email address.";
+        break;
+      case "auth/wrong-password":
+        message = "The password is incorrect.";
+        break;
+      case "auth/too-many-requests":
+        message = "Too many unsuccessful attempts. Please wait and try again later.";
+        break;
+      case "auth/network-request-failed":
+        message = "A network error occurred. Check your internet connection.";
+        break;
     }
 
-}
-
-/* ==========================
-FORGOT PASSWORD
-========================== */
-
-forgotPassword.addEventListener("click",async(e)=>{
-
-e.preventDefault();
-
-const emailValue=email.value.trim();
-
-if(emailValue===""){
-
-showAlert(
-
-"warning",
-
-"Email Required",
-
-"Please enter your email address first."
-
-);
-
-return;
-
-}
-
-try{
-
-showLoading();
-
-await sendPasswordResetEmail(auth,emailValue);
-
-showAlert(
-
-"success",
-
-"Reset Email Sent",
-
-"Check your inbox for password reset instructions."
-
-);
-
-}catch(error){
-
-showAlert(
-
-"error",
-
-"Reset Failed",
-
-error.message
-
-);
-
-}
-
+    showAlert("error","Sign-in unsuccessful",message);
+  }finally{
+    $("loginButton").disabled = false;
+  }
 });
-
-/* ==========================
-PART 2B STARTS HERE
-========================== */
-
-/* ==========================
-LOGIN
-PART 2B-1
-========================== */
-
-loginForm.addEventListener("submit",async(e)=>{
-
-e.preventDefault();
-
-const emailValue=email.value.trim();
-
-const passwordValue=password.value;
-
-/* Email Validation */
-
-if(emailValue===""){
-
-showAlert(
-"warning",
-"Email Required",
-"Please enter your email address."
-);
-
-return;
-
-}
-
-/* Password Validation */
-
-if(passwordValue===""){
-
-showAlert(
-"warning",
-"Password Required",
-"Please enter your password."
-);
-
-return;
-
-}
-
-if(passwordValue.length<6){
-
-showAlert(
-"warning",
-"Invalid Password",
-"Password must contain at least 6 characters."
-);
-
-return;
-
-}
-
-/* Loading */
-
-showLoading();
-
-try{
-
-/* Remember Me */
-
-await applyPersistence();
-
-/* Firebase Login */
-
-const userCredential=
-
-await signInWithEmailAndPassword(
-
-auth,
-
-emailValue,
-
-passwordValue
-
-);
-
-const user=userCredential.user;
-
-console.log("Logged in:",user.uid);
-
-hideLoading();
-
-showAlert(
-    "success",
-    "Login Successful",
-    "Welcome back to T.Wealth."
-);
-
-alertButton.onclick = function () {
-    alertOverlay.style.display = "none";
-    window.location.href = "dashboard.html";
-};
-
-return;
-
-/* Continue in Part 2B-2 */
-
-}catch(error){
-
-hideLoading();
-
-let title="Login Failed";
-
-let message="Unable to sign in. Please try again.";
-
-switch(error.code){
-
-case "auth/invalid-email":
-
-message="Please enter a valid email address.";
-
-break;
-
-case "auth/invalid-credential":
-
-message="Incorrect email or password.";
-
-break;
-
-case "auth/user-not-found":
-
-message="No account was found with this email.";
-
-break;
-
-case "auth/wrong-password":
-
-message="Incorrect password.";
-
-break;
-
-case "auth/too-many-requests":
-
-message="Too many login attempts. Please try again later.";
-
-break;
-
-case "auth/network-request-failed":
-
-message="Network error. Check your internet connection.";
-
-break;
-
-default:
-
-message=error.message;
-
-}
-
-showAlert(
-
-"error",
-
-title,
-
-message
-
-);
-
-}
-
-});
-
 </script>
-
 </body>
-
 </html>
