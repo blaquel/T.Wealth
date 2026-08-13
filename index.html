@@ -1,368 +1,83 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta
-name="viewport"
-content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>T.Wealth | Invest Smarter</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Tesla Wealth</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Poppins',sans-serif;
-scroll-behavior:smooth;
-}
-
-body{
-background:#090909;
-color:#fff;
-overflow-x:hidden;
-}
-
-body::before{
-content:"";
-position:fixed;
-width:500px;
-height:500px;
-background:radial-gradient(circle,#D4AF37 0%,transparent 70%);
-opacity:.08;
-top:-200px;
-right:-150px;
-z-index:-1;
-}
-
-body::after{
-content:"";
-position:fixed;
-width:500px;
-height:500px;
-background:radial-gradient(circle,#D4AF37 0%,transparent 70%);
-opacity:.05;
-bottom:-250px;
-left:-200px;
-z-index:-1;
-}
-
-header{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-padding:18px 7%;
-display:flex;
-justify-content:space-between;
-align-items:center;
-background:rgba(0,0,0,.7);
-backdrop-filter:blur(20px);
-border-bottom:1px solid rgba(212,175,55,.2);
-z-index:999;
-}
-
-.logo{
-display:flex;
-align-items:center;
-gap:12px;
-text-decoration:none;
-}
-
-.logo img{
-width:55px;
-height:55px;
-border-radius:50%;
-}
-
-.logo span{
-font-size:26px;
-font-weight:700;
-color:#D4AF37;
-}
-
-nav{
-display:flex;
-gap:35px;
-}
-
-nav a{
-text-decoration:none;
-color:#fff;
-font-size:15px;
-transition:.3s;
-}
-
-nav a:hover{
-color:#D4AF37;
-}
-
-.auth-buttons{
-display:flex;
-gap:15px;
-}
-
-.btn{
-padding:12px 25px;
-border-radius:40px;
-text-decoration:none;
-font-weight:600;
-transition:.3s;
-}
-
-.login{
-border:1px solid #D4AF37;
-color:#D4AF37;
-}
-
-.login:hover{
-background:#D4AF37;
-color:#000;
-}
-
-.signup{
-background:linear-gradient(135deg,#F4C542,#B8860B);
-color:#000;
-}
-
-.signup:hover{
-transform:translateY(-3px);
-box-shadow:0 0 20px rgba(212,175,55,.5);
-}
-
-.hero{
-min-height:100vh;
-display:flex;
-align-items:center;
-justify-content:space-between;
-padding:120px 7% 50px;
-gap:60px;
-}
-
-.hero-text{
-flex:1;
-}
-
-.hero-text h1{
-font-size:60px;
-line-height:1.2;
-margin-bottom:20px;
-}
-
-.hero-text h1 span{
-color:#D4AF37;
-}
-
-.hero-text p{
-font-size:18px;
-color:#bbb;
-line-height:1.8;
-margin-bottom:35px;
-max-width:600px;
-}
-
-.hero-buttons{
-display:flex;
-gap:20px;
-}
-
-.hero-buttons a{
-padding:16px 35px;
-border-radius:50px;
-text-decoration:none;
-font-weight:600;
-transition:.3s;
-}
-
-.start{
-background:linear-gradient(135deg,#F4C542,#B8860B);
-color:#000;
-}
-
-.start:hover{
-transform:translateY(-4px);
-box-shadow:0 0 30px rgba(212,175,55,.6);
-}
-
-.learn{
-border:1px solid #D4AF37;
-color:#D4AF37;
-}
-
-.learn:hover{
-background:#D4AF37;
-color:#000;
-}
-
-.hero-image{
-flex:1;
-display:flex;
-justify-content:center;
-}
-
-.hero-image img{
-width:420px;
-max-width:100%;
-animation:float 4s ease-in-out infinite;
-filter:drop-shadow(0 0 40px rgba(212,175,55,.4));
-}
-
-@keyframes float{
-0%,100%{transform:translateY(0);}
-50%{transform:translateY(-15px);}
-}
-
-.stats{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-gap:25px;
-padding:60px 7%;
-}
-
-.stat-card{
-background:#121212;
-border:1px solid rgba(212,175,55,.2);
-border-radius:20px;
-padding:30px;
-text-align:center;
-transition:.3s;
-}
-
-.stat-card:hover{
-transform:translateY(-8px);
-border-color:#D4AF37;
-box-shadow:0 0 25px rgba(212,175,55,.2);
-}
-
-.stat-card h2{
-font-size:38px;
-color:#D4AF37;
-margin-bottom:10px;
-}
-
-.stat-card p{
-color:#aaa;
-}
-
-@media(max-width:900px){
-
-header{
-flex-wrap:wrap;
-gap:20px;
-}
-
-nav{
-display:none;
-}
-
-.hero{
-flex-direction:column-reverse;
-text-align:center;
-}
-
-.hero-text h1{
-font-size:42px;
-}
-
-.hero-buttons{
-justify-content:center;
-}
-
-.logo span{
-font-size:22px;
-}
-
-.hero-image img{
-width:280px;
-}
-
-}
-
-html,
-body{
-touch-action:manipulation;
-overscroll-behavior:none;
--webkit-text-size-adjust:100%;
-}
-
+:root{--bg:#050505;--gold:#d4af37;--gold2:#f3d76b;--muted:#929292;--line:#242424}
+*{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}
+body{background:var(--bg);color:#fff;font-family:Poppins,sans-serif;overflow-x:hidden}
+a{text-decoration:none;color:inherit}.wrap{max-width:1180px;margin:auto;padding:0 24px}
+header{position:fixed;z-index:20;top:0;left:0;right:0;background:#050505d9;backdrop-filter:blur(18px);border-bottom:1px solid #ffffff0d}
+.nav{height:76px;display:flex;align-items:center;justify-content:space-between}.brand{display:flex;align-items:center;gap:11px;font-weight:700}
+.logo{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:linear-gradient(145deg,var(--gold2),#9d7412);color:#090909;font-weight:800;font-size:20px;box-shadow:0 0 25px #d4af3725}
+.links{display:flex;gap:28px;color:#999;font-size:13px}.links a:hover{color:var(--gold2)}
+.auth{display:flex;gap:9px}.btn{padding:10px 17px;border-radius:999px;font-size:12px;font-weight:600;border:1px solid var(--gold)}
+.ghost{color:var(--gold2)}.gold{background:linear-gradient(135deg,var(--gold2),var(--gold));color:#080808;border:0}
+.menu{display:none;background:#111;border:1px solid #333;color:white;border-radius:11px;padding:9px 12px}
+.hero{min-height:100vh;padding:135px 0 70px;display:grid;align-items:center;position:relative}
+.hero:after{content:"";position:absolute;width:500px;height:500px;right:-200px;top:100px;border-radius:50%;background:#d4af3710;filter:blur(80px);z-index:-1}
+.grid{display:grid;grid-template-columns:1.05fr .95fr;gap:55px;align-items:center}
+.tag{display:inline-flex;gap:8px;align-items:center;border:1px solid #d4af3733;background:#d4af3709;color:#dbc667;padding:8px 13px;border-radius:30px;font-size:11px;margin-bottom:20px}.dot{width:7px;height:7px;border-radius:50%;background:var(--gold);box-shadow:0 0 12px var(--gold)}
+h1{font-size:clamp(45px,6vw,76px);line-height:1.02;letter-spacing:-2.5px}h1 span{color:var(--gold2)}
+.hero p{max-width:590px;color:#999;line-height:1.8;font-size:14px;margin:24px 0 30px}.actions{display:flex;gap:11px;flex-wrap:wrap}
+.big{padding:14px 21px;border-radius:12px;font-size:13px}.dark{border:1px solid #333;background:#0c0c0c}
+.visual{height:500px;border-radius:29px;border:1px solid #d4af3730;background:linear-gradient(145deg,#141209,#080808 60%,#111);position:relative;overflow:hidden}
+.visual:before{content:"";position:absolute;width:330px;height:330px;left:50%;top:45%;transform:translate(-50%,-50%);border-radius:50%;background:#d4af3718;filter:blur(20px)}
+.mark{position:absolute;top:25px;right:25px;color:#c9aa42;font-size:11px;letter-spacing:4px}
+.car{position:absolute;left:9%;right:9%;bottom:115px;height:145px;border-radius:55% 45% 18% 18%;background:linear-gradient(145deg,#333,#090909 58%,#444);transform:skewX(-4deg);box-shadow:0 40px 45px #000,0 0 50px #d4af3712}
+.car:before{content:"";position:absolute;left:21%;top:-58px;width:54%;height:78px;border-radius:80% 30% 0 0;background:linear-gradient(145deg,#292929,#070707);border:1px solid #444}
+.window{position:absolute;left:28%;top:-45px;width:38%;height:38px;background:#222a;border-radius:80% 30% 0 0}.wheel{position:absolute;bottom:-32px;width:66px;height:66px;border-radius:50%;background:#020202;border:9px solid #222}.w1{left:15%}.w2{right:15%}
+.card{position:absolute;left:22px;right:22px;bottom:22px;background:#090909e8;border:1px solid #292929;border-radius:16px;padding:15px;display:flex;justify-content:space-between}.card small{color:#777;font-size:10px}.card strong{display:block;font-size:12px;margin-top:3px}
+section{padding:90px 0}.head{display:flex;justify-content:space-between;align-items:end;gap:20px;margin-bottom:30px}.head h2{font-size:32px}.head p{max-width:470px;color:#777;font-size:12px;line-height:1.7}
+.features{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}.feature{min-height:185px;padding:26px;border:1px solid #202020;border-radius:19px;background:linear-gradient(145deg,#0d0d0d,#080808)}.icon{width:40px;height:40px;border-radius:11px;background:#d4af3710;color:var(--gold2);display:grid;place-items:center;margin-bottom:20px}.feature h3{font-size:15px;margin-bottom:8px}.feature p{color:#777;font-size:11px;line-height:1.7}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);border-block:1px solid #222}.stat{padding:28px;border-right:1px solid #222}.stat:last-child{border:0}.stat b{font-size:29px;color:var(--gold2)}.stat span{display:block;color:#777;font-size:11px;margin-top:4px}
+.cta{border:1px solid #d4af3730;border-radius:25px;padding:45px;background:radial-gradient(circle at 85%,#d4af3717,transparent 45%),#0a0a0a;display:flex;justify-content:space-between;align-items:center;gap:25px}.cta h2{font-size:30px}.cta p{color:#777;font-size:12px;margin-top:7px}
+footer{border-top:1px solid #1c1c1c;padding:32px 0;color:#666;font-size:11px}.foot{display:flex;justify-content:space-between;gap:15px}.foot b{color:#c8ac48}
+@media(max-width:800px){.links,.auth{display:none}.menu{display:block}.grid{grid-template-columns:1fr;gap:35px}.visual{height:390px}.car{bottom:92px;height:110px}.wheel{width:55px;height:55px}.features,.stats{grid-template-columns:1fr}.stat{border-right:0;border-bottom:1px solid #222}.stat:last-child{border-bottom:0}.head,.cta,.foot{flex-direction:column;align-items:flex-start}h1{letter-spacing:-1.8px}}
 </style>
-
 </head>
-
 <body>
+<header><div class="wrap nav">
+<a class="brand" href="index.html"><div class="logo">T</div><span>Tesla Wealth</span></a>
+<nav class="links"><a href="#home">Home</a><a href="#plans">Plans</a><a href="#about">About</a><a href="#faq">FAQ</a><a href="support.html">Contact</a></nav>
+<div class="auth"><a class="btn ghost" href="login.html">Login</a><a class="btn gold" href="register.html">Get Started</a></div>
+<button class="menu" onclick="openMenu()">☰</button>
+</div></header>
 
-<header>
+<main>
+<section class="hero" id="home"><div class="wrap grid">
+<div><div class="tag"><i class="dot"></i> MODERN WEALTH PLATFORM</div>
+<h1>Build wealth with <span>purpose.</span></h1>
+<p>Tesla Wealth brings investing, wealth tools and premium digital experiences into one modern platform designed around a clear, simple user journey.</p>
+<div class="actions"><a class="big gold" href="register.html">Start Your Journey</a><a class="big dark" href="#plans">Explore Platform</a></div></div>
+<div class="visual"><div class="mark">TESLA WEALTH</div><div class="car"><div class="window"></div><div class="wheel w1"></div><div class="wheel w2"></div></div><div class="card"><div><small>PRIVATE WEALTH EXPERIENCE</small><strong>Designed for modern investors</strong></div><span style="color:#d4af37">↗</span></div></div>
+</div></section>
 
-<a href="#" class="logo">
-<img src="logo.png">
-<span>T.Wealth</span>
-</a>
+<section id="about"><div class="wrap"><div class="head"><div><div class="tag">WHY TESLA WEALTH</div><h2>Simple. Focused. Premium.</h2></div><p>A fresh visual direction while keeping the familiar account, investment, wallet, history and support journey.</p></div>
+<div class="features">
+<article class="feature"><div class="icon">↗</div><h3>Clear opportunities</h3><p>Explore the platform through straightforward choices and clean navigation.</p></article>
+<article class="feature"><div class="icon">◈</div><h3>One connected account</h3><p>Move naturally between your dashboard, wallet, investments, history and profile.</p></article>
+<article class="feature"><div class="icon">✓</div><h3>Confident experience</h3><p>A mature black-and-gold interface keeps important actions visible without clutter.</p></article>
+</div></div></section>
 
-<nav>
-<a href="#">Home</a>
-<a href="#plans">Plans</a>
-<a href="#about">About</a>
-<a href="#faq">FAQ</a>
-<a href="#contact">Contact</a>
-</nav>
+<section id="plans"><div class="wrap"><div class="head"><div><div class="tag">YOUR PLATFORM</div><h2>Everything in one place.</h2></div><p>Your existing pages remain the destinations behind the landing-page actions.</p></div>
+<div class="stats"><div class="stat"><b>01</b><span>Account & profile</span></div><div class="stat"><b>02</b><span>Investment plans</span></div><div class="stat"><b>03</b><span>Wallet & transactions</span></div></div></div></section>
 
-<div class="auth-buttons">
-<a href="login.html" class="btn login">Login</a>
-<a href="register.html" class="btn signup">Get Started</a>
-</div>
-
-</header>
-
-<section class="hero">
-
-<div class="hero-text">
-
-<h1>
-Invest In Your <span>Future</span><br>
-With Confidence.
-</h1>
-
-<p>
-Grow your wealth through secure investment opportunities, transparent returns, and a trusted platform designed to help you achieve your financial goals.
-</p>
-
-<div class="hero-buttons">
-<a href="register.html" class="start">Start Investing</a>
-<a href="#plans" class="learn">View Plans</a>
-</div>
-
-</div>
-
-<div class="hero-image">
-<img src="logo.png" alt="T.Wealth Logo">
-</div>
-
-</section>
-
-<section class="stats">
-
-<div class="stat-card">
-<h2>50K+</h2>
-<p>Registered Investors</p>
-</div>
-
-<div class="stat-card">
-<h2>₦500M+</h2>
-<p>Total Investments</p>
-</div>
-
-<div class="stat-card">
-<h2>98%</h2>
-<p>Customer Satisfaction</p>
-</div>
-
-<div class="stat-card">
-<h2>24/7</h2>
-<p>Customer Support</p>
-</div>
-
-</section>
-
-</body>
-</html>
+<section id="faq"><div class="wrap"><div class="cta"><div><h2>Ready to enter Tesla Wealth?</h2><p>Create a new account or continue with your existing account.</p></div><div class="actions"><a class="big dark" href="login.html">Sign In</a><a class="big gold" href="register.html">Create Account</a></div></div></div></section>
+</main>
+<footer><div class="wrap foot"><span>© 2026 <b>Tesla Wealth</b>. All rights reserved.</span><span>Secure Wealth. Smarter Investing.</span></div></footer>
+<script>
+function openMenu(){
+ const l=document.querySelector('.links'),a=document.querySelector('.auth'),on=l.dataset.open==='1';
+ if(on){l.style.display=a.style.display='none';l.dataset.open='0';return}
+ l.style.display='flex';a.style.display='flex';l.dataset.open='1';
+ l.style.position=a.style.position='absolute';l.style.left=a.style.left='24px';l.style.right=a.style.right='24px';
+ l.style.top='76px';a.style.top='225px';l.style.padding='18px 0';a.style.padding='12px 0';
+ l.style.flexDirection='column';l.style.background=a.style.background='#050505';
+}
+</script>
+</body></html>
